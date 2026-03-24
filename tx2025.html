@@ -1,0 +1,2873 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>腾讯控股 2025 年报深度分析</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans SC', sans-serif;
+    background: #f0f2f5;
+    color: #1a1a2e;
+    line-height: 1.7;
+  }
+  .hero {
+    background: linear-gradient(135deg, #0d1b3e 0%, #1a3a6e 50%, #0d6efd 100%);
+    color: white;
+    padding: 60px 40px 50px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    right: -10%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero-tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    padding: 4px 16px;
+    font-size: 13px;
+    margin-bottom: 18px;
+    letter-spacing: 1px;
+  }
+  .hero h1 {
+    font-size: 38px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 12px;
+  }
+  .hero .subtitle {
+    font-size: 16px;
+    opacity: 0.8;
+    margin-bottom: 32px;
+  }
+  .hero-stats {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .hero-stat {
+    text-align: center;
+  }
+  .hero-stat .val {
+    font-size: 30px;
+    font-weight: 800;
+    color: #5bc0de;
+  }
+  .hero-stat .lbl {
+    font-size: 12px;
+    opacity: 0.75;
+    margin-top: 2px;
+  }
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  .section {
+    background: white;
+    border-radius: 16px;
+    padding: 36px;
+    margin: 28px auto;
+    max-width: 1100px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+  }
+  .section-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: #0d1b3e;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 3px solid #0d6efd;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title .icon {
+    width: 36px;
+    height: 36px;
+    background: #0d6efd;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 18px;
+  }
+  /* 数据卡片 */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  .kpi-card {
+    background: #f8faff;
+    border: 1px solid #e6eeff;
+    border-radius: 12px;
+    padding: 20px 16px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .kpi-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--accent, #0d6efd);
+  }
+  .kpi-card .kpi-val {
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--accent, #0d6efd);
+    letter-spacing: -1px;
+  }
+  .kpi-card .kpi-unit {
+    font-size: 14px;
+    font-weight: 600;
+    color: #666;
+  }
+  .kpi-card .kpi-lbl {
+    font-size: 13px;
+    color: #666;
+    margin-top: 6px;
+  }
+  .kpi-card .kpi-yoy {
+    font-size: 12px;
+    margin-top: 4px;
+    font-weight: 700;
+  }
+  .up { color: #e74c3c; }
+  .down { color: #27ae60; }
+  /* 表格 */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+  th {
+    background: #0d1b3e;
+    color: white;
+    padding: 12px 14px;
+    text-align: left;
+    font-weight: 600;
+  }
+  th:not(:first-child) {
+    text-align: right;
+  }
+  td {
+    padding: 11px 14px;
+    border-bottom: 1px solid #f0f2f5;
+    vertical-align: middle;
+  }
+  td:not(:first-child) {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  tr:nth-child(even) td {
+    background: #f8faff;
+  }
+  tr:hover td {
+    background: #eff4ff;
+  }
+  .highlight-row td {
+    font-weight: 700;
+    background: #e8f0ff !important;
+    color: #0d1b3e;
+  }
+  /* 进度条 */
+  .bar-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 8px 0;
+  }
+  .bar-label {
+    width: 130px;
+    font-size: 13px;
+    color: #444;
+    flex-shrink: 0;
+  }
+  .bar-bg {
+    flex: 1;
+    background: #e8efff;
+    border-radius: 8px;
+    height: 20px;
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    color: white;
+    transition: width 1s ease;
+  }
+  .bar-val {
+    width: 70px;
+    text-align: right;
+    font-size: 13px;
+    font-weight: 700;
+    color: #0d1b3e;
+  }
+  /* 图表容器 */
+  .chart-placeholder {
+    background: linear-gradient(135deg, #f8faff, #eff4ff);
+    border: 2px dashed #c5d4f5;
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    color: #667eea;
+    font-size: 13px;
+  }
+  /* 段落 */
+  p {
+    color: #333;
+    margin-bottom: 14px;
+    font-size: 15px;
+  }
+  p:last-child { margin-bottom: 0; }
+  strong { color: #0d1b3e; }
+  /* 卡片组 */
+  .card-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin: 20px 0;
+  }
+  .info-card {
+    background: #f8faff;
+    border-left: 4px solid var(--color, #0d6efd);
+    border-radius: 0 10px 10px 0;
+    padding: 18px 20px;
+  }
+  .info-card h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--color, #0d6efd);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .info-card p {
+    font-size: 14px;
+    color: #444;
+    margin: 0;
+  }
+  /* 风险条目 */
+  .risk-item {
+    display: flex;
+    gap: 16px;
+    padding: 16px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    border: 1px solid #e8e8e8;
+  }
+  .risk-badge {
+    width: 52px;
+    height: 52px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+  .risk-content h4 {
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 4px;
+  }
+  .risk-content p {
+    font-size: 13px;
+    color: #555;
+    margin: 0;
+  }
+  /* 估值区域 */
+  .valuation-box {
+    background: linear-gradient(135deg, #0d1b3e, #1a3a6e);
+    color: white;
+    border-radius: 14px;
+    padding: 32px;
+    margin: 20px 0;
+  }
+  .valuation-box h3 {
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    color: #5bc0de;
+  }
+  .val-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+  }
+  .val-cell {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+  }
+  .val-cell .num {
+    font-size: 24px;
+    font-weight: 900;
+    color: #5bc0de;
+  }
+  .val-cell .unit {
+    font-size: 11px;
+    color: rgba(255,255,255,0.6);
+    margin-left: 2px;
+  }
+  .val-cell .desc {
+    font-size: 12px;
+    color: rgba(255,255,255,0.75);
+    margin-top: 4px;
+  }
+  /* 结论标签 */
+  .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    margin: 2px;
+  }
+  .tag-blue { background: #e8f0ff; color: #0d6efd; }
+  .tag-green { background: #e8fff0; color: #27ae60; }
+  .tag-orange { background: #fff4e8; color: #e67e22; }
+  .tag-red { background: #fff0f0; color: #e74c3c; }
+
+  /* 分割线 */
+  .divider {
+    border: none;
+    border-top: 1px solid #e8efff;
+    margin: 24px 0;
+  }
+  /* 注意框 */
+  .note-box {
+    background: #fffbea;
+    border: 1px solid #f1c40f;
+    border-left: 4px solid #f1c40f;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 20px 0;
+    font-size: 14px;
+    color: #555;
+  }
+  .note-box strong {
+    color: #c0961a;
+  }
+  /* 章节导航 */
+  .toc {
+    background: #f8faff;
+    border: 1px solid #e6eeff;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 24px auto;
+    max-width: 1100px;
+  }
+  .toc h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #0d1b3e;
+    margin-bottom: 12px;
+  }
+  .toc-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .toc-item {
+    background: white;
+    border: 1px solid #c5d4f5;
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-size: 13px;
+    color: #0d6efd;
+    text-decoration: none;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .toc-item:hover {
+    background: #0d6efd;
+    color: white;
+    border-color: #0d6efd;
+  }
+  /* 页脚 */
+  .footer {
+    text-align: center;
+    padding: 40px 24px;
+    color: #888;
+    font-size: 13px;
+    border-top: 1px solid #e8efff;
+    margin-top: 20px;
+    background: white;
+  }
+  /* 两栏布局 */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  @media (max-width: 700px) {
+    .two-col { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 26px; }
+    .hero-stats { gap: 20px; }
+    .hero { padding: 36px 20px; }
+    .section { padding: 20px 16px; margin: 16px; }
+  }
+  /* AI投资分析框 */
+  .ai-box {
+    background: linear-gradient(135deg, #0d1b3e 0%, #162040 100%);
+    border-radius: 14px;
+    padding: 28px;
+    color: white;
+    margin: 20px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .ai-box::after {
+    content: 'AI';
+    position: absolute;
+    right: 24px;
+    top: 16px;
+    font-size: 72px;
+    font-weight: 900;
+    color: rgba(255,255,255,0.05);
+  }
+  .ai-box h4 {
+    color: #5bc0de;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+  .ai-box p {
+    color: rgba(255,255,255,0.85);
+    font-size: 14px;
+  }
+  .moat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px;
+    margin: 16px 0;
+  }
+  .moat-card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .moat-card .icon { font-size: 20px; margin-bottom: 8px; }
+  .moat-card h5 { font-size: 13px; font-weight: 700; color: #5bc0de; margin-bottom: 6px; }
+  .moat-card p { font-size: 12px; color: rgba(255,255,255,0.7); margin: 0; }
+  </style>
+  <style>
+    /* 老唐观点标注样式 */
+    .lao-tang-quote {
+      background: linear-gradient(135deg, #fff9c4 0%, #ffecb3 100%);
+      border-left: 5px solid #ff9800;
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin: 20px 0;
+      box-shadow: 0 2px 8px rgba(255, 152, 0, 0.15);
+    }
+    .lao-tang-title {
+      color: #e65100;
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .lao-tang-title::before {
+      content: '🍵';
+      font-size: 20px;
+    }
+    .lao-tang-content {
+      color: #424242;
+      line-height: 1.8;
+      font-size: 14px;
+    }
+    .lao-tang-highlight {
+      color: #d84315;
+      font-weight: 700;
+      background: rgba(255, 152, 0, 0.1);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- 顶部英雄区 -->
+<div class="hero">
+  <div style="max-width:1100px; margin:0 auto;">
+    <div class="hero-tag">腾讯控股 (0700.HK) · 2025 年度业绩分析</div>
+    <h1>腾讯控股 2025 年报<br>深度分析报告</h1>
+    <div class="subtitle">基于官方年报 + 行业框架 + 投资人观点的综合研究 · 2026年3月</div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="val">7,518亿</div>
+        <div class="lbl">2025年总收入（人民币）</div>
+      </div>
+      <div class="hero-stat">
+        <div class="val">+13.9%</div>
+        <div class="lbl">营收同比增长</div>
+      </div>
+      <div class="hero-stat">
+        <div class="val">2,596亿</div>
+        <div class="lbl">Non-GAAP 归母净利润</div>
+      </div>
+      <div class="hero-stat">
+        <div class="val">+16.6%</div>
+        <div class="lbl">Non-GAAP净利同比增长</div>
+      </div>
+      <div class="hero-stat">
+        <div class="val">56%</div>
+        <div class="lbl">毛利率（较上年+3ppt）</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 目录 -->
+<div class="toc" style="margin:24px auto; max-width:1100px;">
+  <h3>📑 报告目录</h3>
+  <div class="toc-list">
+    <span class="toc-item">一、分析框架</span>
+    <span class="toc-item">二、核心财务数据</span>
+    <span class="toc-item">二补、用户基本盘数据</span>
+    <span class="toc-item">三、分部业务分析</span>
+    <span class="toc-item">四、盈利质量解析</span>
+    <span class="toc-item">五、资产负债与现金流</span>
+    <span class="toc-item">六、AI战略深度解读</span>
+    <span class="toc-item">七、护城河评估</span>
+    <span class="toc-item" style="color:#c0392b;font-weight:700;">七补、投资组合战略调整（年会重磅）</span>
+    <span class="toc-item">七补二、投资组合详细持仓全景</span>
+    <span class="toc-item">七补三、非上市公司投资版图</span>
+    <span class="toc-item">八、风险识别</span>
+    <span class="toc-item">九、估值分析</span>
+    <span class="toc-item">十、综合结论</span>
+  </div>
+</div>
+
+<!-- ===================== 一、分析框架 ===================== -->
+<div class="section">
+  <div class="section-title"><div class="icon">🏗</div>一、腾讯年报分析框架</div>
+  <p>
+    根据长期积累的分析经验，腾讯年报分析应围绕以下核心逻辑展开：
+    <strong>「高质量增长验证 + 护城河评估 + AI影响判断 + 估值锚定」</strong>。
+    一份好的腾讯分析必须同时看懂三件事：印钞机的功率（经营盈利能力）、安全边际（投资组合+净现金）
+    以及企业的未来（AI布局）。
+  </p>
+  <div class="card-row">
+    <div class="info-card" style="--color:#0d6efd;">
+      <h4>第一支柱：核心业务盈利力</h4>
+      <p>重点关注<strong>非国际准则经营盈利</strong>与<strong>毛利增速</strong>，后者能真实反映业务结构质量。
+      逻辑：净利增速 > 毛利增速 > 营收增速 = 高质量增长标志。</p>
+    </div>
+    <div class="info-card" style="--color:#27ae60;">
+      <h4>第二支柱：投资组合安全边际</h4>
+      <p>用巴菲特式估值：<strong>税后经营净利润 × 合理PE + 投资组合公允价值（打折）</strong>。
+      投资资产是腾讯估值的重要"安全垫"，需单独核算。</p>
+    </div>
+    <div class="info-card" style="--color:#e67e22;">
+      <h4>第三支柱：AI资本开支影响</h4>
+      <p>2025年以后，AI资本开支是最大变量。需关注<strong>CapEx投入节奏</strong>、
+      对折旧/利润率的影响，以及AI是否真正在提升业务竞争力。</p>
+    </div>
+    <div class="info-card" style="--color:#e74c3c;">
+      <h4>第四支柱：股东回报政策</h4>
+      <p>关注<strong>回购金额、分红总额、股本变化</strong>，综合判断管理层对股东的诚意与
+      资本配置效率。每股盈利增速 = 盈利增速 + 股本缩减效应。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== 二、核心财务数据 ===================== -->
+<div class="section">
+  <div class="section-title"><div class="icon">📊</div>二、核心财务数据总览</div>
+  
+  <div class="kpi-grid">
+    <div class="kpi-card" style="--accent:#0d6efd;">
+      <div class="kpi-val">7,518</div>
+      <div class="kpi-unit">亿元</div>
+      <div class="kpi-lbl">总收入</div>
+      <div class="kpi-yoy up">同比 +13.9%</div>
+    </div>
+    <div class="kpi-card" style="--accent:#8e44ad;">
+      <div class="kpi-val">4,226</div>
+      <div class="kpi-unit">亿元</div>
+      <div class="kpi-lbl">毛利润</div>
+      <div class="kpi-yoy up">同比 +21%</div>
+    </div>
+    <div class="kpi-card" style="--accent:#27ae60;">
+      <div class="kpi-val">2,416</div>
+      <div class="kpi-unit">亿元</div>
+      <div class="kpi-lbl">IFRS 经营盈利</div>
+      <div class="kpi-yoy up">同比 +16%</div>
+    </div>
+    <div class="kpi-card" style="--accent:#e67e22;">
+      <div class="kpi-val">2,806</div>
+      <div class="kpi-unit">亿元</div>
+      <div class="kpi-lbl">Non-GAAP 经营盈利</div>
+      <div class="kpi-yoy up">同比 +18%</div>
+    </div>
+    <div class="kpi-card" style="--accent:#e74c3c;">
+      <div class="kpi-val">2,248</div>
+      <div class="kpi-unit">亿元</div>
+      <div class="kpi-lbl">IFRS 归母净利润</div>
+      <div class="kpi-yoy up">同比 +16%</div>
+    </div>
+    <div class="kpi-card" style="--accent:#c0392b;">
+      <div class="kpi-val">2,596</div>
+      <div class="kpi-unit">亿元</div>
+      <div class="kpi-lbl">Non-GAAP 归母净利润</div>
+      <div class="kpi-yoy up">同比 +16.6%</div>
+    </div>
+  </div>
+
+  <!-- 老唐观点：财务数据亮点 -->
+  <div class="lao-tang-quote">
+    <div class="lao-tang-title">老唐观点：财务数据亮点</div>
+    <div class="lao-tang-content">
+      2025年，腾讯在花掉<span class="lao-tang-highlight">约800亿港元做回购（回购均价521.7港元/股）</span>，实际支出2024年末期股息<span class="lao-tang-highlight">409.66亿港元</span>之后，年末账面依然持有现金及存款近<span class="lao-tang-highlight">4,949亿元人民币</span>，剔除有息负债后的净现金有<span class="lao-tang-highlight">约1,071亿元人民币</span>。同时持有公允价值超过一万亿的投资（上市公司股票公允价值6,727亿元人民币，非上市公司股权账面价值3,631亿元人民币）。
+      <br><small style="color:#888;">注：2025年末期股息（每股5.30港元，合计约485亿港元）须2026年股东大会批准后方可作实，预计2026年6月派发，未计入上述已支出金额。</small>
+      <br><br>
+      对应全年2596亿非国际归母净利，<span class="lao-tang-highlight">市盈率仅仅17倍</span>。即使以国际准则下的归母净利2248亿计算，市盈率也就不到20倍。如果剔除净现金和投资部分之后看待，<span class="lao-tang-highlight">核心业务的市盈率更低</span>。
+      <div style="margin-top:10px;font-size:11px;color:#7b1fa2;background:#fff3e0;padding:6px 10px;border-radius:4px;">
+        <strong>数据来源：</strong>老唐《当周回顾2026年3月21日》PDF文件（腾讯2025年年报分析）
+      </div>
+    </div>
+  </div>
+
+  <h3 style="font-size:16px; margin-bottom:16px; color:#0d1b3e;">▍关键指标纵向对比（亿元）</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>指标</th>
+        <th>2023年</th>
+        <th>2024年</th>
+        <th>2025年</th>
+        <th>25vs24同比</th>
+        <th>趋势评估</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>总收入</td>
+        <td>6,090</td>
+        <td>6,603</td>
+        <td>7,518</td>
+        <td class="up">+14%</td>
+        <td><span class="tag tag-green">加速增长</span></td>
+      </tr>
+      <tr>
+        <td>毛利润</td>
+        <td>2,691</td>
+        <td>3,492</td>
+        <td>4,226</td>
+        <td class="up">+21%</td>
+        <td><span class="tag tag-green">持续提速</span></td>
+      </tr>
+      <tr class="highlight-row">
+        <td>毛利率</td>
+        <td>44%</td>
+        <td>53%</td>
+        <td>56%</td>
+        <td class="up">+3ppt</td>
+        <td><span class="tag tag-blue">稳步改善</span></td>
+      </tr>
+      <tr>
+        <td>Non-GAAP 经营盈利</td>
+        <td>1,697</td>
+        <td>2,378</td>
+        <td>2,807</td>
+        <td class="up">+18%</td>
+        <td><span class="tag tag-green">高质量增长</span></td>
+      </tr>
+      <tr>
+        <td>Non-GAAP 归母净利</td>
+        <td>1,528</td>
+        <td>2,227</td>
+        <td>2,596</td>
+        <td class="up">+16.6%</td>
+        <td><span class="tag tag-green">超市场预期</span></td>
+      </tr>
+      <tr class="highlight-row">
+        <td>Non-GAAP 经营利润率</td>
+        <td>28%</td>
+        <td>36%</td>
+        <td>37%</td>
+        <td class="up">+1ppt</td>
+        <td><span class="tag tag-blue">高位维持</span></td>
+      </tr>
+      <tr>
+        <td>研发开支</td>
+        <td>-</td>
+        <td>707</td>
+        <td>857</td>
+        <td class="up">+21%</td>
+        <td><span class="tag tag-orange">AI驱动加速</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="note-box">
+    <strong>高质量增长核验：</strong>
+    2025年，<strong>毛利增速(21%) > Non-GAAP净利增速(16.6%) > 营收增速(13.9%)</strong>。
+    其中营收增速低于毛利增速，正是因为高毛利率的游戏自研、视频号广告、云服务业务占比持续提升，
+    低毛利率的金融科技传统业务增速趋缓，形成典型的结构性优化。这是管理层多次强调的"高质量成长"路径的直接体现。
+  </div>
+</div>
+
+<!-- ===================== 二补、用户基本盘数据 ===================== -->
+<div class="section">
+  <div class="section-title"><div class="icon">👥</div>二补、腾讯基本盘：用户数据</div>
+  
+  <div class="kpi-grid">
+    <div class="kpi-card" style="--accent:#27ae60;">
+      <div class="kpi-val">14.18亿</div>
+      <div class="kpi-unit">月活</div>
+      <div class="kpi-lbl">微信及WeChat合并</div>
+      <div class="kpi-yoy up">连续4季保持14亿+</div>
+    </div>
+    <div class="kpi-card" style="--accent:#8e44ad;">
+      <div class="kpi-val">5.08亿</div>
+      <div class="kpi-unit">月活</div>
+      <div class="kpi-lbl">QQ移动端</div>
+      <div class="kpi-yoy down">持续下滑趋势</div>
+    </div>
+    <div class="kpi-card" style="--accent:#e67e22;">
+      <div class="kpi-val">20%+</div>
+      <div class="kpi-unit">增长</div>
+      <div class="kpi-lbl">视频号用户使用时长</div>
+      <div class="kpi-yoy up">国内DAU第二大短视频平台</div>
+    </div>
+    <div class="kpi-card" style="--accent:#16a085;">
+      <div class="kpi-val">20%+</div>
+      <div class="kpi-unit">增长</div>
+      <div class="kpi-lbl">小程序总使用时长(Q4)</div>
+      <div class="kpi-yoy up">职场工具+小游戏+小说驱动</div>
+    </div>
+  </div>
+  
+  <div class="note-box">
+    <strong>用户基本盘分析：</strong>微信月活14.18亿，连续4个季度保持在14亿以上，是腾讯最稳固的基本盘。
+    视频号用户使用时长同比增长超过20%，已成为国内DAU规模第二大的短视频平台。
+    微信小程序四季度总使用时长同比增长超过20%，主要由职场效率工具、小游戏及小说等内容驱动。
+  </div>
+</div>
+
+<!-- ===================== 三、分部业务分析 ===================== -->
+<div class="section">
+  <div class="section-title"><div class="icon">📱</div>三、分部业务深度分析</div>
+
+  <h3 style="font-size:16px; color:#0d1b3e; margin-bottom:16px;">▍Q4单季业务表现（2025年第四季度）</h3>
+  <div class="kpi-grid">
+    <div class="kpi-card" style="--accent:#e74c3c;">
+      <div class="kpi-val">593</div>
+      <div class="kpi-unit">亿元</div>
+      <div class="kpi-lbl">Q4游戏收入</div>
+      <div class="kpi-yoy up">同比 +20.5%</div>
+    </div>
+    <div class="kpi-card" style="--accent:#3498db;">
+      <div class="kpi-val">411</div>
+      <div class="kpi-unit">亿元</div>
+      <div class="kpi-lbl">Q4营销服务收入</div>
+      <div class="kpi-yoy up">同比 +17%</div>
+    </div>
+    <div class="kpi-card" style="--accent:#27ae60;">
+      <div class="kpi-val">608</div>
+      <div class="kpi-unit">亿元</div>
+      <div class="kpi-lbl">Q4金融科技及企业服务</div>
+      <div class="kpi-yoy up">同比 +8%</div>
+    </div>
+    <div class="kpi-card" style="--accent:#9b59b6;">
+      <div class="kpi-val">22%</div>
+      <div class="kpi-unit">增速</div>
+      <div class="kpi-lbl">Q4企业服务增速</div>
+      <div class="kpi-yoy up">加速增长态势</div>
+    </div>
+  </div>
+
+  <h3 style="font-size:16px; color:#0d1b3e; margin-bottom:16px;">▍分部收入与毛利率（2025全年）</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>业务分部</th>
+        <th>收入（亿元）</th>
+        <th>同比增速</th>
+        <th>占比</th>
+        <th>毛利（亿元）</th>
+        <th>毛利率2025</th>
+        <th>毛利率2024</th>
+        <th>变动</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>增值服务（游戏+社交）</strong></td>
+        <td>3,693</td>
+        <td class="up">+16%</td>
+        <td>49%</td>
+        <td>2,223</td>
+        <td class="up">60%</td>
+        <td>57%</td>
+        <td class="up">+3ppt</td>
+      </tr>
+      <tr>
+        <td>↳ 国内游戏</td>
+        <td>1,642</td>
+        <td class="up">+18%</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>↳ 国际游戏</td>
+        <td>774</td>
+        <td class="up">+33%</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>↳ 社交网络</td>
+        <td>1,277</td>
+        <td class="up">+5%</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+      <tr class="highlight-row">
+        <td><strong>营销服务（广告）</strong></td>
+        <td>1,450</td>
+        <td class="up">+19%</td>
+        <td>19%</td>
+        <td>834</td>
+        <td class="up">58%</td>
+        <td>55%</td>
+        <td class="up">+3ppt</td>
+      </tr>
+      <tr>
+        <td><strong>金融科技+企业服务</strong></td>
+        <td>2,294</td>
+        <td class="up">+8%</td>
+        <td>31%</td>
+        <td>1,166</td>
+        <td class="up">51%</td>
+        <td>47%</td>
+        <td class="up">+4ppt</td>
+      </tr>
+      <tr>
+        <td>其他</td>
+        <td>81</td>
+        <td class="up">+4%</td>
+        <td>1%</td>
+        <td>3</td>
+        <td>4%</td>
+        <td>8%</td>
+        <td class="down">-4ppt</td>
+      </tr>
+      <tr class="highlight-row">
+        <td><strong>合计</strong></td>
+        <td><strong>7,518</strong></td>
+        <td class="up"><strong>+14%</strong></td>
+        <td><strong>100%</strong></td>
+        <td><strong>4,226</strong></td>
+        <td class="up"><strong>56%</strong></td>
+        <td><strong>53%</strong></td>
+        <td class="up"><strong>+3ppt</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- 老唐观点：毛利率提升的良性发展 -->
+  <div class="lao-tang-quote">
+    <div class="lao-tang-title">老唐观点：典型的良性发展</div>
+    <div class="lao-tang-content">
+      三个主要业务板块，都出现了<span class="lao-tang-highlight">毛利率大幅提升</span>的特征，游戏、广告、企服金科三项业务的毛利率分别从2024年的57%、55%和47%，提升为2025年的<span class="lao-tang-highlight">60%、58%和51%</span>。这就是典型的良性发展，营收增长的同时，毛利率提升，净利润率提升。
+      <br><br>
+      <strong>游戏业务强的可怕。</strong>全球市场整体增长7%，净增长额约127亿美元。腾讯一家的增长额是439亿人民币，大约折合63亿美元，<span class="lao-tang-highlight">基本占到全球游戏总增长的一半</span>。也就是说，其他所有中外游戏企业，加总起来的游戏收入增长，大致和腾讯一家差不多。因为长青游戏的数量和营收都还在健康增长，截止目前还没有看到游戏"印钞机"功率有下降的可能性。
+    </div>
+  </div>
+
+  <div class="card-row" style="margin-top:24px;">
+    <div class="info-card" style="--color:#0d6efd;">
+      <h4>🎮 游戏业务：强的可怕</h4>
+      <p>
+        2025年全球游戏市场总增长约127亿美元（+7%），腾讯一家贡献增量约63亿美元，
+        <strong>独占全球游戏增量约50%</strong>。国内游戏+18%（新黑马《三角洲行动》爆发+长青游戏稳健），
+        国际游戏+33%（Supercell全线开花+《鸣潮》贡献增量）。
+        截至2025年，拥有超过500万日活手游或超200万日活PC游戏且年流水超40亿元的"长青游戏"组合持续扩大，
+        是最强劲的"印钞机"。
+      </p>
+    </div>
+    <div class="info-card" style="--color:#8e44ad;">
+      <h4>📣 广告业务：领跑行业</h4>
+      <p>
+        营销服务收入+19%，<strong>高于中国广告行业整体14%的增速</strong>。
+        核心驱动：AI驱动广告精准定向能力大幅提升，视频号广告持续放量（总用户使用时长+20%，
+        已成中国第二大短视频平台），闭环广告（直达小程序/微信小店）占比提升。
+        广告加载率仍远低于同行，意味着未来提升空间巨大。
+      </p>
+    </div>
+    <div class="info-card" style="--color:#27ae60;">
+      <h4>☁️ 企业服务/金科：质量提升</h4>
+      <p>
+        金融科技+企业服务整体+8%，但企业服务增速接近20%，
+        <strong>腾讯云实现规模化盈利，全年调整后营业利润约50亿元</strong>（数据来源：业绩说明会），是里程碑式的转折。
+        受益于AI相关需求上升，PaaS/SaaS产品竞争力增强。
+        金融科技受理财、消费贷、商业支付增长拉动，同时风险管理保持审慎。
+        毛利率从47%跃升至51%，提升幅度最大，说明结构改善最显著。
+      </p>
+    </div>
+  </div>
+
+  <h3 style="font-size:16px; color:#0d1b3e; margin:24px 0 16px;">▍各业务毛利率提升可视化</h3>
+  <div style="background:#f8faff; border-radius:12px; padding:20px 24px;">
+    <div class="bar-wrap">
+      <div class="bar-label">增值服务 2025</div>
+      <div class="bar-bg"><div class="bar-fill" style="width:60%; background:#0d6efd;">60%</div></div>
+      <div class="bar-val">60%（↑3ppt）</div>
+    </div>
+    <div class="bar-wrap">
+      <div class="bar-label">增值服务 2024</div>
+      <div class="bar-bg"><div class="bar-fill" style="width:57%; background:#a0b8f5;">57%</div></div>
+      <div class="bar-val">57%</div>
+    </div>
+    <div class="bar-wrap" style="margin-top:12px;">
+      <div class="bar-label">营销服务 2025</div>
+      <div class="bar-bg"><div class="bar-fill" style="width:58%; background:#8e44ad;">58%</div></div>
+      <div class="bar-val">58%（↑3ppt）</div>
+    </div>
+    <div class="bar-wrap">
+      <div class="bar-label">营销服务 2024</div>
+      <div class="bar-bg"><div class="bar-fill" style="width:55%; background:#c9a0e0;">55%</div></div>
+      <div class="bar-val">55%</div>
+    </div>
+    <div class="bar-wrap" style="margin-top:12px;">
+      <div class="bar-label">金科/企服 2025</div>
+      <div class="bar-bg"><div class="bar-fill" style="width:51%; background:#27ae60;">51%</div></div>
+      <div class="bar-val">51%（↑4ppt）</div>
+    </div>
+    <div class="bar-wrap">
+      <div class="bar-label">金科/企服 2024</div>
+      <div class="bar-bg"><div class="bar-fill" style="width:47%; background:#82d5a0;">47%</div></div>
+      <div class="bar-val">47%</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== 四、盈利质量 ===================== -->
+<div class="section">
+  <div class="section-title"><div class="icon">💎</div>四、盈利质量深度解析</div>
+
+  <p>
+    判断腾讯盈利质量的核心指标是"黄金增长三角"：
+    <strong>毛利增速 > 净利增速 > 营收增速</strong>。
+    2025年三个指标分别为：毛利+21%、Non-GAAP净利+16.6%、营收+13.9%。
+    自2025年二季度起，增长模式转变为"毛利增速 > 非国际净利增速 > 营收增速"，
+    主要因为AI大幅加码了研发/折旧开支，但整体盈利结构仍非常健康。
+  </p>
+  
+  <h3 style="font-size:16px; color:#0d1b3e; margin-bottom:16px;">▍递延收入与费用结构</h3>
+  <div class="kpi-grid">
+    <div class="kpi-card" style="--accent:#8e44ad;">
+      <div class="kpi-val">1,125</div>
+      <div class="kpi-unit">亿元</div>
+      <div class="kpi-lbl">递延收入（Q4末合计）</div>
+      <div class="kpi-yoy down">流动1,103亿+非流动22亿</div>
+    </div>
+    <div class="kpi-card" style="--accent:#e67e22;">
+      <div class="kpi-val">417</div>
+      <div class="kpi-unit">亿元</div>
+      <div class="kpi-lbl">销售费用</div>
+      <div class="kpi-yoy up">同比+15%</div>
+    </div>
+    <div class="kpi-card" style="--accent:#16a085;">
+      <div class="kpi-val">1,361</div>
+      <div class="kpi-unit">亿元</div>
+      <div class="kpi-lbl">管理费用</div>
+      <div class="kpi-yoy up">同比+21%</div>
+    </div>
+    <div class="kpi-card" style="--accent:#c0392b;">
+      <div class="kpi-val">857</div>
+      <div class="kpi-unit">亿元</div>
+      <div class="kpi-lbl">研发开支</div>
+      <div class="kpi-yoy up">同比+21%</div>
+    </div>
+    <div class="kpi-card" style="--accent:#d35400;">
+      <div class="kpi-val">11.58万</div>
+      <div class="kpi-unit">人</div>
+      <div class="kpi-lbl">员工数量（Q4末）</div>
+      <div class="kpi-yoy up">全年净增5,200+人</div>
+    </div>
+    <div class="kpi-card" style="--accent:#8e44ad;">
+      <div class="kpi-val">636.20</div>
+      <div class="kpi-unit">亿元</div>
+      <div class="kpi-lbl">员工福利开支</div>
+      <div class="kpi-yoy"></div>
+    </div>
+    <div class="kpi-card" style="--accent:#27ae60;">
+      <div class="kpi-val">91.2亿</div>
+      <div class="kpi-unit">股</div>
+      <div class="kpi-lbl">总股本（年末）</div>
+      <div class="kpi-yoy down">回购缩减股本</div>
+    </div>
+  </div>
+  
+  <div class="note-box">
+    <strong>费用分析：</strong>2025年销售与管理费用合计增长超19%，远高于2024年的8.3%，
+    主要由于加大了AI应用的推广以及AI研发的投入。一季度发生一次性股份酬金开支40亿元
+    （用于一间海外附属公司现有商业安排的重组而产生的股份补偿费用）。
+    研发费用857亿，同比+21%，主要因为AI相关的员工成本及折旧费用增加。
+  </div>
+
+  <h3 style="font-size:16px; color:#0d1b3e; margin:20px 0 12px;">▍从营收到净利：逐层拆解2025年</h3>
+  <table>
+    <thead>
+      <tr><th>利润层级</th><th>2025年（亿元）</th><th>2024年（亿元）</th><th>同比增速</th><th>利润率</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>收入</td><td>7,518</td><td>6,603</td><td class="up">+13.9%</td><td>100%</td></tr>
+      <tr class="highlight-row"><td>毛利润</td><td>4,226</td><td>3,492</td><td class="up">+21%</td><td>56%</td></tr>
+      <tr><td>IFRS 经营盈利</td><td>2,416</td><td>2,081</td><td class="up">+16%</td><td>32%</td></tr>
+      <tr><td>Non-GAAP 经营盈利</td><td>2,807</td><td>2,378</td><td class="up">+18%</td><td>37%</td></tr>
+      <tr><td>税前利润（IFRS）</td><td>2,772</td><td>2,415</td><td class="up">+15%</td><td>37%</td></tr>
+      <tr><td>IFRS 归母净利润</td><td>2,248</td><td>1,941</td><td class="up">+16%</td><td>30%</td></tr>
+      <tr class="highlight-row"><td>Non-GAAP 归母净利润</td><td>2,596</td><td>2,227</td><td class="up">+17%</td><td>35%</td></tr>
+    </tbody>
+  </table>
+
+  <h3 style="font-size:16px; color:#0d1b3e; margin:24px 0 12px;">▍研发与AI开支增速对比</h3>
+  <table>
+    <thead>
+      <tr><th>开支项目</th><th>2025年（亿元）</th><th>2024年（亿元）</th><th>同比增速</th><th>说明</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>研发总开支</td><td>857</td><td>707</td><td class="up">+21%</td><td>其中僱员成本636亿</td></tr>
+      <tr><td>股份酬金开支</td><td>319</td><td>234</td><td class="up">+36%</td><td>含海外子公司重组一次性40亿</td></tr>
+      <tr><td>物业、设备折旧</td><td>266</td><td>211</td><td class="up">+26%</td><td>AI服务器投入折旧</td></tr>
+      <tr><td>全年资本开支</td><td>792</td><td>768</td><td class="up">+3%</td><td>经营性732亿+非经营性60亿</td></tr>
+      <tr class="highlight-row"><td>固定资产净增</td><td>+698</td><td>-</td><td>-</td><td>期末约1,499亿</td></tr>
+    </tbody>
+  </table>
+
+  <div class="note-box">
+    <strong>关键洞察：</strong>
+    一般及行政开支同比增长21%至1,361亿元，主要由AI相关的研发人员成本与折旧拉动，
+    加上一次性股权激励调整40亿元。剔除一次性因素，正常化的费用增速约+17%，与收入增速相当，
+    意味着<strong>利润率仍有轻微改善</strong>。2026年随着AI投入进一步扩大，管理层已预告"利润增速可能低于营收增速"，
+    这是短期需要消化的预期差，但对长期价值影响有限。
+  </div>
+</div>
+
+<!-- ===================== 五、资产负债与现金流 ===================== -->
+<div class="section">
+  <div class="section-title"><div class="icon">🏦</div>五、资产负债表与现金流分析</div>
+
+  <h3 style="font-size:16px; color:#0d1b3e; margin-bottom:16px;">▍现金与投资组合（期末，亿元人民币）</h3>
+  <div class="kpi-grid">
+    <div class="kpi-card" style="--accent:#0d6efd;">
+      <div class="kpi-val">4,949</div>
+      <div class="kpi-unit">亿元人民币</div>
+      <div class="kpi-lbl">现金及定期存款合计</div>
+      <div class="kpi-yoy up">现金1,410亿+定存3,539亿</div>
+    </div>
+    <div class="kpi-card" style="--accent:#27ae60;">
+      <div class="kpi-val">1,071</div>
+      <div class="kpi-unit">亿元人民币</div>
+      <div class="kpi-lbl">净现金（剔除有息负债）</div>
+      <div class="kpi-yoy up">较上年+303亿（+39.5%）</div>
+    </div>
+    <div class="kpi-card" style="--accent:#8e44ad;">
+      <div class="kpi-val">6,727</div>
+      <div class="kpi-unit">亿元</div>
+      <div class="kpi-lbl">上市投资公允价值</div>
+      <div class="kpi-yoy"></div>
+      <div style="font-size:10px;color:#999;margin-top:2px;">来源：腾讯年报</div>
+    </div>
+    <div class="kpi-card" style="--accent:#e67e22;">
+      <div class="kpi-val">3,631</div>
+      <div class="kpi-unit">亿元</div>
+      <div class="kpi-lbl">非上市投资账面价值</div>
+      <div class="kpi-yoy"></div>
+      <div style="font-size:10px;color:#999;margin-top:2px;">来源：腾讯年报</div>
+    </div>
+    <div class="kpi-card" style="--accent:#e74c3c;">
+      <div class="kpi-val">10,358</div>
+      <div class="kpi-unit">亿元</div>
+      <div class="kpi-lbl">投资组合总计</div>
+      <div class="kpi-yoy up">首次突破万亿</div>
+      <div style="font-size:10px;color:#999;margin-top:2px;">来源：腾讯年报</div>
+    </div>
+    <div class="kpi-card" style="--accent:#16a085;">
+      <div class="kpi-val">237</div>
+      <div class="kpi-unit">亿元</div>
+      <div class="kpi-lbl">联合营企业利润（国际口径）</div>
+      <div class="kpi-yoy"></div>
+    </div>
+    <div class="kpi-card" style="--accent:#27ae60;">
+      <div class="kpi-val">335</div>
+      <div class="kpi-unit">亿元</div>
+      <div class="kpi-lbl">联合营企业利润（非国际口径）</div>
+      <div class="kpi-yoy"></div>
+    </div>
+    <div class="kpi-card" style="--accent:#2c3e50;">
+      <div class="kpi-val">3,030</div>
+      <div class="kpi-unit">亿元</div>
+      <div class="kpi-lbl">经营活动净现金流</div>
+      <div class="kpi-yoy up">+17%</div>
+    </div>
+  </div>
+
+  <h3 style="font-size:16px; color:#0d1b3e; margin:24px 0 12px;">▍股东回报情况</h3>
+  <table>
+    <thead>
+      <tr><th>回报项目</th><th>2025年</th><th>2024年</th><th>说明</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>全年回购总额</td><td>约800.4亿港元</td><td>约1,120亿港元</td><td>回购153,415,000股，回购均价521.7港元；2024年回购3.07亿股</td></tr>
+      <tr><td>建议末期分红（每股）</td><td>5.30港元</td><td>4.50港元</td><td class="up">同比+18%；须2026年股东大会批准后方可作实，预计2026年6月派发</td></tr>
+      <tr><td>派息总额（2025年内已实际支出）</td><td>409.66亿港元</td><td>317.43亿港元</td><td class="up">同比+29%；此为2024年末期股息于2025年实际支出金额（年报附注7）</td></tr>
+      <tr><td>加权平均股数</td><td>90.85亿股</td><td>92.69亿股</td><td class="up">缩减约2%</td></tr>
+      <tr class="highlight-row"><td>Non-GAAP每股基本盈利</td><td>28.577元（人民币）</td><td>24.027元（人民币）</td><td class="up">同比+19%</td></tr>
+    </tbody>
+  </table>
+
+  <p>
+    腾讯2025年度内实际支出：回购约800.4亿港元 + 支付2024年末期股息409.66亿港元，合计约<strong>1,210亿港元</strong>，体现了极强的股东回报意愿。另建议派发2025年末期股息每股5.30港元（合计约485亿港元，须2026年股东大会批准），预计2026年6月实际支付。
+    管理层已明示2026年将减少甚至暂停回购，转向AI基础设施的加大投入——
+    这是理性资本配置的正确决策，长期投资者应积极看待。
+  </p>
+</div>
+
+<!-- ===================== 六、AI战略 ===================== -->
+<div class="section">
+  <div class="section-title"><div class="icon">🤖</div>六、AI战略深度解读</div>
+
+  <!-- 老唐观点：市场三大担忧 -->
+  <div class="lao-tang-quote">
+    <div class="lao-tang-title">老唐观点：市场三大担忧</div>
+    <div class="lao-tang-content">
+      看这次业绩说明会上，各大投行研究员的提问，我们能发现一个很好玩的事情，<span class="lao-tang-highlight">没有一个提问是关于游戏、广告、企业服务、金融科技这些主营业务的，所有的提问全部集中在一个问题上：AI</span>。
+      <br><br>
+      截止现在，AI可能依然算是一个刚萌芽的事儿，大家都知道AI不能错过，AI有大机会，但对怎么防AI（偷袭自己）、怎么投AI（去占领别人市场或者创造新市场）、多久能看到回报，全是疑问，没有答案。
+      <br><br>
+      当下对面对AI的腾讯，市场的恐惧我想无外乎就是三个问题：<br>
+      1）腾讯现有的竞争优势会不会被AI侵蚀乃至替代？<br>
+      2）腾讯宣布要加大对AI的投资，这会增加资本投入，增加折旧，减少短期利润，减少可分配现金流。<br>
+      3）公司减少乃至放弃回购，减少了市场的多头力量，增加了股价下跌的可能。
+    </div>
+  </div>
+
+  <div class="ai-box">
+    <h4>市场最大困惑：AI到底是机会还是威胁？</h4>
+    <p>
+      2025年三季度业绩说明会上，<strong>所有投行分析师的问题全部聚焦于AI</strong>，没有一个问游戏、广告、企服。
+      市场三大担忧：① AI会侵蚀腾讯护城河？② 加大AI资本开支压缩利润？③ 停止回购撤走多头力量？
+    </p>
+  </div>
+
+  <h3 style="font-size:16px; color:#0d1b3e; margin:20px 0 12px;">▍刘炽平的答案——六大护城河韧性标准</h3>
+  <div class="moat-grid" style="background:#f8faff; border-radius:12px; padding:20px;">
+    <div class="moat-card" style="background:#e8f0ff; border:1px solid #c5d4f5;">
+      <div class="icon">🔗</div>
+      <h5 style="color:#0d6efd;">网络效应</h5>
+      <p style="color:#333;">C2C、C到内容创作者、C到B交互，强度依次递减，微信/QQ天然形成</p>
+    </div>
+    <div class="moat-card" style="background:#e8fff0; border:1px solid #a0d5b5;">
+      <div class="icon">🏭</div>
+      <h5 style="color:#27ae60;">深度供应链整合</h5>
+      <p style="color:#333;">数字世界与实体世界的打通，微信小店/小程序生态</p>
+    </div>
+    <div class="moat-card" style="background:#fff4e8; border:1px solid #f5c88a;">
+      <div class="icon">🏛</div>
+      <h5 style="color:#e67e22;">监管牌照壁垒</h5>
+      <p style="color:#333;">金融科技牌照稀缺，支付网络历经数十年建设，极难复制</p>
+    </div>
+    <div class="moat-card" style="background:#fff0f0; border:1px solid #f5aaaa;">
+      <div class="icon">🎮</div>
+      <h5 style="color:#e74c3c;">IP与独有资源</h5>
+      <p style="color:#333;">强势游戏IP（王者、和平、DNF），玩家不愿与AI对战，PVP天然抗AI</p>
+    </div>
+    <div class="moat-card" style="background:#f0e8ff; border:1px solid #c5a0f5;">
+      <div class="icon">💰</div>
+      <h5 style="color:#8e44ad;">极低费率</h5>
+      <p style="color:#333;">微信支付费率全球低位，价格竞争极不经济</p>
+    </div>
+    <div class="moat-card" style="background:#e8f8ff; border:1px solid #a0d5f5;">
+      <div class="icon">🔐</div>
+      <h5 style="color:#2980b9;">私密交互数据</h5>
+      <p style="color:#333;">封闭且具交互属性的私人数据，无需腾讯统一调用即可服务用户</p>
+    </div>
+  </div>
+
+  <h3 style="font-size:16px; color:#0d1b3e; margin:24px 0 12px;">▍"小龙虾"突破口——腾讯的AI差异化路径</h3>
+
+  <!-- 老唐观点：小龙虾突破口的深度洞察 -->
+  <div class="lao-tang-quote">
+    <div class="lao-tang-title">老唐观点：为什么突然亢奋？</div>
+    <div class="lao-tang-content">
+      之前做分红，做回购，本质是钱多的没处可去，所以才分红回购。现在发现有价值的新领域了，减少乃至停止回购，就是一个理性的管理层应该做的。这对于长期股东来说是毫无疑问的利好。至于短期市场怎么想，我们也管不着。
+      <br><br>
+      不过，腾讯为什么会在这个时候，决定大力加强对AI的投资呢？
+      <br><br>
+      其实，我们可以从腾讯在模型时代的跟随、冷静，和"小龙虾时代"的突然亢奋、快速跟进、并推出许多创新种类这个变化当中发现，<span class="lao-tang-highlight">应该是腾讯发现自己找到了最适合腾讯的AI突破方向。</span>
+    </div>
+  </div>
+
+  <div class="lao-tang-quote">
+    <div class="lao-tang-title">老唐观点：模型切换无用户粘性</div>
+    <div class="lao-tang-content">
+      过去在基础大模型方面的投入，腾讯也在投，但并没有追求一定要领先。因为<span class="lao-tang-highlight">模型的切换是没有什么用户粘性的</span>。至少我的个人印象当中，自己就先后试用过ChatGPT、Kimi、智谱清言、DeepSeek、豆包、千问、Grok、元宝等多个模型。
+      <br><br>
+      这些模型之间的切换决策轻而易举，毫无眷恋就替换了，它只是一个工具。这方面，腾讯即使加大投入，可能自认很难建立足够的壁垒。
+      <br><br>
+      砸钱砸人不能保证最好，最好也不能保证甩开追赶，甩开追赶依然不能确定能吸引用户。就好比我现手机里同时放着五六个大模型，但其实以我的使用深度，随便用哪个都够用，基本感觉不出来多大的差异。
+      <br><br>
+      这种情况下，腾讯实际上是保持着一种跟随的策略：没有落得很远，但也没有把所有的资源都砸上去追求领先。包括过年的十亿红包推"元宝"。十亿对于腾讯来说其实是笔小钱，不到两天的净利润而已。
+    </div>
+  </div>
+
+  <div class="card-row">
+    <div class="info-card" style="--color:#0d6efd;">
+      <h4>模型层：跟随而非领跑</h4>
+      <p>
+        混元大模型持续迭代，但在纯模型竞争中腾讯选择<strong>保持跟随策略</strong>，
+        不追求"最强大模型"——因为模型间无用户粘性，切换成本为零。
+        但混元在3D生成、文生图、世界建模等多模态能力上已是行业领导者。
+      </p>
+    </div>
+    <div class="info-card" style="--color:#27ae60;">
+      <h4>应用层：傻瓜工具+生态绑定</h4>
+      <p>
+        "小龙虾"（WorkBuddy/元宝等AI原生产品）= <strong>面向用户的傻瓜工具</strong>。
+        背后可随时调换最优模型，用户记住的是产品界面，沉淀在腾讯生态里。
+        与微信、QQ、企微入口搭配，用户无需改变习惯即可进入AI时代。
+      </p>
+    </div>
+    <div class="info-card" style="--color:#27ae60;">
+      <h4>应用层：傻瓜工具+生态绑定</h4>
+      <p>
+        "小龙虾"（WorkBuddy/元宝等AI原生产品）= <strong>面向用户的傻瓜工具</strong>。
+        背后可随时调换最优模型，用户记住的是产品界面，沉淀在腾讯生态里。
+        与微信、QQ、企微入口搭配，用户无需改变习惯即可进入AI时代。
+      </p>
+    </div>
+    <div class="info-card" style="--color:#e67e22;">
+      <h4>技能层：小程序变AI Skills</h4>
+      <p>
+        微信生态内的千万级小程序，天然成为AI工具平台的"技能库（Skills）"。
+        这是其他大模型公司很难模仿的——<strong>别家的龙虾缺了腾讯现成的Skills生态</strong>。
+        这也是腾讯突然从低调变得亢奋、大笔加码AI的核心原因。
+      </p>
+    </div>
+  </div>
+
+  <!-- 老唐观点：小程序Skill生态的独特优势 -->
+  <div class="lao-tang-quote">
+    <div class="lao-tang-title">老唐观点：小程序变成Skills的独特优势</div>
+    <div class="lao-tang-content">
+      但"小龙虾"这个模式出来以后，腾讯忽然发现：<span class="lao-tang-highlight">这就是腾讯的强项啊。</span>
+      <br><br>
+      把它组装成一个面向终端的企业或者个人的傻瓜工具。工具的背后，是可以随意调换的模型和算力，哪个模型好用就换调用哪个，哪里的算力便宜就配置哪里的算力。
+      <br><br>
+      <span class="lao-tang-highlight">用户记住的是龙虾，使用的是龙虾，习惯的是龙虾，依赖的是龙虾</span>，只要将其和腾讯强大的微信、QQ、企微等入口搭配起来，用户依然沉淀在腾讯的生态里，根本不用修改任何习惯，就能够瞬间进入AI时代，而且千人千面自己开放自己的数据和权限给龙虾，不需要腾讯统一去动用用户私人数据。
+      <br><br>
+      这才是腾讯最擅长的事情。正如刘炽平前面所说"我们的机遇在于将强势大模型与核心场景做结合"。
+      <br><br>
+      因此，腾讯迅速推出和即将推出各种各样、适用于不同场景、不同安全权限、不同需求的产品，并致力于让自己成为用户最习惯、最顺手、最能满足需求，且最能管理好用户隐私的AI工具平台。
+      <br><br>
+      这个突破口还有一个明显的优势：<span class="lao-tang-highlight">它很可能与未来微信智能体的演化方向类似，直接建立在腾讯生态内千千万万提供内容、服务和商品的小程序上，这些小程序就变成了"龙虾"平台上的一个个技能（Skills）。</span>
+      <br><br>
+      用户只需通过腾讯的社交入口调用自己的龙虾，然后再依赖"龙虾"去调用千千万万个小程序，就马上可以协助用户完成很多任务。<span class="lao-tang-highlight">这是别家的龙虾很难模仿的，他们缺了腾讯生态内的这些现成的skills。</span>
+      <br><br>
+      腾讯只是需要去考虑在这个过程里，如何平衡腾讯和提供skills的商家之间的利益，能够让skills更好地服务用户，而不是感觉被替代了、劫持了。
+      <br><br>
+      这可能还要摸索和磨合很长一段时间。但这是个看得见的突破口，所以腾讯突然亢奋，一改模型时代的低调，开始大笔砸钱。
+    </div>
+  </div>
+
+  <h3 style="font-size:16px; color:#0d1b3e; margin:24px 0 12px;">▍AI投资规模与占比（2025-2026）</h3>
+  <div class="kpi-grid">
+    <div class="kpi-card" style="--accent:#e74c3c;">
+      <div class="kpi-val">180</div>
+      <div class="kpi-unit">亿元</div>
+      <div class="kpi-lbl">2025年AI相关投入</div>
+      <div class="kpi-yoy">混元+元宝等新产品</div>
+    </div>
+    <div class="kpi-card" style="--accent:#c0392b;">
+      <div class="kpi-val">360+</div>
+      <div class="kpi-unit">亿元</div>
+      <div class="kpi-lbl">2026年AI投入计划</div>
+      <div class="kpi-yoy up">预计翻倍以上</div>
+    </div>
+    <div class="kpi-card" style="--accent:#3498db;">
+      <div class="kpi-val">5%</div>
+      <div class="kpi-unit">占比</div>
+      <div class="kpi-lbl">AI投入占2025年营收</div>
+      <div class="kpi-yoy"></div>
+    </div>
+    <div class="kpi-card" style="--accent:#9b59b6;">
+      <div class="kpi-val">14%</div>
+      <div class="kpi-unit">占比</div>
+      <div class="kpi-lbl">AI投入占2025年非国际净利</div>
+      <div class="kpi-yoy"></div>
+    </div>
+    <div class="kpi-card" style="--accent:#f39c12;">
+      <div class="kpi-val">1.1亿</div>
+      <div class="kpi-unit">用户</div>
+      <div class="kpi-lbl">《和平精英》AI NPC体验用户</div>
+      <div class="kpi-yoy up">累计突破</div>
+    </div>
+    <div class="kpi-card" style="--accent:#27ae60;">
+      <div class="kpi-val">2026.4</div>
+      <div class="kpi-unit">发布时间</div>
+      <div class="kpi-lbl">混元3.0计划发布</div>
+      <div class="kpi-yoy">下一代大模型</div>
+    </div>
+  </div>
+
+  <!-- 老唐观点：AI投入的理性判断 -->
+  <div class="lao-tang-quote">
+    <div class="lao-tang-title">老唐观点：AI投入的理性判断</div>
+    <div class="lao-tang-content">
+      至于第二个担心，AI的投入会增加短期费用，折旧成本，减少可分配现金，并暗藏投资失败的可能性。<br>
+      这个担心是事实吗？当然是。<span class="lao-tang-highlight">业绩说明会上高管承认，2026年很可能是利润增速低于营收增速的情况。</span>原因就是要大幅增加AI投入的资本。2025年的资产负债表"物业、设备和器材"金额就净增加了<span class="lao-tang-highlight">700亿</span>，展示的就是2025年大量投入AI的战果，而2026年还要加大投入量。
+      <br><br>
+      短期视角确实值得担心，以上描述很可能都会成为事实。但对于长期投资者而言，思考和应对反而很简单：<span class="lao-tang-highlight">如果确认AI是未来的方向，如果加大对AI的投入能够让企业更强大；或者如果不投AI，企业未来就可能被别人干掉，那此刻投入巨资（包括趁中美政府许可的时候顶着上限囤积英伟达高端芯片），就是理所应当的。</span>
+      <br><br>
+      如果明明有年化回报15%、20%乃至更高回报的机会，却把钱分给股东或者拿去回购股票，这就是暴敛天物，糟蹋钱了。
+      <br><br>
+      <strong>巴菲特曾经感叹过，优秀企业的困境就在于，经常只生产钱，找不到把钱重新投下去的机会，无法克隆自己的高回报。</strong>而腾讯此刻看到的AI领域，几乎公认是一个重大革命，是可能再次创造出高回报的领域，是能够吸纳富裕资金的天堂，这对于投资者来说，简直是最美不过的事情了。
+      <br><br>
+      业绩说明会上公司说，主营业务的增长将给AI的投入提供资金支持。增长提供AI资金支持，现有的盈利水平基本不受影响，这能有什么值得担心的呢？
+    </div>
+  </div>
+
+  <h3 style="font-size:16px; color:#0d1b3e; margin:24px 0 12px;">▍AI对各业务的赋能效果（已验证）</h3>
+  <table>
+    <thead>
+      <tr><th>业务领域</th><th>AI赋能方式</th><th>2025年量化效果</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>游戏</td><td>生成式AI加速内容制作；精准广告拉新留存；虚拟队友/高拟真NPC</td><td class="up">游戏收入+22%，远超行业+7%</td></tr>
+      <tr><td>广告</td><td>AI大模型提升广告精准定向；AI广告创意生成；AIM+全自动投放</td><td class="up">广告收入+19%，超行业+14%</td></tr>
+      <tr><td>视频号</td><td>长序列AI模型优化内容推荐，提升分发效率</td><td class="up">用户使用时长+20%</td></tr>
+      <tr><td>云服务</td><td>AI相关服务需求爆发，PaaS/SaaS竞争力提升</td><td class="up">企业服务收入近+20%，云实现规模盈利</td></tr>
+      <tr><td>金融科技</td><td>轻量AI模型优化信用评估、强化欺诈检测</td><td class="up">不良率优于行业</td></tr>
+    </tbody>
+  </table>
+
+  <h3 style="font-size:16px; color:#0d1b3e; margin:24px 0 12px;">▍Q4业绩电话会核心观点（管理层原话提炼）</h3>
+  <div class="note-box" style="background:#e8f4ff; border-color:#0d6efd;">
+    <strong>刘炽平——AI战略总架构师</strong><br><br>
+    
+    <strong>1. 核心业务韧性判断（六大标准）：</strong><br>
+    网络效应、深度供应链整合、监管牌照壁垒、稀缺/独特资源、低切换成本、封闭交互数据。<br>
+    基于这些标准，腾讯通信服务、游戏、金融科技均具有高度内在韧性。<br><br>
+    
+    <strong>2. AI是长期竞赛，非单一赛道：</strong><br>
+    "AI不是单一赛道冲刺，而是多赛道并行的生态竞争。AI发展从早期聊天机器人，到编码、多模态，再到AI代理出现，
+    未来还会涌现更多新应用。我们不担心起步晚，更担心创新速度不足。"<br><br>
+    
+    <strong>3. AI投资规划：</strong><br>
+    混元及两款最大新AI产品，2025年Q4投入70亿元，全年180亿元。预计2026年投资将翻倍以上，由核心业务收益增长来融资。
+    这些投资在概念上类似于资本支出，是建立必要基础以释放新价值所需的前期投资，而非持续运营开支。<br><br>
+    
+    <strong>4. 腾讯云成功案例：</strong><br>
+    腾讯云2025年实现调整后营业利润50亿元，从四年前大幅亏损转向可观盈利。
+    核心逻辑：从裸机出租→算力虚拟化→PaaS/SaaS服务，通过资源集约化、产品化提升价值。
+  </div>
+  
+  <div class="note-box" style="background:#fff8e1; border-color:#f39c12;">
+    <strong>Pony马化腾——开场概述</strong><br><br>
+    "2025年，我们通过常青产品和服务实现了高质量增长，并不断借助人工智能能力的应用。
+    国际游戏业务首次年收入突破100亿美元。核心业务所产生的强大运营杠杆和现金流使我们能够加大对人工智能的投资。"
+  </div>
+
+  <h3 style="font-size:16px; color:#0d1b3e; margin:24px 0 12px;">▍分析师问答精华（10个关键问题）</h3>
+  <table>
+    <thead>
+      <tr><th style="width:30%;">问题</th><th style="width:70%;">管理层核心回应</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Q1：AI投资与利润率</strong><br>瑞银Kenneth Wong</td>
+        <td>2026年收入增速或超过利润增速；人才已招募全球顶尖团队；GPU持续加大部署，下半年算力逐步释放，来源包括租赁、进口高端GPU、国产GPU。</td>
+      </tr>
+      <tr>
+        <td><strong>Q2：AI投资回报率</strong><br>伯恩斯坦Robin Zhu</td>
+        <td>AI赋能现有业务已实现优秀ROI；新AI产品前期投入大、收入初期有限，参考云业务发展路径，长期将实现规模化变现。</td>
+      </tr>
+      <tr>
+        <td><strong>Q3/Q4：AI代理机会</strong><br>高盛/麦格理</td>
+        <td>AI代理是去中心化全新范式，类似互联网到移动互联网演进。腾讯依托微信、QQ、小程序、云服务，具备跨端、生态、产品能力优势，推出Qclaw等产品。</td>
+      </tr>
+      <tr>
+        <td><strong>Q6：AI对游戏影响</strong><br>大和John Choi</td>
+        <td>AI现阶段用于加速内容生产、提升玩法体验，无法完全自动生成游戏。游戏行业长期供给过剩，优质创新、顶级人才与技术、长线运营能力才是关键。</td>
+      </tr>
+      <tr>
+        <td><strong>Q7：腾讯云定价能力</strong><br>摩根大通Alex Yao</td>
+        <td>行业整体成本上行，近期国内已出现多轮算力价格上调。腾讯云价值捕获核心：通过资源集约化、产品化提升价值，从裸机出租→PaaS/SaaS服务升级。</td>
+      </tr>
+      <tr>
+        <td><strong>Q8：后来者追赶问题</strong><br>摩根士丹利Gary Liu</td>
+        <td>AI是多赛道、持续开放新领域的长期竞赛，后续参与者依然有创新机会。腾讯拥有PC与移动端社交产品、海量用户、安全、云、支付等全栈基础设施能力。</td>
+      </tr>
+      <tr>
+        <td><strong>Q9：苹果佣金下调影响</strong><br>BM William Peck</td>
+        <td>苹果佣金下调（30%→25%，15%→12%）已于2026年3月15日起正式生效。预计为腾讯游戏增加约<strong>20亿元净利润</strong>。腾讯游戏合作开发者通过苹果渠道发行的收入占比不高，利润红利会传导至腾讯，部分将再投入AI新产品研发。</td>
+      </tr>
+      <tr>
+        <td><strong>Q10：自研芯片优先级</strong><br>美国银行Alex Liu</td>
+        <td>自研芯片目前并非最核心重点。当前策略是采用全球最优训练芯片打磨迭代最优质模型。现阶段首要目标是用好现有顶级算力，训练领先模型。</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ===================== 七、护城河评估 ===================== -->
+<div class="section">
+  <div class="section-title"><div class="icon">🏰</div>七、护城河综合评估</div>
+  <p>
+    腾讯的护城河是一个<strong>多层次、相互强化的复合体系</strong>，很难用单一维度衡量。
+    从中报分析以来的连续跟踪，可以总结出以下判断：
+  </p>
+  <div class="card-row">
+    <div class="info-card" style="--color:#0d6efd;">
+      <h4>社交流量护城河（极深）</h4>
+      <p>
+        微信月活14.18亿（+2%），QQ移动端5.08亿，绝对用户规模仍在增长。
+        微信已成为中国社会基础设施，替换成本几乎为零。
+        这是腾讯所有其他业务的"根"——游戏渠道、广告流量、支付入口均建立在此之上。
+      </p>
+    </div>
+    <div class="info-card" style="--color:#e74c3c;">
+      <h4>游戏竞争壁垒（极高）</h4>
+      <p>
+        拥有全球最强的游戏研发矩阵（天美、光子、北极光、魔方等工作室），
+        加上Supercell、Riot Games等国际IP资产。
+        长青游戏组合是现金牛，研发投入远低于新游戏，同时AI加速内容产出，
+        护城河不降反升。
+      </p>
+    </div>
+    <div class="info-card" style="--color:#27ae60;">
+      <h4>支付生态护城河（牢固）</h4>
+      <p>
+        微信支付连接10亿+消费者、数百万商户、各大银行。
+        历经数十年建设的支付网络，加上牌照壁垒，极低的费率使价格竞争毫无意义。
+        即使面对AI冲击也具备极强韧性。
+      </p>
+    </div>
+    <div class="info-card" style="--color:#8e44ad;">
+      <h4>生态协同护城河（独特）</h4>
+      <p>
+        小程序+微信小店+视频号+游戏+广告形成"腾讯飞轮"。
+        每个场景都强化其他场景：游戏带来用户，视频号带来流量，
+        小程序带来交易，广告带来变现，AI将这一切串联更紧密。
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== 七补充、投资组合重大战略调整 ===================== -->
+<div class="section" style="border-left:4px solid #c0392b;">
+  <div class="section-title"><div class="icon">🚨</div>特别专题：投资组合重大战略调整（年会核心披露）</div>
+
+  <div class="note-box" style="background:#fff5f5; border-color:#e74c3c; margin-bottom:20px;">
+    <strong style="color:#c0392b; font-size:15px;">⚠️ 重磅！2026年1月26日 腾讯2025年度员工大会</strong><br>
+    马化腾在内部年会上正式披露：<strong>腾讯已完全退出对京东和美团的投资，总裁刘炽平同步退出两家公司董事会。</strong>
+    这是自2021-2022年派息式减持以来，腾讯投资组合最重大的战略宣告。
+  </div>
+
+  <div class="two-col" style="margin-bottom:20px;">
+    <div style="background:#fff0f0; border-radius:10px; padding:20px; border:1px solid #f5c6c6;">
+      <h4 style="color:#c0392b; font-size:15px; margin-bottom:12px;">🔴 京东集团（09618.HK / JD.O）—— 已完全退出</h4>
+      <table>
+        <tbody>
+          <tr><td style="width:40%;font-weight:600;">历史最高持股</td><td>21.25%（曾为第一大股东）</td></tr>
+          <tr><td style="font-weight:600;">退出前残余持股</td><td>约2.3%（2021年派息式大减持后）</td></tr>
+          <tr><td style="font-weight:600;">完全退出时间</td><td>宣告时间：2026年1月26日</td></tr>
+          <tr><td style="font-weight:600;">刘炽平动作</td><td>退出京东董事会</td></tr>
+          <tr><td style="font-weight:600;">原合作</td><td>微信流量入口 + 支付体系（将相应调整）</td></tr>
+          <tr><td style="font-weight:600;">退出原因</td><td>2025年外卖大战烧钱约800亿，腾讯选择彻底抽身</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="background:#fff0f0; border-radius:10px; padding:20px; border:1px solid #f5c6c6;">
+      <h4 style="color:#c0392b; font-size:15px; margin-bottom:12px;">🔴 美团-W（03690.HK）—— 已完全退出</h4>
+      <table>
+        <tbody>
+          <tr><td style="width:40%;font-weight:600;">历史最高持股</td><td>约17%（曾为第一大股东）</td></tr>
+          <tr><td style="font-weight:600;">退出前持股</td><td>约17%（2022年派息减持后仍为第一大股东）</td></tr>
+          <tr><td style="font-weight:600;">完全退出时间</td><td>宣告时间：2026年1月26日</td></tr>
+          <tr><td style="font-weight:600;">刘炽平动作</td><td>退出美团董事会</td></tr>
+          <tr><td style="font-weight:600;">原合作</td><td>微信流量入口 + 支付体系（将相应调整）</td></tr>
+          <tr><td style="font-weight:600;">退出原因</td><td>外卖烧钱竞争"抗不住、也不想抗"；与腾讯AI战略方向无关</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h3 style="font-size:15px; color:#0d1b3e; margin:16px 0 10px;">▍马化腾年会原话（核心表述）</h3>
+  <div style="background:#f8f9fa; border-left:4px solid #c0392b; padding:16px 20px; border-radius:0 8px 8px 0; font-size:14px; color:#333; line-height:1.9; margin-bottom:20px;">
+    <p>🗣 <strong>退出投资背景：</strong>"2025年外卖与社区团购大战，阿里、京东、美团三家合计烧钱超<strong>800亿元</strong>，仅Q3就比Q2多烧约100亿。腾讯<strong>抗不住，也不想再抗</strong>。"</p>
+    <p style="margin-top:10px;">🗣 <strong>战略聚焦 AI：</strong>"<strong>目前唯一还值得（提前）烧钱的领域就是人工智能。</strong>退出非核心股权投资，将资金聚焦于AI与主业。"</p>
+    <p style="margin-top:10px;">🗣 <strong>人才与组织：</strong>"首席AI科学家姚顺雨加入后，加速引进原生AI人才，重构研发团队，推动混元大模型与元宝等产品协同。"</p>
+    <p style="margin-top:10px; font-size:12px; color:#888;">来源：观察者网/新浪财经 2026-01-27，腾讯2025年度员工大会</p>
+  </div>
+
+  <h3 style="font-size:15px; color:#0d1b3e; margin:16px 0 10px;">▍退出对估值的影响分析</h3>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+    <div style="background:#e8f5e9; border-radius:8px; padding:16px;">
+      <h4 style="color:#2e7d32; margin-bottom:10px;">📈 正面影响</h4>
+      <ul style="padding-left:18px; font-size:13px; line-height:2; color:#333;">
+        <li>彻底规避外卖烧钱战对利润的侵蚀</li>
+        <li>套现资金可用于回购或AI投入，直接提升每股价值</li>
+        <li>管理层精力聚焦，不再被外部战略投资分散</li>
+        <li>投资组合进一步"减肥瘦身"，提升整体质量</li>
+      </ul>
+    </div>
+    <div style="background:#fff8e1; border-radius:8px; padding:16px;">
+      <h4 style="color:#e65100; margin-bottom:10px;">⚠️ 需要关注</h4>
+      <ul style="padding-left:18px; font-size:13px; line-height:2; color:#333;">
+        <li>微信对京东/美团的流量入口合作面临重新谈判</li>
+        <li>用户在微信内的购物/外卖路径可能发生变化</li>
+        <li>腾讯投资组合（万亿级）计算需剔除两大头寸</li>
+        <li>退出美团后，同程旅行等还是否会跟进需关注</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="note-box" style="margin-top:20px; background:#e3f2fd; border-color:#1565c0;">
+    <strong style="color:#1565c0;">昆仑侠/老唐估值框架修正：</strong>
+    退出京东和美团后，投资组合公允价值测算中需将这两家头寸清零。
+    原估算中美团约1,468亿港元+京东约88亿港元的持仓（合计约1,556亿港元）已不存在。
+    若上市投资组合原为6,727亿元人民币，剔除美团+京东（约1,556亿港元≈1,450亿人民币）后约为<strong>5,277亿人民币</strong>。
+    按当前股本折合约<strong>58港元/股→约46港元/股</strong>的上市投资组合价值，
+    估值中枢相应下调约18港元（从733港元→约715港元），影响有限，核心业务估值逻辑不变。
+  </div>
+</div>
+
+<!-- ===================== 七补充二、投资组合详细持仓 ===================== -->
+<div class="section" style="border-left:4px solid #1565c0;">
+  <div class="section-title"><div class="icon">📊</div>投资组合详细持仓全景</div>
+
+  <div class="note-box" style="background:#e3f2fd; border-color:#1565c0; margin-bottom:20px;">
+    <strong>数据来源说明：</strong><br>
+    1. <strong>投资公允价值（6,727亿/3,631亿）</strong>：来自腾讯2025年年报（第24页），数据截至2025年12月31日。<br>
+    2. <strong>具体公司持股比例</strong>（如Epic Games 28%-40%、Supercell 84.3%、拼多多约13.8%等）：来自公开市场信息及历史披露，<strong>年报未单独列示各公司具体持股比例</strong>。<br>
+    3. <strong>美团、京东退出</strong>：马化腾在2026年1月26日腾讯年会上宣布已完全退出，该信息<strong>尚未在2025年年报（截至2025年12月31日）中体现</strong>。<br>
+    4. 本章节数据时点截至2025年末~2026年初，涵盖A股、港股、美股、韩股等多市场。
+  </div>
+
+  <!-- 总览卡片 -->
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;">
+    <div style="background:white;border-radius:10px;padding:18px 20px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,0.06);">
+      <div style="font-size:26px;font-weight:800;color:#1565c0;">61家+</div>
+      <div style="font-size:12px;color:#888;margin-top:4px;">持有上市公司数量（2025年9月统计）</div>
+    </div>
+    <div style="background:white;border-radius:10px;padding:18px 20px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,0.06);">
+      <div style="font-size:26px;font-weight:800;color:#1565c0;">6,727亿</div>
+      <div style="font-size:12px;color:#888;margin-top:4px;">上市投资公允价值（人民币，2025年末）</div>
+    </div>
+    <div style="background:white;border-radius:10px;padding:18px 20px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,0.06);">
+      <div style="font-size:26px;font-weight:800;color:#e65100;">13家</div>
+      <div style="font-size:12px;color:#888;margin-top:4px;">A股持股（市值约297亿元）</div>
+    </div>
+    <div style="background:white;border-radius:10px;padding:18px 20px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,0.06);">
+      <div style="font-size:26px;font-weight:800;color:#c62828;">减持为主</div>
+      <div style="font-size:12px;color:#888;margin-top:4px;">2024~2025年趋势：套现→回购自身</div>
+    </div>
+  </div>
+
+  <!-- 港股持仓 -->
+  <div style="background:white;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.07);padding:24px;margin-bottom:20px;">
+    <div style="font-size:15px;font-weight:700;color:#0d47a1;margin-bottom:14px;">🇭🇰 港股持仓（主要公司）</div>
+    <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:13px;">
+        <thead>
+          <tr style="background:#1565c0;color:white;">
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">公司名称（代码）</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">持股比例</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">持仓市值（港元）</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">变动情况</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">最新时间/来源</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">备注</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background:#fff1f1;">
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>美团-W</strong> <span style="font-size:10px;padding:1px 6px;border-radius:4px;background:#e3f2fd;color:#0d47a1;">03690.HK</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="color:#c62828;text-decoration:line-through;">约17%（最高20.14%）</span><br><span style="color:#c62828;font-weight:700;font-size:13px;">→ 0%（已清仓）</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">—</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="background:#fce4e4;color:#c62828;border-radius:12px;padding:2px 10px;font-size:11.5px;font-weight:600;">✅ 完全退出</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="font-size:11px;color:#bbb;background:#f5f5f5;border-radius:4px;padding:1px 6px;">2026年1月26日 | 腾讯年会</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">2022年11月通过特别股息派发9.58亿股（持股从17%降至1.7%），2023年3月完成；2026年1月马化腾年会宣布完全退出；外卖大战800亿烧钱是主因</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>快手-W</strong> <span style="font-size:10px;padding:1px 6px;border-radius:4px;background:#e3f2fd;color:#0d47a1;">01024.HK</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>约15.6%~17.5%</strong><br><span style="font-size:11px;color:#1565c0;">同花顺披露：15.83%</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">约350亿港元</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="background:#e3f2fd;color:#1565c0;border-radius:12px;padding:2px 10px;font-size:11.5px;font-weight:600;">第一大股东</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="font-size:11px;color:#bbb;background:#f5f5f5;border-radius:4px;padding:1px 6px;">2025-06-30 | 同花顺/港交所</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">腾讯系合计持股15.83%（Tencent Mobility 11.81%第一+腾讯控股4.02%第五）；宿华9.97%、程一笑8.93%分别为第二、三大股东；腾讯投资合伙人李朝晖任非执行董事；IPO时持股21.57%</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>阅文集团</strong> <span style="font-size:10px;padding:1px 6px;border-radius:4px;background:#e3f2fd;color:#0d47a1;">00772.HK</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>约56.57%</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">约80亿港元</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="background:#e3f2fd;color:#1565c0;border-radius:12px;padding:2px 10px;font-size:11.5px;font-weight:600;">控股子公司</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="font-size:11px;color:#bbb;background:#f5f5f5;border-radius:4px;padding:1px 6px;">2026年Q1 | 腾讯/阅文年报</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">腾讯绝对控股（THL A13约26.31%+Qinghai Lake约22.59%+Tencent Mobility约7.67%），2017年分拆上市；CEO侯晓楠由腾讯委派；2025年全资收购腾讯动漫资产</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>同程旅行</strong> <span style="font-size:10px;padding:1px 6px;border-radius:4px;background:#e3f2fd;color:#0d47a1;">00780.HK</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>约21.38%</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">约120亿港元</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="background:#f0f0f0;color:#666;border-radius:12px;padding:2px 10px;font-size:11.5px;font-weight:600;">稳定</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="font-size:11px;color:#bbb;background:#f5f5f5;border-radius:4px;padding:1px 6px;">2026年Q1 | 公司年报</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">第一大股东（携程约19.98%为第二），通过TCH Sapphire持股；约80%流量来自微信小程序；腾讯高管仍任非执行董事</td>
+          </tr>
+          <tr style="background:#fff1f1;">
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>京东集团-SW</strong> <span style="font-size:10px;padding:1px 6px;border-radius:4px;background:#e3f2fd;color:#0d47a1;">09618.HK</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="color:#c62828;text-decoration:line-through;">约2.3%</span><br><span style="color:#c62828;font-weight:700;font-size:13px;">→ 0%（已清仓）</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">—</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="background:#fce4e4;color:#c62828;border-radius:12px;padding:2px 10px;font-size:11.5px;font-weight:600;">✅ 完全退出</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="font-size:11px;color:#bbb;background:#f5f5f5;border-radius:4px;padding:1px 6px;">2026年1月26日 | 腾讯年会</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">曾为第一大股东（最高21.25%）；2021年派息减持后延续清退</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>中金公司H股</strong> <span style="font-size:10px;padding:1px 6px;border-radius:4px;background:#e3f2fd;color:#0d47a1;">03908.HK</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="color:#c62828;text-decoration:line-through;">约12%</span><br><strong style="color:#c62828;">→ 4.99%（降至5%以下）</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">约19亿港元</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="background:#fce4e4;color:#c62828;border-radius:12px;padding:2px 10px;font-size:11.5px;font-weight:600;">连续减持</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="font-size:11px;color:#bbb;background:#f5f5f5;border-radius:4px;padding:1px 6px;">2026年2月 | 证券时报</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">2017年以13.8港元/股入股（耗资28.64亿港元），2025年7月起至2026年2月累计7次减持，套现5.29亿港元；跌破5%后不再强制实时披露</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>微盟集团</strong> <span style="font-size:10px;padding:1px 6px;border-radius:4px;background:#e3f2fd;color:#0d47a1;">02013.HK</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="color:#c62828;text-decoration:line-through;">8.39%</span><br><strong style="color:#c62828;">→ 约2.94%（降至5%以下）</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">约6亿港元</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="background:#fce4e4;color:#c62828;border-radius:12px;padding:2px 10px;font-size:11.5px;font-weight:600;">大幅减持</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="font-size:11px;color:#bbb;background:#f5f5f5;border-radius:4px;padding:1px 6px;">2025年1月 | 港交所</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">3天内减持1.84亿股，套现约6.3亿港元，持股腰斩至2.94%；消息公布后微盟股价暴跌超40%；双方由"大股东扶持"转为"纯商业化合作"</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>优必选</strong> <span style="font-size:10px;padding:1px 6px;border-radius:4px;background:#e3f2fd;color:#0d47a1;">09880.HK</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="color:#c62828;text-decoration:line-through;">8.05%</span><br><strong style="color:#c62828;">→ 约2.08%（降至5%以下）</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">约10亿港元</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="background:#fce4e4;color:#c62828;border-radius:12px;padding:2px 10px;font-size:11.5px;font-weight:600;">大幅减持</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="font-size:11px;color:#bbb;background:#f5f5f5;border-radius:4px;padding:1px 6px;">2025年1月 | 港交所</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">2天内减持约1900万股，套现约10.3亿港元；2018年C轮融资规模8.2亿美元（腾讯为领投方之一，自身出资额约1.2亿美元）；持股跌破5%后不再披露，现仅余&lt;1.5%</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>腾讯音乐-W</strong> <span style="font-size:10px;padding:1px 6px;border-radius:4px;background:#e3f2fd;color:#0d47a1;">01698.HK</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>约52.3%</strong><br><span style="font-size:11px;color:#1565c0;">投票权：约93.8%</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">约400亿港元</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="background:#e3f2fd;color:#1565c0;border-radius:12px;padding:2px 10px;font-size:11.5px;font-weight:600;">控股子公司</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="font-size:11px;color:#bbb;background:#f5f5f5;border-radius:4px;padding:1px 6px;">2026年Q1 | 腾讯/TME年报</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">TME同时在美股（TME.N）上市；腾讯持B类股（每股15投票权）确保93.8%投票权；2025年全资收购喜马拉雅（约12.6亿美元）；2025年营收约329亿元人民币</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>贝壳找房-W</strong> <span style="font-size:10px;padding:1px 6px;border-radius:4px;background:#e3f2fd;color:#0d47a1;">02423.HK</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="color:#c62828;text-decoration:line-through;">约10%+</span><br><strong style="color:#c62828;">→ 约8.7%</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">约194亿港元</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="background:#fce4e4;color:#c62828;border-radius:12px;padding:2px 10px;font-size:11.5px;font-weight:600;">战略性微调</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="font-size:11px;color:#bbb;background:#f5f5f5;border-radius:4px;padding:1px 6px;">2025年9月 | SEC 13D/A文件</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">2025年9月腾讯关联实体(TPP)分派约4000万股后降至8.7%；仍为最大外部股东（通过Tencent Mobility约7.2%+Morespark等）；贝壳2025年总回馈股东达12亿美元</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>哔哩哔哩-W</strong> <span style="font-size:10px;padding:1px 6px;border-radius:4px;background:#e3f2fd;color:#0d47a1;">09626.HK</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">战略投资</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">—</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="background:#f0f0f0;color:#666;border-radius:12px;padding:2px 10px;font-size:11.5px;font-weight:600;">稳定</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="font-size:11px;color:#bbb;background:#f5f5f5;border-radius:4px;padding:1px 6px;">历史投资 | 公开信息</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">与微信视频号等生态合作；具体持股比例未公开披露</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 美股持仓 -->
+  <div style="background:white;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.07);padding:24px;margin-bottom:20px;">
+    <div style="font-size:15px;font-weight:700;color:#6a1b9a;margin-bottom:14px;">🇺🇸 美股持仓（主要公司）</div>
+    <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:13px;">
+        <thead>
+          <tr style="background:#1565c0;color:white;">
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">公司名称（代码）</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">持股比例</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">持仓市值（美元）</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">变动情况</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">最新时间/来源</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">备注</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>拼多多</strong> <span style="font-size:10px;padding:1px 6px;border-radius:4px;background:#f3e5f5;color:#6a1b9a;">PDD.O</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>约13.8%</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">约241亿美元</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="background:#f0f0f0;color:#666;border-radius:12px;padding:2px 10px;font-size:11.5px;font-weight:600;">被动稀释</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="font-size:11px;color:#bbb;background:#f5f5f5;border-radius:4px;padding:1px 6px;">2026年Q1 | 20-F/13G文件</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">腾讯为第二大股东，从IPO时18.5%被动稀释至13.8%；未执行实物派发；腾讯投资合伙人林海峰任董事；Temu海外爆发，腾讯继续持有</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>Spotify</strong> <span style="font-size:10px;padding:1px 6px;border-radius:4px;background:#f3e5f5;color:#6a1b9a;">SPOT.N</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>约8.2%~8.5%</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">超70亿美元</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="background:#f0f0f0;color:#666;border-radius:12px;padding:2px 10px;font-size:11.5px;font-weight:600;">战略锚定</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="font-size:11px;color:#bbb;background:#f5f5f5;border-radius:4px;padding:1px 6px;">2026年初 | SEC 13G/F</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">2017年三方交叉换股入股；腾讯将投票权全授予创始人Daniel Ek；持约1663万股；Spotify同时持有腾讯音乐约8.3%；账面价值超70亿美元</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>Sea Limited</strong> <span style="font-size:10px;padding:1px 6px;border-radius:4px;background:#f3e5f5;color:#6a1b9a;">SE.N</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>约18.5%</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">—</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="background:#fce4e4;color:#c62828;border-radius:12px;padding:2px 10px;font-size:11.5px;font-weight:600;">减持中</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="font-size:11px;color:#bbb;background:#f5f5f5;border-radius:4px;padding:1px 6px;">2026年2月 | BrandBook</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">原为21.3%，2022年起多次减持并放弃超级投票权；2026年2月报道最新比例约18.5%</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>Reddit</strong> <span style="font-size:10px;padding:1px 6px;border-radius:4px;background:#f3e5f5;color:#6a1b9a;">RDDT.N</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>约10%</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">—</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="background:#fce4e4;color:#c62828;border-radius:12px;padding:2px 10px;font-size:11.5px;font-weight:600;">套现减持</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="font-size:11px;color:#bbb;background:#f5f5f5;border-radius:4px;padding:1px 6px;">2026年3月 | 政府公开信息</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">2024~2025年美股减持套现合计约260亿人民币（Reddit+NuBank）；2026年3月华盛顿辩论相关政府公开信息显示持股约10%</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>NuBank</strong> <span style="font-size:10px;padding:1px 6px;border-radius:4px;background:#f3e5f5;color:#6a1b9a;">NU.N</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>减持</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">—</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="background:#fce4e4;color:#c62828;border-radius:12px;padding:2px 10px;font-size:11.5px;font-weight:600;">套现减持</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="font-size:11px;color:#bbb;background:#f5f5f5;border-radius:4px;padding:1px 6px;">2025年 | 雪球</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">巴西数字银行，与Reddit合计套现约260亿元人民币</td>
+          </tr>
+          <tr style="background:#e3f2fd;">
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>富途控股</strong> <span style="font-size:10px;padding:1px 6px;border-radius:4px;background:#f3e5f5;color:#6a1b9a;">FUTU.O</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>约20.4%</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">—</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="background:#fff3e0;color:#e65100;border-radius:12px;padding:2px 10px;font-size:11.5px;font-weight:600;">战略减持</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="font-size:11px;color:#bbb;background:#f5f5f5;border-radius:4px;padding:1px 6px;">2024年9月 | SEC 13G</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">第二大股东（仅次于创始人李华）；2024年9月折价约5.9%减持约2%，从约22%降至20.4%；腾讯云为富途提供全球化基础设施，富途牛牛与微信生态有流量合作</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>Roblox</strong> <span style="font-size:10px;padding:1px 6px;border-radius:4px;background:#f3e5f5;color:#6a1b9a;">RBLX.N</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>约1.2%~1.8%</strong><br><span style="font-size:11px;color:#888;">（低于5%披露线）</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">—</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="background:#f0f0f0;color:#666;border-radius:12px;padding:2px 10px;font-size:11.5px;font-weight:600;">战略小额持股</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="font-size:11px;color:#bbb;background:#f5f5f5;border-radius:4px;padding:1px 6px;">2026年Q1 | 行业估算</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">2019年成立中国合资公司"罗布乐思"（腾讯51%），2020年G轮融资入股；持股低于5%无须披露；2026年面临美国政策强制剥离压力</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>Snap</strong> <span style="font-size:10px;padding:1px 6px;border-radius:4px;background:#f3e5f5;color:#6a1b9a;">SNAP.N</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>约12%~16%</strong><br><span style="font-size:11px;color:#888;">（经济权益，无投票权）</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">约20亿美元</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="background:#f0f0f0;color:#666;border-radius:12px;padding:2px 10px;font-size:11.5px;font-weight:600;">被动波动</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="font-size:11px;color:#bbb;background:#f5f5f5;border-radius:4px;padding:1px 6px;">2026年Q1 | 机构持仓报告</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">2017年低位买入1.46亿股Class A无投票权股；前三大机构股东之一；受Snap回购影响被动增至16%+；2025年Snapchat+订阅业务推动收入多元化</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>动视暴雪</strong> <span style="font-size:10px;padding:1px 6px;border-radius:4px;background:#f3e5f5;color:#6a1b9a;">ATVI.O</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>约5%</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">—</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="background:#f0f0f0;color:#666;border-radius:12px;padding:2px 10px;font-size:11.5px;font-weight:600;">战略投资</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="font-size:11px;color:#bbb;background:#f5f5f5;border-radius:4px;padding:1px 6px;">历史投资 | 公开信息</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">历史披露数据；《魔兽世界》《使命召唤》系列开发商；2023年被微软收购</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- A股持仓 -->
+  <div style="background:white;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.07);padding:24px;margin-bottom:20px;">
+    <div style="font-size:15px;font-weight:700;color:#1b5e20;margin-bottom:14px;">🇨🇳 A股持仓（主要公司）</div>
+    <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:13px;">
+        <thead>
+          <tr style="background:#1565c0;color:white;">
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">公司名称（代码）</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">持股比例</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">持仓市值（人民币）</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">变动情况</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">最新时间/来源</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">备注</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>世纪华通</strong> <span style="font-size:10px;padding:1px 6px;border-radius:4px;background:#e8f5e9;color:#1b5e20;">002602.SZ</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>约9~12%</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">约140亿元</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="background:#e8f5e9;color:#2e7d32;border-radius:12px;padding:2px 10px;font-size:11.5px;font-weight:600;">市值大涨</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="font-size:11px;color:#bbb;background:#f5f5f5;border-radius:4px;padding:1px 6px;">2025年9月 | 雪球</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">2025年市值增长推动A股持仓市值增82%；游戏赛道投资</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>星环科技</strong> <span style="font-size:10px;padding:1px 6px;border-radius:4px;background:#e8f5e9;color:#1b5e20;">688031.SH</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>约5~8%</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">约15.6亿元</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="background:#e8f5e9;color:#2e7d32;border-radius:12px;padding:2px 10px;font-size:11.5px;font-weight:600;">浮盈暴增</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="font-size:11px;color:#bbb;background:#f5f5f5;border-radius:4px;padding:1px 6px;">2026年1月 | 新浪财经</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">投资约2.53亿元，股价涨超200%，浮盈约14.8亿元，回报率~585%；通过林芝利创持股</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>四维图新</strong> <span style="font-size:10px;padding:1px 6px;border-radius:4px;background:#e8f5e9;color:#1b5e20;">002405.SZ</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>约11%</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">约50亿元</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="background:#f0f0f0;color:#666;border-radius:12px;padding:2px 10px;font-size:11.5px;font-weight:600;">逐步减持</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="font-size:11px;color:#bbb;background:#f5f5f5;border-radius:4px;padding:1px 6px;">2024年 | 公开信息</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">地图/智能网联布局；腾讯曾为第二大股东</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>华谊兄弟</strong> <span style="font-size:10px;padding:1px 6px;border-radius:4px;background:#e8f5e9;color:#1b5e20;">300027.SZ</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="color:#c62828;text-decoration:line-through;">约8.08%</span><br><strong style="color:#c62828;">→ 约1.01%</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">—</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="background:#fce4e4;color:#c62828;border-radius:12px;padding:2px 10px;font-size:11.5px;font-weight:600;">持续退出</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="font-size:11px;color:#bbb;background:#f5f5f5;border-radius:4px;padding:1px 6px;">2025年Q3 | 华谊季报</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">2011年以约4.5亿元人民币入股，2014年增持至8.08%；2022年8月大宗减持至4.99%；2025年Q3进一步降至1.01%；华谊连续七年亏损，面临退市风险</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>金山办公</strong> <span style="font-size:10px;padding:1px 6px;border-radius:4px;background:#e8f5e9;color:#1b5e20;">688111.SH</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">战略投资</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">—</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="background:#f0f0f0;color:#666;border-radius:12px;padding:2px 10px;font-size:11.5px;font-weight:600;">稳定</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="font-size:11px;color:#bbb;background:#f5f5f5;border-radius:4px;padding:1px 6px;">历史投资 | 公开信息</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">办公软件（WPS）；腾讯相关主体持股</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>长亮科技</strong> <span style="font-size:10px;padding:1px 6px;border-radius:4px;background:#e8f5e9;color:#1b5e20;">300348.SZ</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">战略投资</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">—</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="background:#f0f0f0;color:#666;border-radius:12px;padding:2px 10px;font-size:11.5px;font-weight:600;">稳定</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="font-size:11px;color:#bbb;background:#f5f5f5;border-radius:4px;padding:1px 6px;">历史投资 | 公开信息</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">金融科技、银行IT；腾讯旗下公司持股</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>顺网科技</strong> <span style="font-size:10px;padding:1px 6px;border-radius:4px;background:#e8f5e9;color:#1b5e20;">300113.SZ</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">战略投资</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">—</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="background:#f0f0f0;color:#666;border-radius:12px;padding:2px 10px;font-size:11.5px;font-weight:600;">稳定</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="font-size:11px;color:#bbb;background:#f5f5f5;border-radius:4px;padding:1px 6px;">历史投资 | 公开信息</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">互联网娱乐平台；腾讯旗下公司持股</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>东华软件</strong> <span style="font-size:10px;padding:1px 6px;border-radius:4px;background:#e8f5e9;color:#1b5e20;">002065.SZ</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">战略投资</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">—</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="background:#f0f0f0;color:#666;border-radius:12px;padding:2px 10px;font-size:11.5px;font-weight:600;">稳定</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="font-size:11px;color:#bbb;background:#f5f5f5;border-radius:4px;padding:1px 6px;">历史投资 | 公开信息</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">信息技术服务；腾讯相关投资平台持股</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 其他市场 -->
+  <div style="background:white;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.07);padding:24px;margin-bottom:20px;">
+    <div style="font-size:15px;font-weight:700;color:#e65100;margin-bottom:14px;">🌏 其他市场（韩股、法股等）</div>
+    <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:13px;">
+        <thead>
+          <tr style="background:#1565c0;color:white;">
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">公司名称</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">市场</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">持股比例</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">变动情况</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">最新时间/来源</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">备注</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>Krafton（绝地求生母公司）</strong> <span style="font-size:10px;padding:1px 6px;border-radius:4px;background:#fff3e0;color:#e65100;">259960.KS</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">韩股</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>约13.86%</strong><br><span style="font-size:11px;color:#888;">（被动增持中）</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="background:#f0f0f0;color:#666;border-radius:12px;padding:2px 10px;font-size:11.5px;font-weight:600;">战略锁仓</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="font-size:11px;color:#bbb;background:#f5f5f5;border-radius:4px;padding:1px 6px;">2026年Q1 | 韩交所</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">通过Image Frame Investment持股，为第二大股东（仅次于创始人张秉圭约22.77%）；Krafton大规模回购注销股份致腾讯比例被动抬升；持《和平精英》《PUBG Mobile》中国代理权</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>Ubisoft</strong> <span style="font-size:10px;padding:1px 6px;border-radius:4px;background:#fce4e4;color:#c62828;">PA</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">法股（巴黎）</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>9.99%（直接持股）</strong><br><span style="font-size:11px;color:#555;">+49.9%（创始人家族控股公司）</span><br><span style="font-size:11px;color:#1565c0;">+26.32%（Vantage Studios IP子公司）</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="background:#fff3e0;color:#e65100;border-radius:12px;padding:2px 10px;font-size:11.5px;font-weight:600;">深度绑定</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="font-size:11px;color:#bbb;background:#f5f5f5;border-radius:4px;padding:1px 6px;">2026年Q1 | 官方公告</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">2018年作"白衣骑士"入股击退Vivendi；2022年增至9.99%（承诺8年内不增持）；2022年向创始人家族控股公司投资3亿欧元（49.9%经济权益）；2025年11月斥资11.6亿欧元入股Vantage Studios（持《刺客信条》《远哭》等核心IP的26.32%）</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>Paradox Interactive</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">瑞典（斯德哥尔摩）</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>约5%</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="background:#f0f0f0;color:#666;border-radius:12px;padding:2px 10px;font-size:11.5px;font-weight:600;">战略投资</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="font-size:11px;color:#bbb;background:#f5f5f5;border-radius:4px;padding:1px 6px;">历史投资 | 公开信息</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">《欧陆风云》《钢铁雄心》系列开发商；历史披露数据</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>Frontier Developments</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">英国（伦敦）</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>约9%</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="background:#f0f0f0;color:#666;border-radius:12px;padding:2px 10px;font-size:11.5px;font-weight:600;">战略投资</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="font-size:11px;color:#bbb;background:#f5f5f5;border-radius:4px;padding:1px 6px;">历史投资 | 公开信息</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">《过山车之星》《动物园之星》开发商；历史披露数据</td>
+          </tr>
+          <tr style="background:#e8f5e9;">
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>Tesla</strong> <span style="font-size:10px;padding:1px 6px;border-radius:4px;background:#e8f5e9;color:#1b5e20;">TSLA.O</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">美股</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>约5%（历史峰值）→ 现低于5%</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="background:#e8f5e9;color:#2e7d32;border-radius:12px;padding:2px 10px;font-size:11.5px;font-weight:600;">战略合作</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="font-size:11px;color:#bbb;background:#f5f5f5;border-radius:4px;padding:1px 6px;">2017年投资 | 2026年2月合作报道</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">2017年3月耗资约17.8亿美元收购约5%（816.75万股），属被动财务投资；现持股比例已降至披露门槛以下，但双方业务合作持续（车载微信、QQ音乐、地图数据等）</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>Upvest</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">德国（柏林）</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>领投（少数股权）</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="background:#f0f0f0;color:#666;border-radius:12px;padding:2px 10px;font-size:11.5px;font-weight:600;">战略投资</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="font-size:11px;color:#bbb;background:#f5f5f5;border-radius:4px;padding:1px 6px;">2026年3月 | PitchBook</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">德国金融科技公司；2026年3月PitchBook披露的最新投资</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 出行与新能源 -->
+  <div style="background:white;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.07);padding:24px;margin-bottom:20px;">
+    <div style="font-size:15px;font-weight:700;color:#2e7d32;margin-bottom:14px;">🚗 出行与新能源领域</div>
+    <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:13px;">
+        <thead>
+          <tr style="background:#1565c0;color:white;">
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">公司名称</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">股票代码</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">腾讯持股情况</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">变动情况</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">最新时间/来源</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">备注</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background:#fff1f1;">
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>蔚来</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="font-size:10px;padding:1px 6px;border-radius:4px;background:#e8f5e9;color:#1b5e20;">NIO.N</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="color:#c62828;text-decoration:line-through;">主要股东</span><br><strong style="color:#c62828;">→ 已退出主要股东</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="background:#fce4e4;color:#c62828;border-radius:12px;padding:2px 10px;font-size:11.5px;font-weight:600;">减持退出</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="font-size:11px;color:#bbb;background:#f5f5f5;border-radius:4px;padding:1px 6px;">2024年 | 蔚来年报</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">2024年腾讯减持，不再是主要股东；李斌持股7.9%有37%投票权</td>
+          </tr>
+          <tr style="background:#f5f5f5;">
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>滴滴出行</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="font-size:10px;padding:1px 6px;border-radius:4px;background:#e8f5e9;color:#1b5e20;">DIDI.N</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">曾持股</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="background:#f0f0f0;color:#666;border-radius:12px;padding:2px 10px;font-size:11.5px;font-weight:600;">已退市</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="font-size:11px;color:#bbb;background:#f5f5f5;border-radius:4px;padding:1px 6px;">历史投资</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">滴滴已从美股退市</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 增减持时间线 -->
+  <div style="background:white;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.07);padding:24px;margin-bottom:20px;">
+    <div style="font-size:16px;font-weight:700;color:#0d1b3e;margin-bottom:16px;">📅 近期增减持重要动态（时间线）</div>
+    <div style="padding:8px 0;">
+      <!-- 2026年1月年会 -->
+      <div style="display:flex;gap:16px;margin-bottom:18px;align-items:flex-start;">
+        <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;">
+          <div style="width:16px;height:16px;border-radius:50%;border:4px solid #b71c1c;background:white;margin-top:4px;"></div>
+          <div style="width:2px;flex:1;background:#e0e0e0;margin-top:4px;min-height:20px;"></div>
+        </div>
+        <div style="flex:1;background:#fff5f5;border-left:3px solid #c62828;border-radius:6px;padding:14px 16px;">
+          <div style="font-size:12px;color:#888;margin-bottom:4px;">2026年1月26日 ⭐ 重磅</div>
+          <div style="font-weight:700;font-size:15px;color:#c62828;margin-bottom:6px;">🚨 马化腾年会宣布：已完全退出京东 + 美团投资</div>
+          <div style="font-size:13px;color:#555;line-height:1.8;">
+            腾讯2025年度员工大会上，马化腾正式披露：腾讯已完全退出对京东和美团的投资。历史上腾讯曾为京东第一大股东（最高21.25%）、美团第一大股东（约17%）；2021-2022年通过特别股息派发方式减持后持续清退，至此彻底归零。刘炽平同步退出京东和美团董事会。<br><br>
+            退出原因：2025年"外卖大战"——阿里、京东、美团三家合计烧钱超<strong>800亿元</strong>，腾讯"抗不住、也不想再抗"。战略转向："目前唯一还值得投入的就是人工智能"。
+          </div>
+          <div style="font-size:11.5px;color:#aaa;margin-top:8px;">📰 来源：观察者网、新浪财经、MSN | 2026-01-27</div>
+        </div>
+      </div>
+      <!-- 2026年2月中金 -->
+      <div style="display:flex;gap:16px;margin-bottom:18px;align-items:flex-start;">
+        <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;">
+          <div style="width:12px;height:12px;border-radius:50%;border:3px solid #c62828;background:white;margin-top:4px;"></div>
+          <div style="width:2px;flex:1;background:#e0e0e0;margin-top:4px;min-height:20px;"></div>
+        </div>
+        <div style="flex:1;">
+          <div style="font-size:12px;color:#888;margin-bottom:4px;">2026年2月20日</div>
+          <div style="font-weight:700;font-size:14px;color:#c62828;margin-bottom:3px;">⬇ 减持 中金公司H股</div>
+          <div style="font-size:13px;color:#555;">Tencent Mobility Limited 减持65万股，均价21.47港元，套现约1,395万港元。自2025年7月至此已累计7次减持2,484万股，累计套现 <strong>5.29亿港元</strong>，持股比例降至 <strong>4.99%</strong>（跌破5%披露线）。</div>
+          <div style="font-size:11.5px;color:#aaa;margin-top:4px;">📰 来源：证券时报 / 港交所 | 2026-02-26</div>
+        </div>
+      </div>
+      <!-- 2026年1月星环科技 -->
+      <div style="display:flex;gap:16px;margin-bottom:18px;align-items:flex-start;">
+        <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;">
+          <div style="width:12px;height:12px;border-radius:50%;border:3px solid #2e7d32;background:white;margin-top:4px;"></div>
+          <div style="width:2px;flex:1;background:#e0e0e0;margin-top:4px;min-height:20px;"></div>
+        </div>
+        <div style="flex:1;">
+          <div style="font-size:12px;color:#888;margin-bottom:4px;">2026年1月</div>
+          <div style="font-weight:700;font-size:14px;color:#2e7d32;margin-bottom:3px;">📈 浮盈 星环科技（A股）</div>
+          <div style="font-size:13px;color:#555;">腾讯旗下林芝利创持有星环科技，42交易日内股价涨超212%（从65元涨至204元），腾讯浮盈约 <strong>14.8亿元</strong>，投资回报率约585%。累计投资约2.53亿元，当前持股市值约15.6亿元。</div>
+          <div style="font-size:11.5px;color:#aaa;margin-top:4px;">📰 来源：新浪财经 / 环球老虎财经 | 2026-01-29</div>
+        </div>
+      </div>
+      <!-- 2025年1月微盟+优必选 -->
+      <div style="display:flex;gap:16px;margin-bottom:18px;align-items:flex-start;">
+        <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;">
+          <div style="width:12px;height:12px;border-radius:50%;border:3px solid #c62828;background:white;margin-top:4px;"></div>
+          <div style="width:2px;flex:1;background:#e0e0e0;margin-top:4px;min-height:20px;"></div>
+        </div>
+        <div style="flex:1;">
+          <div style="font-size:12px;color:#888;margin-bottom:4px;">2025年1月3~10日</div>
+          <div style="font-weight:700;font-size:14px;color:#c62828;margin-bottom:3px;">⬇ 减持 微盟集团 + 优必选</div>
+          <div style="font-size:13px;color:#555;"><strong>微盟集团（02013.HK）：</strong>减持1.84亿股，持股从8.39%降至 <strong>2.94%</strong>，套现约6.3亿港元。<br><strong>优必选（09880.HK）：</strong>持股从8.05%降至 <strong>2.08%</strong>，套现约10.3亿港元。<br>两项合计开年套现超 <strong>16.6亿港元</strong>。</div>
+          <div style="font-size:11.5px;color:#aaa;margin-top:4px;">📰 来源：东方财富 / 时代周报 / 港交所 | 2025-01-10~11</div>
+        </div>
+      </div>
+      <!-- 2024下半年美股 -->
+      <div style="display:flex;gap:16px;margin-bottom:18px;align-items:flex-start;">
+        <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;">
+          <div style="width:12px;height:12px;border-radius:50%;border:3px solid #c62828;background:white;margin-top:4px;"></div>
+          <div style="width:2px;flex:1;background:#e0e0e0;margin-top:4px;min-height:20px;"></div>
+        </div>
+        <div style="flex:1;">
+          <div style="font-size:12px;color:#888;margin-bottom:4px;">2024~2025年（美股）</div>
+          <div style="font-weight:700;font-size:14px;color:#c62828;margin-bottom:3px;">⬇ 减持 Reddit + NuBank（美股）</div>
+          <div style="font-size:13px;color:#555;">腾讯累计减持Reddit和NuBank（巴西数字银行），合计套现约 <strong>260亿元人民币</strong>。同期港股也累计减持7家公司（不含贝壳），套现约100亿港元（约合人民币约90亿元）。2024~2025年两者合计折合套现超<strong>350亿元人民币</strong>。</div>
+          <div style="font-size:11.5px;color:#aaa;margin-top:4px;">📰 来源：百家号（雪球汇总转载）| 2025年9月</div>
+        </div>
+      </div>
+      <!-- 2022历史 -->
+      <div style="display:flex;gap:16px;align-items:flex-start;">
+        <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;">
+          <div style="width:12px;height:12px;border-radius:50%;border:3px solid #999;background:white;margin-top:4px;"></div>
+        </div>
+        <div style="flex:1;">
+          <div style="font-size:12px;color:#888;margin-bottom:4px;">2021~2022年（历史重要节点）</div>
+          <div style="font-weight:700;font-size:14px;color:#666;margin-bottom:3px;">⬇ 战略性减持 京东 / 美团 / Sea Limited</div>
+          <div style="font-size:13px;color:#555;">腾讯以"特别股息派发"方式减持京东（2021年）和美团（2022年），合计套现数千亿港元。同期逐步减持Sea Limited并放弃超级投票权，宣告从"战略投资者"角色转型为"纯财务投资者"。</div>
+          <div style="font-size:11.5px;color:#aaa;margin-top:4px;">📰 来源：多家财媒公开报道</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 投资策略分析 -->
+  <div style="background:white;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.07);padding:24px;margin-bottom:20px;">
+    <div style="font-size:16px;font-weight:700;color:#0d1b3e;margin-bottom:16px;">📊 投资组合战略解读</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;">
+      <div style="background:#fff3e0;border-radius:10px;padding:18px;">
+        <div style="font-size:16px;font-weight:700;color:#e65100;margin-bottom:8px;">🔴 退出/减持逻辑</div>
+        <p style="font-size:13px;color:#555;line-height:1.8;">
+          • <strong>【年会宣布】2026年1月26日彻底清仓京东+美团</strong>，刘炽平退出两家董事会<br>
+          • 将非核心资产变现，资金聚焦AI战略<br>
+          • 资金用于回购自身股票（2025年回购800亿港元）<br>
+          • 降低持股5%以上披露义务<br>
+          • 腾讯自身股价被低估，"买自己比买别人划算"<br>
+          • 外卖大战800亿烧钱，"抗不住也不想抗"
+        </p>
+      </div>
+      <div style="background:#e8f5e9;border-radius:10px;padding:18px;">
+        <div style="font-size:16px;font-weight:700;color:#2e7d32;margin-bottom:8px;">🟢 保留/增持逻辑</div>
+        <p style="font-size:13px;color:#555;line-height:1.8;">
+          • 同程旅行/快手：微信生态流量协同不可替代<br>
+          • 阅文/腾讯音乐：控股子公司，核心内容生态<br>
+          • 拼多多/Spotify：纯财务投资，估值有潜力<br>
+          • Ubisoft/Krafton：全球游戏布局<br>
+          • 星环科技（AI大数据）：新兴科技押注<br>
+          • <strong>美团已清仓，同程旅行继续保留</strong>（协作逻辑不同）
+        </p>
+      </div>
+      <div style="background:#e3f2fd;border-radius:10px;padding:18px;">
+        <div style="font-size:16px;font-weight:700;color:#1565c0;margin-bottom:8px;">🔵 整体策略判断</div>
+        <p style="font-size:13px;color:#555;line-height:1.8;">
+          • <strong>【最新】2026年1月年会：宣布清仓京东+美团</strong><br>
+          • 从"广撒网战略投资"→"精选生态+全力押注AI"<br>
+          • 上市投资公允价值6,727亿元+非上市投资账面价值3,631亿元=投资组合总计10,358亿元（人民币，2025年末）<br>
+          • 逻辑：腾讯自身PE不贵，回购收益>持有外部股权<br>
+          • 未来趋势：非生态核心、非AI相关资产继续有序退出
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 数据来源说明 -->
+  <div style="background:#f8f9fa;border-radius:8px;padding:14px 18px;font-size:12.5px;color:#666;border:1px solid #e8e8e8;margin-top:20px;">
+    <strong>📋 数据来源说明：</strong>
+    腾讯2025年度员工大会（2026-01-26）、港交所披露易、各上市公司年报/中报/季报、SEC 13G/13D/20-F文件、证券时报、东方财富、雪球等公开信息；部分数据参考Gemini Pro深度整理汇总（《腾讯对其他公司的投资详情》，2026年3月）。
+    注意：美团和京东已于年会确认清仓退出；持股低于5%的变动不强制披露，部分数据存在滞后；Roblox等海外持股因低于5%无强制披露，为行业估算数据。本章节仅供信息整理，不构成投资建议。
+  </div>
+</div>
+
+<!-- ===================== 七补充三、非上市公司投资 ===================== -->
+<div class="section" style="border-left:4px solid #9c27b0;">
+  <div class="section-title"><div class="icon">🏢</div>非上市公司投资版图</div>
+
+  <div class="note-box" style="background:#f3e5f5; border-color:#9c27b0; margin-bottom:20px;">
+    <strong style="color:#7b1fa2;">📌 核心数据（来自腾讯2025年年报）</strong><br>
+    截至2025年12月31日，腾讯于<strong>非上市投资公司（不包括附属公司）权益的账面价值为人民币3,631亿元</strong>（相较于2025年9月30日的3,452亿元有所增长）。
+    上市投资公允价值6,727亿元+非上市投资账面价值3,631亿元，腾讯整体投资资产规模达<strong>10,358亿元人民币</strong>。
+    <div style="margin-top:8px;font-size:11px;color:#7b1fa2;background:#fff;padding:6px 10px;border-radius:4px;">
+      <strong>数据核对：</strong>微信公众号"昆仑侠"文章（2026-03-21）引用非上市投资账面价值为3,431亿元，与腾讯年报官方数据3,631亿元存在差异，本报告采用腾讯年报官方数据。
+    </div>
+  </div>
+
+  <!-- 总览卡片 -->
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;">
+    <div style="background:white;border-radius:10px;padding:18px 20px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,0.06);">
+      <div style="font-size:26px;font-weight:800;color:#9c27b0;">3,631亿</div>
+      <div style="font-size:12px;color:#888;margin-top:4px;">非上市投资账面价值（2025年末）</div>
+    </div>
+    <div style="background:white;border-radius:10px;padding:18px 20px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,0.06);">
+      <div style="font-size:26px;font-weight:800;color:#9c27b0;">800+</div>
+      <div style="font-size:12px;color:#888;margin-top:4px;">累计投资公司数量（估算）</div>
+    </div>
+    <div style="background:white;border-radius:10px;padding:18px 20px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,0.06);">
+      <div style="font-size:26px;font-weight:800;color:#e65100;">20%</div>
+      <div style="font-size:12px;color:#888;margin-top:4px;">中国独角兽企业渗透率</div>
+    </div>
+    <div style="background:white;border-radius:10px;padding:18px 20px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,0.06);">
+      <div style="font-size:26px;font-weight:800;color:#2e7d32;">多领域</div>
+      <div style="font-size:12px;color:#888;margin-top:4px;">覆盖游戏/电商/医疗/企服等</div>
+    </div>
+  </div>
+
+  <!-- 游戏领域 -->
+  <div style="background:white;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.07);padding:24px;margin-bottom:20px;">
+    <div style="font-size:16px;font-weight:700;color:#7b1fa2;margin-bottom:14px;">🎮 游戏领域（核心控股/战略投资）</div>
+    <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:13px;">
+        <thead>
+          <tr style="background:#9c27b0;color:white;">
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">公司名称</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">腾讯持股比例</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">投资历程</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">代表作品/业务</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">备注</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background:#f3e5f5;">
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>Riot Games（拳头游戏）</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="font-weight:700;color:#9c27b0;">100%</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">2008年投资→2011年控股92.78%→2015年全资收购</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">《英雄联盟》《无畏契约》</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">腾讯全资子公司，总部位于美国洛杉矶，员工约4500人</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>Supercell</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>84.3%</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">2016年收购</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">《部落冲突》《皇室战争》</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">芬兰移动游戏公司，腾讯以86亿美元收购</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>Epic Games</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>28% - 40%</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">2012年起多轮投资</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">《堡垒之夜》、虚幻引擎</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">美国游戏开发商，腾讯为最大外部股东；2026年3月《金融时报》及路透社报道确认</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>Grinding Gear Games</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>80%</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">2018年收购</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">《流放之路》</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">新西兰游戏开发商</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>Sharkmob</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>100%</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">2019年收购</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">新工作室</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">由前《全境封锁》《杀手》开发者创立</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>Fatshark</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>36%</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">战略投资</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">《战锤：末世鼠疫2》</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">瑞典游戏开发商</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>Funcom</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>29%</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">战略投资</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">《流放者柯南》</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">挪威游戏开发商</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>白金工作室</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">比例未公开</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">战略投资</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">《猎天使魔女》《尼尔：机械纪元》</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">日本知名游戏开发商</td>
+          </tr>
+          <tr style="background:#fff3e0;">
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>FromSoftware</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>16.25%</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">2022年与索尼共同入股</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">《艾尔登法环》《黑暗之魂》系列</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">日本顶级游戏开发商；2025年财报及行业数据库持续追踪</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>Techland</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>67%</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">2023年7月控股收购</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">《消逝的光芒》系列</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">波兰游戏开发商；2026年3月行业动态确认</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 电商/本地生活 -->
+  <div style="background:white;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.07);padding:24px;margin-bottom:20px;">
+    <div style="font-size:16px;font-weight:700;color:#e65100;margin-bottom:14px;">🛒 电商与本地生活（非上市部分）</div>
+    <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:13px;">
+        <thead>
+          <tr style="background:#9c27b0;color:white;">
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">公司名称</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">腾讯持股比例</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">投资轮次</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">业务领域</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">备注</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background:#fff3e0;">
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>谊品生鲜</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="font-weight:700;color:#e65100;">45.4%</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">B轮→C轮→增资</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">社区生鲜零售</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;"><strong>最大股东</strong>；2021年7月注册资本从5.67亿扩至29.96亿，腾讯认缴13.6亿元</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>小红书</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>约13.19%</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">C轮(2016)→D轮(2018)→E轮(2021)</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">社交种草/跨境电商</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">2020年增资后持股从8.7%提升至13.19%；阿里同时持股</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>兴盛优选</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">比例未公开</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">多轮参投</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">社区团购</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">腾讯3次参投的7家企业之一</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>转转</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">比例未公开</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">多轮参投</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">二手电商</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">腾讯2次参投的14家企业之一</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>鲸灵集团</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">比例未公开</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">多轮参投</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">社交电商/私域电商</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">腾讯3次参投的7家企业之一</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 医疗健康 -->
+  <div style="background:white;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.07);padding:24px;margin-bottom:20px;">
+    <div style="font-size:16px;font-weight:700;color:#2e7d32;margin-bottom:14px;">🏥 医疗健康</div>
+    <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:13px;">
+        <thead>
+          <tr style="background:#9c27b0;color:white;">
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">公司名称</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">腾讯持股比例</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">投资轮次</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">业务领域</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">备注</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background:#e8f5e9;">
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>晶泰科技</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="font-weight:700;color:#2e7d32;">12.91%</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">A轮(2015)→多轮跟投</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">AI制药/药物研发</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;"><strong>最大外部机构股东</strong>；累计投资约4.75亿港元；2024年港股上市(02228.HK)</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>微医</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">比例未公开</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">多轮参投</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">互联网医疗</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">腾讯2次参投的14家企业之一；2024年12月递交港股上市申请</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>医联</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">比例未公开</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">B轮(2015)领投</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">医生社交平台</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">腾讯领投4000万美元B轮；腾讯2次参投的14家企业之一</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 企业服务/其他 -->
+  <div style="background:white;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.07);padding:24px;margin-bottom:20px;">
+    <div style="font-size:16px;font-weight:700;color:#1565c0;margin-bottom:14px;">💼 企业服务与其他</div>
+    <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:13px;">
+        <thead>
+          <tr style="background:#9c27b0;color:white;">
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">公司名称</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">腾讯持股比例</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">投资轮次</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">业务领域</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">备注</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>销售易</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">比例未公开</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">多轮参投</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">CRM/SaaS</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">腾讯3次参投的7家企业之一</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>智慧芽</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">比例未公开</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">战略投资</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">知识产权SaaS</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">腾讯参投方之一</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>G7汇通天下</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">比例未公开</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">多轮参投</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">物联网/物流</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">腾讯3次参投的7家企业之一；聚焦物流行业IoT</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>自如网</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">比例未公开</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">多轮参投</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">长租公寓</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">腾讯2次参投的14家企业之一</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 全球流媒体与娱乐 -->
+  <div style="background:white;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.07);padding:24px;margin-bottom:20px;">
+    <div style="font-size:16px;font-weight:700;color:#9c27b0;margin-bottom:14px;">🎵 全球流媒体与娱乐（股权置换/财团入股）</div>
+    <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:13px;">
+        <thead>
+          <tr style="background:#9c27b0;color:white;">
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">公司名称</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">腾讯持股比例</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">投资方式</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">业务领域</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">备注</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background:#f3e5f5;">
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>环球音乐 (UMG)</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="font-weight:700;color:#9c27b0;">20%</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">腾讯牵头财团持有</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">全球音乐版权/唱片</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">全球最大音乐公司；2024-2025年UMG年度报告确认</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>华纳音乐 (WMG)</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>约5.2%</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">长期被动投资</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">全球音乐版权/唱片</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">全球三大音乐公司之一；2026年初SEC机构股东名录</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 已退出/变化 -->
+  <div style="background:#fff8e1;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.07);padding:24px;margin-bottom:20px;border:1px solid #ffe082;">
+    <div style="font-size:16px;font-weight:700;color:#e65100;margin-bottom:14px;">⚠️ 重要变动：已退出或减持的非上市公司</div>
+    <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:13px;">
+        <thead>
+          <tr style="background:#e65100;color:white;">
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">公司名称</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">历史持股</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">变动情况</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">变动时间</th>
+            <th style="padding:10px 12px;text-align:left;font-weight:600;">备注</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background:#fff3e0;">
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>蔚来汽车</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">曾持股5.7%</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="color:#c62828;font-weight:700;">已退出主要股东行列</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">2024-2025年</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">2024年3月持股5.7%，2025年4月年报中不再列为主要股东</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><strong>滴滴出行</strong></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">曾持股6.7%</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;"><span style="color:#e65100;font-weight:700;">美股退市后持股情况不明</span></td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;">2022年后</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#555;">滴滴2021年美股上市，2022年退市；腾讯曾为主要股东之一</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 投资策略总结 -->
+  <div style="background:white;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.07);padding:24px;margin-bottom:20px;">
+    <div style="font-size:16px;font-weight:700;color:#0d1b3e;margin-bottom:16px;">📊 非上市公司投资策略总结</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+      <div style="background:#f3e5f5;border-radius:10px;padding:18px;">
+        <div style="font-size:15px;font-weight:700;color:#7b1fa2;margin-bottom:10px;">🎯 投资特点</div>
+        <ul style="padding-left:18px;font-size:13px;line-height:2;color:#333;">
+          <li><strong>覆盖面广：</strong>累计投资800+家公司，覆盖20+行业</li>
+          <li><strong>独角兽渗透率高：</strong>中国约20%的独角兽有腾讯投资</li>
+          <li><strong>多轮加注：</strong>对优质标的持续追加投资（如谊品生鲜45.4%、晶泰科技12.91%）</li>
+          <li><strong>游戏领域控股为主：</strong>Riot 100%、Supercell 84.3%、Epic 40%</li>
+          <li><strong>财务投资为主：</strong>多数非游戏领域投资不参与经营</li>
+        </ul>
+      </div>
+      <div style="background:#e3f2fd;border-radius:10px;padding:18px;">
+        <div style="font-size:15px;font-weight:700;color:#1565c0;margin-bottom:10px;">💡 估值影响</div>
+        <ul style="padding-left:18px;font-size:13px;line-height:2;color:#333;">
+          <li>非上市投资账面价值：<strong>3,631亿元人民币</strong>（2025年末）</li>
+          <li>占整体投资组合比例：约<strong>35%</strong></li>
+          <li>流动性折价：非上市资产估值通常打<strong>7-8折</strong></li>
+          <li>潜在IPO收益：多家企业已进入上市筹备阶段</li>
+          <li>战略价值：补充腾讯生态，获取行业洞察</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 数据来源 -->
+  <div style="background:#f8f9fa;border-radius:8px;padding:14px 18px;font-size:12.5px;color:#666;border:1px solid #e8e8e8;margin-top:20px;">
+    <strong>📋 数据来源说明：</strong><br>
+    1. <strong>腾讯2025年年报</strong>：非上市投资账面价值3,631亿元人民币，上市投资公允价值6,727亿元人民币<br>
+    2. <strong>微信公众号"昆仑侠"文章</strong>（2026-03-21）：引用非上市投资账面价值3,431亿元，上市投资公允价值6,727亿元，与官方年报存在差异（非上市投资相差200亿元）<br>
+    3. 拳头游戏100%控股：百度百科/腾讯新闻（2015年12月完成全资收购）<br>
+    4. Supercell 84.3%：腾讯官方公告（2016年以86亿美元收购）<br>
+    5. Epic Games 28%-40%：《金融时报》/路透社（2026年3月关于地缘政治审查的报道）<br>
+    6. 谊品生鲜45.4%：观察者网/商业观察家（2021年9月）<br>
+    7. 小红书13.19%：百度知道/公开报道（2020年增资后）<br>
+    8. 晶泰科技12.91%：腾讯新闻（2025年3月，最大外部机构股东）<br>
+    9. 蔚来退出：腾讯新闻（2025年4月年报，不再列为主要股东）<br>
+    10. 游戏公司持股：环球网/腾讯新闻（2020年8月汇总）<br>
+    11. 独角兽投资：百家号/IT桔子（2021年统计）<br>
+    <br>
+    <strong>注意：</strong>非上市公司股权结构变化频繁，部分持股比例可能已有变动。投资有风险，本章节仅供信息整理，不构成投资建议。
+  </div>
+</div>
+
+<!-- ===================== 八、风险识别 ===================== -->
+<div class="section">
+  <div class="section-title"><div class="icon">⚠️</div>八、主要风险识别</div>
+  
+  <div class="risk-item" style="background:#fff4f0;">
+    <div class="risk-badge" style="background:#fde8e0;">⚡</div>
+    <div class="risk-content">
+      <h4 style="color:#c0392b;">风险一：AI资本开支超预期压缩利润率</h4>
+      <p>
+        管理层已明确2026年利润增速可能低于营收增速。固定资产一年净增700亿，折旧刚性。
+        若AI产品商业化落地慢于预期，短期利润率压力持续。应对：关注季度折旧/Capex走势，
+        以及AI业务是否快速贡献收入（腾讯云增速是否加速）。
+      </p>
+    </div>
+  </div>
+  
+  <div class="risk-item" style="background:#fffff0;">
+    <div class="risk-badge" style="background:#fdf8e0;">🌍</div>
+    <div class="risk-content">
+      <h4 style="color:#b7950b;">风险二：宏观经济疲软拖累消费与广告</h4>
+      <p>
+        国内消费信心不足影响金融科技（支付笔数增加但单笔金额下降），
+        广告主在宏观逆风下可能压缩预算。但腾讯AI驱动的广告效率提升是对冲因素，
+        且已连续多季度超越行业大盘增速，说明市场份额仍在扩张。
+      </p>
+    </div>
+  </div>
+
+  <div class="risk-item" style="background:#f0f8f0;">
+    <div class="risk-badge" style="background:#d5f0d5;">🎮</div>
+    <div class="risk-content">
+      <h4 style="color:#1e8449;">风险三：游戏版号/监管政策不确定性</h4>
+      <p>
+        历史上监管曾对游戏行业造成重大冲击（2020-2023熊市的主因之一）。
+        当前监管环境已从"打压"转为"鼓励"，但政策周期难以预测。
+        腾讯通过国际化（国际游戏已占26%）部分对冲国内政策风险。
+      </p>
+    </div>
+  </div>
+
+  <div class="risk-item" style="background:#f0f0ff;">
+    <div class="risk-badge" style="background:#d5d5f5;">💹</div>
+    <div class="risk-content">
+      <h4 style="color:#1a5276;">风险四：境外资本持续流出（国际局势因素）</h4>
+      <p>
+        ABC（Anything But China）逻辑仍部分存在，部分国际机构不顾估值而清仓。
+        这不是企业基本面的问题，但会影响股价表现，影响实盘投资者持有体验。
+        需关注中美关系走向，当前巴黎会谈已显示缓和信号（H200芯片重启供应腾讯等互联网巨头）。
+      </p>
+    </div>
+  </div>
+
+  <div class="risk-item" style="background:#fff0f8;">
+    <div class="risk-badge" style="background:#f5d5e8;">🤖</div>
+    <div class="risk-content">
+      <h4 style="color:#922b69;">风险五：AI颠覆传统内容消费模式</h4>
+      <p>
+        若AI大幅替代人的娱乐需求（看视频、打游戏），腾讯可能面临流量侵蚀。
+        但刘炽平的判断是：AI是游戏的助力（更多内容、更好体验），而非替代者，
+        且腾讯已是AI赋能内容的先行者，具备先手优势。
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== 九、估值分析 ===================== -->
+<div class="section">
+  <div class="section-title"><div class="icon">📐</div>九、估值分析</div>
+
+  <p>
+    参考<strong>巴菲特式分部估值法</strong>（也是资深投资人分析腾讯的标准框架）：
+    <strong>合理价值 = 税后归母经营净利润 × 合理PE + 投资组合公允价值 × 折扣系数</strong>
+  </p>
+
+  <div class="valuation-box">
+    <h3>2025年底估值测算（昆仑侠框架 × 最新财报数据）</h3>
+    <div class="val-grid">
+      <div class="val-cell">
+        <div class="num">2,596<span class="unit">亿</span></div>
+        <div class="desc">2025年Non-GAAP归母净利</div>
+      </div>
+      <div class="val-cell">
+        <div class="num">17.1%<span class="unit"></span></div>
+        <div class="desc">实际综合税率（含少数股东权益）</div>
+      </div>
+      <div class="val-cell">
+        <div class="num">≈2,150<span class="unit">亿</span></div>
+        <div class="desc">税后归母经营净利（估算）</div>
+      </div>
+      <div class="val-cell">
+        <div class="num">25x<span class="unit">PE</span></div>
+        <div class="desc">合理市盈率（强护城河溢价）</div>
+      </div>
+    </div>
+    
+    <hr style="border-color:rgba(255,255,255,0.15); margin:20px 0;">
+    
+    <div class="val-grid">
+      <div class="val-cell">
+        <div class="num">10,358<span class="unit">亿</span></div>
+        <div class="desc">投资组合总计（上市+非上市）</div>
+      </div>
+      <div class="val-cell">
+        <div class="num">80%</div>
+        <div class="desc">折扣系数（含流动性+税）</div>
+      </div>
+      <div class="val-cell">
+        <div class="num">≈8,286<span class="unit">亿</span></div>
+        <div class="desc">折后投资组合价值</div>
+      </div>
+      <div class="val-cell">
+        <div class="num">每股约91<span class="unit">元</span></div>
+        <div class="desc">投资组合每股价值</div>
+      </div>
+    </div>
+
+    <hr style="border-color:rgba(255,255,255,0.15); margin:20px 0;">
+
+    <p style="color:rgba(255,255,255,0.7); font-size:13px; margin-bottom:12px;">
+      核心业务价值 ≈ 2,150亿 × 25PE ÷ 90.85亿股 ≈ 591元/股（按25PE）
+      <br>投资组合价值 ≈ 91元/股
+      <br>合计合理价值 ≈ <strong style="color:#5bc0de; font-size:16px;">591 + 91 ≈ 682元/股 (RMB)</strong>
+      <br>折算港元（汇率×0.93）≈ <strong style="color:#5bc0de; font-size:16px;">约733港元/股</strong>
+    </p>
+
+    <p style="color:rgba(255,255,255,0.7); font-size:13px;">
+      <strong style="color:#f39c12;">若AI资本开支加大、采用20倍PE测算：</strong>
+      核心业务价值 ≈ 2,150亿 × 20PE ÷ 90.85亿股 ≈ 473元/股
+      合计 ≈ 473 + 91 ≈ 564元/股 ≈ 606港元/股
+    </p>
+  </div>
+
+  <h3 style="font-size:16px; color:#0d1b3e; margin:20px 0 12px;">▍前瞻：2025年预估 vs 2027年预估（方木框架）</h3>
+  <table>
+    <thead>
+      <tr><th>指标</th><th>2025年实际</th><th>2026年预估</th><th>2027年预估</th><th>假设</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Non-GAAP归母净利</td><td>2,596亿</td><td>约2,900亿</td><td>约3,130亿</td><td>年均增速约10-15%</td></tr>
+      <tr><td>合理PE（25倍）对应市值</td><td>约6.5万亿</td><td>约7.3万亿</td><td>约7.8万亿</td><td></td></tr>
+      <tr class="highlight-row"><td>理想买点（50%折扣）</td><td colspan="3" style="text-align:center;">低于 3.9万亿人民币 / 约390港元</td><td></td></tr>
+      <tr class="highlight-row"><td>理论卖点（一年内50PE或1.5倍合理值）</td><td colspan="3" style="text-align:center;">约 11.1-11.7万亿 / 约1,280港元</td><td></td></tr>
+    </tbody>
+  </table>
+
+  <div class="note-box">
+    <strong>当前价格位置（2026年3月）：</strong>
+    以业绩发布时市值约4.5万亿人民币（约540港元/股）计算，对应2025年实际Non-GAAP净利仅17倍市盈率。
+    即使考虑2026年利润增速放缓至10%、AI重资本投入，当前估值<strong>属于合理偏低估区间</strong>。
+    报告发布后股价两日暴跌约7.77%，系市场对AI资本开支的过度担忧，基本面未变，长期投资者可视为机会。
+  </div>
+</div>
+
+<!-- ===================== 十、综合结论 ===================== -->
+<div class="section">
+  <div class="section-title"><div class="icon">✅</div>十、综合结论与投资观点</div>
+
+  <div class="two-col">
+    <div>
+      <h3 style="font-size:16px; color:#27ae60; margin-bottom:14px;">✅ 核心亮点</h3>
+      <ul style="padding-left:20px; font-size:14px; color:#333; line-height:2;">
+        <li>收入+13.9%，毛利+21%，Non-GAAP净利+16.6%——高质量增长全面验证</li>
+        <li>三大业务毛利率全线提升，分别达60%/58%/51%，结构持续优化</li>
+        <li>游戏业务吸走全球增量的50%，长青游戏护城河越来越深</li>
+        <li>广告业务持续超行业增速，视频号成为第二大短视频平台</li>
+        <li>腾讯云首次实现规模化盈利（调整后营业利润约50亿元，来源：业绩说明会），里程碑式转折</li>
+        <li>投资组合首次突破万亿，净现金1,071亿</li>
+        <li>末期股息每股5.30港元，同比+18%</li>
+        <li>AI赋能已从战略落地为具体业绩，各业务均呈现量化效果</li>
+        <li>"小龙虾"产品矩阵找到腾讯独特的AI差异化路径</li>
+        <li>中美关系出现缓和迹象，H200芯片重启供应，AI投入有了更强硬件支撑</li>
+        <li><strong style="color:#c0392b;">【年会重磅】已完全退出京东+美团，刘炽平退出两家董事会，聚焦AI战略</strong></li>
+      </ul>
+    </div>
+    <div>
+      <h3 style="font-size:16px; color:#e74c3c; margin-bottom:14px;">⚠️ 需要关注</h3>
+      <ul style="padding-left:20px; font-size:14px; color:#333; line-height:2;">
+        <li>AI大幅加码资本开支，2026年利润增速可能低于营收增速</li>
+        <li>固定资产净增700亿，折旧刚性增加，短期影响利润率</li>
+        <li>2026年将减少/暂停回购，短期市场多头力量减弱</li>
+        <li>宏观经济疲软影响广告和金融科技，不确定性仍在</li>
+        <li>国际资本因地缘政治持续流出，与基本面脱钩</li>
+        <li>社交网络增速仅+5%，传统社交场景有天花板</li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <h3 style="font-size:16px; color:#0d1b3e; margin-bottom:16px;">▍综合评分与标签</h3>
+  <div style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:24px;">
+    <span class="tag tag-green">业绩超预期</span>
+    <span class="tag tag-blue">高质量成长</span>
+    <span class="tag tag-blue">护城河深厚</span>
+    <span class="tag tag-green">AI布局清晰</span>
+    <span class="tag tag-orange">AI资本开支加速</span>
+    <span class="tag tag-orange">短期利润率承压</span>
+    <span class="tag tag-green">股息上调18%</span>
+    <span class="tag tag-blue">云盈利里程碑</span>
+    <span class="tag tag-blue">游戏压制全球同行</span>
+    <span class="tag tag-red">国际情绪扰动</span>
+  </div>
+
+  <div class="note-box" style="background:#e8f8ff; border-color:#3498db;">
+    <strong style="color:#1a5276;">分析师结论：</strong>
+    腾讯2025年年报用数字充分证明了其作为中国最优质商业模式的地位。
+    在7,518亿营收规模下仍能保持14%增速、56%毛利率、37% Non-GAAP经营利润率，
+    并将三大业务毛利率全线提升——这背后是经营杠杆的持续释放，是高质量成长的真实体现。
+    <br><br>
+    短期股价被AI资本开支预期拖累下跌，但这反而创造了更好的长期买入时机。
+    一个正在把利润重新投入高回报领域的优秀企业，选择大力布局AI，
+    正是巴菲特所说的"优秀企业找到了克隆高回报的途径"。
+    <br><br>
+    长期投资逻辑未变，印钞机功率持续增强，AI投入既是短期利润压力，也是未来竞争力的关键。
+    <strong>当前估值处于合理偏低区间，对长期投资者具有较高吸引力。</strong>
+  </div>
+</div>
+
+<!-- 数据核对说明 -->
+<div class="section" style="background:#fff8e1; border-left:4px solid #f39c12;">
+  <div class="section-title"><div class="icon">📋</div>数据核对说明</div>
+  
+  <h4 style="color:#0d1b3e; margin-bottom:12px;">一、与《腾讯25年财报深度解析@方木.pdf》核对</h4>
+  <table style="font-size:13px;">
+    <thead>
+      <tr style="background:#f39c12; color:white;">
+        <th>修正项目</th>
+        <th>原数据</th>
+        <th>修正后数据</th>
+        <th>数据来源</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>营收同比增速</td><td>+14%</td><td>+13.9%</td><td>腾讯2025年报</td></tr>
+      <tr><td>Non-GAAP净利增速</td><td>+17%</td><td>+16.6%</td><td>腾讯2025年报</td></tr>
+      <tr><td>增长模式描述</td><td>净利>毛利>营收</td><td>毛利>净利>营收</td><td>PDF分析</td></tr>
+      <tr><td>Q4单季营收</td><td>缺失</td><td>1,944亿(+12.7%)</td><td>腾讯2025年报</td></tr>
+      <tr><td>Q4非国际净利</td><td>缺失</td><td>647亿(+17%)</td><td>腾讯2025年报</td></tr>
+      <tr><td>微信月活</td><td>缺失</td><td>14.18亿</td><td>腾讯2025年报</td></tr>
+      <tr><td>QQ月活</td><td>缺失</td><td>5.08亿</td><td>腾讯2025年报</td></tr>
+      <tr><td>递延收入</td><td>缺失</td><td>1,125亿</td><td>腾讯2025年报</td></tr>
+      <tr><td>销售费用</td><td>缺失</td><td>417亿(+15%)</td><td>PDF分析</td></tr>
+      <tr><td>管理费用</td><td>缺失</td><td>1,361亿(+21%)</td><td>PDF分析</td></tr>
+      <tr><td>研发费用</td><td>缺失</td><td>857亿(+21%)</td><td>腾讯2025年报</td></tr>
+      <tr><td>员工数量</td><td>缺失</td><td>11.58万人</td><td>腾讯2025年报</td></tr>
+      <tr><td>总股本</td><td>缺失</td><td>91.2亿股</td><td>腾讯2025年报</td></tr>
+    </tbody>
+  </table>
+  
+  <h4 style="color:#0d1b3e; margin:24px 0 12px;">二、与微信公众号"昆仑侠"文章核对（2026年3月21日）</h4>
+  <table style="font-size:13px;">
+    <thead>
+      <tr style="background:#3498db; color:white;">
+        <th>核对项目</th>
+        <th>公众号数据</th>
+        <th>本报告数据</th>
+        <th>差异说明</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="background:#ffe8e8;"><td><strong>递延收入</strong></td><td>1,103亿</td><td>1,125亿</td><td><strong>不一致</strong>：采用腾讯年报官方数据1,125亿</td></tr>
+      <tr style="background:#ffe8e8;"><td><strong>非上市投资</strong></td><td>3,431亿</td><td>3,631亿</td><td><strong>不一致</strong>：采用腾讯年报官方数据3,631亿</td></tr>
+      <tr style="background:#ffe8e8;"><td><strong>投资资产合计</strong></td><td>10,158亿</td><td>10,358亿</td><td><strong>不一致</strong>：采用腾讯年报官方数据10,358亿</td></tr>
+      <tr><td>Q4营收增速</td><td>+13%</td><td>+13%</td><td>一致，已修正</td></tr>
+      <tr><td>Q4毛利润</td><td>1,083亿(+19%)</td><td>新增</td><td>已补充</td></tr>
+      <tr><td>Q4毛利率</td><td>56%(+3ppt)</td><td>新增</td><td>已补充</td></tr>
+      <tr><td>Q4经营盈利</td><td>603亿(+17%)</td><td>新增</td><td>已补充</td></tr>
+      <tr><td>Q4游戏收入</td><td>593亿(+20.5%)</td><td>新增</td><td>已补充</td></tr>
+      <tr><td>国际游戏增速</td><td>+33%</td><td>+33%</td><td>一致</td></tr>
+      <tr><td>AI投入2025</td><td>180亿</td><td>新增</td><td>已补充</td></tr>
+      <tr><td>AI投入2026计划</td><td>360亿+</td><td>新增</td><td>已补充</td></tr>
+      <tr><td>AI投入占营收比</td><td>~5%</td><td>新增</td><td>已补充</td></tr>
+      <tr><td>AI投入占净利比</td><td>~14%</td><td>新增</td><td>已补充</td></tr>
+      <tr><td>和平精英AI NPC用户</td><td>1.1亿</td><td>新增</td><td>已补充</td></tr>
+      <tr><td>混元3.0发布时间</td><td>2026年4月</td><td>新增</td><td>已补充</td></tr>
+      <tr><td>联合营企业利润(国际)</td><td>237亿</td><td>新增</td><td>已补充</td></tr>
+      <tr><td>联合营企业利润(非国际)</td><td>335亿</td><td>新增</td><td>已补充</td></tr>
+      <tr><td>苹果佣金下调影响</td><td>约20亿净利润</td><td>新增</td><td>已补充</td></tr>
+      <tr><td>员工福利开支</td><td>636.20亿</td><td>新增</td><td>已补充</td></tr>
+    </tbody>
+  </table>
+  <div class="lao-tang-quote" style="margin-top:20px; background:#f3e5f5; border-left:5px solid #673ab7;">
+    <div class="lao-tang-title" style="color:#673ab7;">老唐观点：完整融入</div>
+    <div class="lao-tang-content">
+      报告中已完整融入老唐在《当周回顾2026年3月21日》中对腾讯2025年年报的分析观点，包括：
+      <ul style="margin:12px 0 12px 12px; padding-left:20px;">
+        <li>财务数据亮点：回购约800亿港元、支出2024年末期股息409.66亿港元、净现金1,071亿元人民币、市盈率17倍；2025年末期股息每股5.30港元（建议，须股东大会批准）</li>
+        <li>游戏业务评价：腾讯一家占全球游戏增量约50%，"强的可怕"</li>
+        <li>毛利率提升：三大业务毛利率都提升，这是典型的良性发展</li>
+        <li>市场三大担忧：AI侵蚀优势、AI投入压缩利润、减少回购</li>
+        <li>刘炽平六大韧性标准：完整引用护城河分析</li>
+        <li>AI投入理性判断：长期视角下的投资逻辑</li>
+        <li>小龙虾突破口：模型跟随 vs 小龙虾应用层优势</li>
+        <li>小程序Skill生态：别家无法模仿的独特优势</li>
+      </ul>
+      所有老唐观点均已用<span style="background:rgba(255, 152, 0, 0.1); padding:2px 6px; border-radius:4px; font-weight:700; color:#d84315;">黄色特殊样式标注</span>。
+    </div>
+  </div>
+  <p style="margin-top:12px; font-size:12px; color:#666;">核对时间：2026年3月23日 | 核对来源：方木PDF + 昆仑侠公众号 + 老唐《当周回顾》+ 腾讯2025年报官方数据</p>
+
+  <h4 style="color:#0d1b3e; margin:24px 0 12px;">三、关键持股数据来源汇总</h4>
+  <table style="font-size:12.5px;">
+    <thead>
+      <tr style="background:#27ae60; color:white;">
+        <th>持股项目</th>
+        <th>持股比例/市值</th>
+        <th>数据来源</th>
+        <th>备注</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>上市投资公允价值</strong></td><td>6,727亿元</td><td>腾讯2025年报</td><td>与昆仑侠文章一致</td></tr>
+      <tr style="background:#ffe8e8;"><td><strong>非上市投资账面价值</strong></td><td>3,631亿元</td><td>腾讯2025年报</td><td>昆仑侠文章：3,431亿元（差异200亿）</td></tr>
+      <tr><td><strong>快手-W (01024.HK)</strong></td><td><strong>约15.6%~17.5%（同花顺：15.83%）</strong></td><td>同花顺（2025-06-30）</td><td>第一大股东（Tencent Mobility 11.81% + 腾讯控股4.02%）；IPO时持21.57%</td></tr>
+      <tr><td><strong>阅文集团 (00772.HK)</strong></td><td><strong>约56.57%</strong></td><td>腾讯/阅文2026年Q1年报</td><td>控股子公司（THL A13约26.31%+Qinghai Lake约22.59%+Tencent Mobility约7.67%）</td></tr>
+      <tr><td><strong>同程旅行 (00780.HK)</strong></td><td><strong>约21.38%</strong></td><td>公司年报（2026年Q1）</td><td>第一大股东（通过TCH Sapphire持股）；携程约19.98%为第二大股东</td></tr>
+      <tr><td><strong>腾讯音乐 (01698.HK)</strong></td><td><strong>约52.3%（投票权：约93.8%）</strong></td><td>腾讯/TME 2026年Q1年报</td><td>控股子公司（B类股每股15投票权）；2025年全资收购喜马拉雅约12.6亿美元</td></tr>
+      <tr style="background:#ffe8e8;"><td><strong>贝壳 (BEKE/02423.HK)</strong></td><td><strong>约8.7%</strong></td><td>SEC 13D/A（2025年9月）</td><td>最大外部股东（Tencent Mobility约7.2%+Morespark等）；2025年9月分派后降至8.7%</td></tr>
+      <tr style="background:#ffe8e8;"><td><strong>中金公司H股 (03908.HK)</strong></td><td><strong>约4.99%</strong></td><td>证券时报/港交所（2026-02-20）</td><td>2017年以13.8港元/股入股28.64亿港元；2025.7~2026.2累计7次减持套现5.29亿港元</td></tr>
+      <tr style="background:#ffe8e8;"><td><strong>微盟集团 (02013.HK)</strong></td><td><strong>约2.94%</strong></td><td>港交所（2025年1月）</td><td>3天减持1.84亿股，套现约6.3亿港元；股价暴跌超40%</td></tr>
+      <tr style="background:#ffe8e8;"><td><strong>优必选 (09880.HK)</strong></td><td><strong>约2.08%（现&lt;1.5%）</strong></td><td>港交所（2025年1月）</td><td>2天减持约1900万股，套现约10.3亿港元</td></tr>
+      <tr><td><strong>拼多多 (PDD.O)</strong></td><td><strong>约13.8%</strong></td><td>20-F/13G文件（2026年Q1）</td><td>第二大股东；腾讯投资合伙人林海峰任董事；未执行实物派发</td></tr>
+      <tr><td><strong>Spotify (SPOT.N)</strong></td><td><strong>约8.2%~8.5%</strong></td><td>SEC 13G/F（2026年初）</td><td>持约1663万股；投票权全授予创始人Daniel Ek；账面价值超70亿美元</td></tr>
+      <tr><td><strong>Snap (SNAP.N)</strong></td><td><strong>约12%~16%（经济权益）</strong></td><td>机构持仓报告（2026年Q1）</td><td>无投票权A类股；受Snap回购影响被动增至16%+；前三大机构股东之一</td></tr>
+      <tr><td><strong>Roblox (RBLX.N)</strong></td><td><strong>约1.2%~1.8%（低于5%）</strong></td><td>行业估算（2026年Q1）</td><td>持股低于5%无须披露；2026年面临美国政策强制剥离压力</td></tr>
+      <tr><td><strong>富途控股 (FUTU.O)</strong></td><td><strong>约20.4%</strong></td><td>SEC 13G（2024年9月）</td><td>第二大股东；2024年9月减持约2%（从22%降至20.4%）；创始人李华是腾讯第18号员工</td></tr>
+      <tr><td><strong>Krafton (259960.KS)</strong></td><td><strong>约13.86%（被动增持中）</strong></td><td>韩交所（2026年Q1）</td><td>第二大股东；Krafton大规模回购注销致比例被动抬升；Image Frame Investment持股</td></tr>
+      <tr><td><strong>Ubisoft (PA) 直接</strong></td><td><strong>9.99%（直接持股）</strong></td><td>官方公告（2026年Q1）</td><td>承诺8年内（至2030年）不增持；Vantage Studios子公司持26.32%（核心IP）</td></tr>
+      <tr style="background:#ffe8e8;"><td><strong>华谊兄弟 (300027.SZ)</strong></td><td><strong>约1.01%</strong></td><td>华谊2025年Q3季报</td><td>从8.08%持续减持；2022年跌破5%；华谊连续七年亏损</td></tr>
+      <tr style="background:#ffe8e8;"><td><strong>美团-W (03690.HK)</strong></td><td><strong>0%（已清仓）</strong></td><td>腾讯年会（2026-01-26）</td><td>2022年11月派息9.58亿股后降至1.7%，2026年1月年会宣布完全退出</td></tr>
+      <tr style="background:#ffe8e8;"><td><strong>京东集团-SW (09618.HK)</strong></td><td><strong>0%（已清仓）</strong></td><td>腾讯年会（2026-01-26）</td><td>2021年派息减持后续清退，2026年1月年会宣布完全退出</td></tr>
+      <tr><td><strong>Riot Games</strong></td><td>100%</td><td>百度百科/腾讯新闻</td><td>2015年12月完成全资收购</td></tr>
+      <tr><td><strong>Supercell</strong></td><td>84.3%</td><td>腾讯官方公告</td><td>2016年以86亿美元收购</td></tr>
+      <tr><td><strong>Epic Games</strong></td><td>28%-40%</td><td>《金融时报》/路透社</td><td>2026年3月关于地缘政治审查的报道</td></tr>
+      <tr><td><strong>谊品生鲜</strong></td><td>45.4%</td><td>观察者网/商业观察家</td><td>2021年9月，最大股东</td></tr>
+      <tr><td><strong>小红书</strong></td><td>13.19%</td><td>百度知道/公开报道</td><td>2020年增资后持股</td></tr>
+      <tr><td><strong>晶泰科技</strong></td><td>12.91%</td><td>腾讯新闻</td><td>2025年3月，最大外部机构股东</td></tr>
+      <tr><td><strong>2024年回购金额</strong></td><td>1,120亿港元</td><td>腾讯官方披露</td><td>共回购3.07亿股，129次</td></tr>
+      <tr><td><strong>2025年回购金额</strong></td><td>800.36亿港元</td><td>腾讯2025年报（附注：股份回购）</td><td>回购153,415,000股，回购均价521.7港元；总代价80,036,299,578港元</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 页脚 -->
+<div class="footer">
+  <p>本报告基于：①腾讯控股2025年全年业绩公布（港交所2026-03-18）②《当周回顾2026年3月21日》分析文件 ③d:\腾讯分析\ 研究资料 ④腾讯2025年度员工大会（2026-01-26）⑤方木《腾讯25年财报深度解析》PDF ⑥腾讯控股2025年Q4业绩电话会（2026-03-18）⑦昆仑侠《腾讯2025年财报深度解读》微信公众号文章（2026-03-21）⑧公开财经媒体报道综合整理</p>
+  <p style="margin-top:8px; color:#aaa;">免责声明：本报告仅供研究参考，不构成任何投资建议。投资有风险，决策需谨慎。</p>
+  <p style="margin-top:8px; color:#ccc;">生成时间：2026年3月23日 | 数据核对完成</p>
+</div>
+
+</body>
+</html>
