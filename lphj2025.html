@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>老铺黄金（Laopu Gold）2025年财务分析报告</title>
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #F0D98A;
+    --gold-dark: #8B6914;
+    --gold-bg: #FDFAF3;
+    --gold-border: #E8D5A0;
+    --text-primary: #1A1A1A;
+    --text-secondary: #4A4A4A;
+    --text-muted: #7A7A7A;
+    --bg-white: #FFFFFF;
+    --bg-light: #F8F5EE;
+    --bg-section: #FFFDF7;
+    --red: #C0392B;
+    --green: #27AE60;
+    --blue: #2471A3;
+    --shadow: 0 2px 12px rgba(201,168,76,0.12);
+    --shadow-hover: 0 6px 24px rgba(201,168,76,0.22);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", "Source Han Sans CN", Arial, sans-serif;
+    background: #F4EFE4;
+    color: var(--text-primary);
+    line-height: 1.8;
+    font-size: 15px;
+  }
+
+  /* ── 顶部Banner ── */
+  .hero {
+    background: linear-gradient(135deg, #1A1208 0%, #3D2B08 40%, #6B4A10 100%);
+    color: #fff;
+    padding: 56px 40px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,168,76,0.18) 0%, transparent 70%);
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 30%;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,168,76,0.10) 0%, transparent 70%);
+  }
+  .hero-inner { max-width: 960px; margin: 0 auto; position: relative; z-index: 1; }
+  .hero-tag {
+    display: inline-block;
+    background: rgba(201,168,76,0.25);
+    border: 1px solid rgba(201,168,76,0.5);
+    color: var(--gold-light);
+    padding: 3px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.3;
+    margin-bottom: 12px;
+  }
+  .hero h1 span { color: var(--gold-light); }
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 20px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.65);
+  }
+  .hero-meta span { display: flex; align-items: center; gap: 5px; }
+
+  /* ── 主容器 ── */
+  .container { max-width: 960px; margin: 0 auto; padding: 32px 20px 60px; }
+
+  /* ── 核心KPI卡片 ── */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin: 28px 0;
+  }
+  .kpi-card {
+    background: var(--bg-white);
+    border-radius: 12px;
+    padding: 20px 16px;
+    box-shadow: var(--shadow);
+    border-top: 3px solid var(--gold);
+    text-align: center;
+    transition: box-shadow 0.2s;
+  }
+  .kpi-card:hover { box-shadow: var(--shadow-hover); }
+  .kpi-label { font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
+  .kpi-value { font-size: 22px; font-weight: 700; color: var(--gold-dark); }
+  .kpi-sub { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+  .kpi-badge {
+    display: inline-block;
+    background: #FEF5E0;
+    color: #8B6914;
+    border-radius: 10px;
+    padding: 1px 8px;
+    font-size: 11px;
+    margin-top: 4px;
+    font-weight: 600;
+  }
+  .kpi-badge.up { background: #FDECEA; color: var(--red); }
+
+  /* ── Section 通用 ── */
+  .section {
+    background: var(--bg-white);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    padding: 32px 36px;
+    margin-bottom: 24px;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid var(--gold-border);
+  }
+  .section-num {
+    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+    color: #fff;
+    width: 34px; height: 34px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 14px;
+    flex-shrink: 0;
+  }
+  .section-title { font-size: 20px; font-weight: 700; color: var(--text-primary); }
+  .section-sub { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+
+  h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--gold-dark);
+    margin: 22px 0 10px;
+    padding-left: 10px;
+    border-left: 3px solid var(--gold);
+  }
+  h3:first-child { margin-top: 0; }
+
+  p { margin: 8px 0; color: var(--text-secondary); }
+
+  /* ── 表格 ── */
+  .table-wrap { overflow-x: auto; margin: 14px 0; border-radius: 10px; box-shadow: 0 1px 6px rgba(0,0,0,0.06); }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  thead tr { background: linear-gradient(90deg, #3D2B08, #6B4A10); }
+  thead th { color: #fff; padding: 11px 14px; text-align: left; font-weight: 600; font-size: 13px; }
+  tbody tr { border-bottom: 1px solid #F0E8D0; }
+  tbody tr:nth-child(even) { background: #FDFAF3; }
+  tbody tr:last-child { border-bottom: none; }
+  tbody td { padding: 10px 14px; color: var(--text-secondary); }
+  .td-highlight { font-weight: 700; color: var(--gold-dark); }
+  .td-red { color: var(--red); font-weight: 600; }
+  .td-green { color: var(--green); font-weight: 600; }
+  .td-bold { font-weight: 700; color: var(--text-primary); }
+
+  /* ── 引用块 ── */
+  blockquote, .note {
+    background: #FEF9ED;
+    border-left: 4px solid var(--gold);
+    padding: 12px 16px;
+    margin: 14px 0;
+    border-radius: 0 8px 8px 0;
+    font-size: 13.5px;
+    color: #5A4A20;
+  }
+  blockquote strong, .note strong { color: var(--gold-dark); }
+
+  .insight {
+    background: linear-gradient(135deg, #FEF5E0, #FDF0CC);
+    border: 1px solid var(--gold-border);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin: 14px 0;
+    font-size: 14px;
+    color: #5A4A20;
+  }
+  .insight-title { font-weight: 700; color: var(--gold-dark); margin-bottom: 6px; }
+
+  /* ── 三分法卡片 ── */
+  .tricard-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 16px 0; }
+  .tricard {
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  }
+  .tricard.prod { background: linear-gradient(145deg, #EAF3FB, #D6E9F8); border: 1px solid #AED6F1; }
+  .tricard.ops  { background: linear-gradient(145deg, #FEF9ED, #FEF0CC); border: 1px solid #F0D98A; }
+  .tricard.inv  { background: linear-gradient(145deg, #EAF7EE, #D5EFD9); border: 1px solid #A9DFBF; }
+  .tricard-icon { font-size: 32px; margin-bottom: 8px; }
+  .tricard-name { font-size: 14px; font-weight: 700; color: var(--text-primary); }
+  .tricard-pct  { font-size: 36px; font-weight: 800; margin: 4px 0; }
+  .tricard.prod .tricard-pct { color: #2471A3; }
+  .tricard.ops  .tricard-pct { color: var(--gold-dark); }
+  .tricard.inv  .tricard-pct { color: #1E8449; }
+  .tricard-amt  { font-size: 13px; color: var(--text-muted); }
+  .tricard-detail { font-size: 12px; color: var(--text-secondary); margin-top: 6px; line-height: 1.5; }
+
+  /* ── 风险评级 ── */
+  .risk-stars { color: var(--gold); letter-spacing: -2px; }
+  .risk-stars.r4 { color: #C0392B; }
+  .risk-stars.r3 { color: #E67E22; }
+  .risk-stars.r2 { color: var(--gold-dark); }
+
+  /* ── 总结卡片 ── */
+  .surprise-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 16px 0; }
+  .surprise-card {
+    background: var(--bg-light);
+    border: 1px solid var(--gold-border);
+    border-radius: 12px;
+    padding: 18px;
+  }
+  .surprise-num { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; letter-spacing: 1px; text-transform: uppercase; }
+  .surprise-data { font-size: 18px; font-weight: 800; color: var(--gold-dark); margin-bottom: 6px; }
+  .surprise-text { font-size: 13px; color: var(--text-secondary); }
+
+  /* ── 评分 ── */
+  .score-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 16px 0; }
+  .score-card {
+    background: var(--bg-light);
+    border-radius: 12px;
+    padding: 18px 14px;
+    text-align: center;
+    border: 1px solid var(--gold-border);
+  }
+  .score-dim { font-size: 12px; color: var(--text-muted); margin-bottom: 8px; }
+  .score-val { font-size: 28px; font-weight: 800; color: var(--gold-dark); }
+  .score-max { font-size: 12px; color: var(--text-muted); }
+  .score-bar { height: 4px; background: #E8D5A0; border-radius: 2px; margin-top: 8px; }
+  .score-fill { height: 4px; background: linear-gradient(90deg, var(--gold), var(--gold-dark)); border-radius: 2px; }
+
+  /* ── 结论 ── */
+  .conclusion {
+    background: linear-gradient(135deg, #1A1208, #3D2B08);
+    color: #fff;
+    border-radius: 14px;
+    padding: 28px 32px;
+    margin: 28px 0 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .conclusion::before {
+    content: '';
+    position: absolute;
+    top: -30px; right: -30px;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,168,76,0.15) 0%, transparent 70%);
+  }
+  .conclusion p { color: rgba(255,255,255,0.88); position: relative; z-index: 1; font-size: 15px; line-height: 1.9; }
+  .conclusion strong { color: var(--gold-light); }
+
+  /* ── 导航目录 ── */
+  .toc {
+    background: var(--bg-white);
+    border-radius: 14px;
+    padding: 24px 28px;
+    box-shadow: var(--shadow);
+    margin-bottom: 24px;
+  }
+  .toc-title { font-size: 14px; font-weight: 700; color: var(--text-muted); letter-spacing: 1px; margin-bottom: 14px; }
+  .toc-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .toc-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: var(--bg-light);
+    font-size: 13px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: default;
+  }
+  .toc-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+
+  /* ── 行业对比横条 ── */
+  .bar-row { display: flex; align-items: center; gap: 10px; margin: 7px 0; }
+  .bar-label { width: 120px; font-size: 13px; color: var(--text-secondary); flex-shrink: 0; text-align: right; }
+  .bar-track { flex: 1; height: 20px; background: #F0E8D0; border-radius: 4px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 4px; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; font-size: 11px; color: #fff; font-weight: 700; transition: width 0.4s; }
+  .bar-laopu { background: linear-gradient(90deg, var(--gold), var(--gold-dark)); }
+  .bar-other { background: #B0BEC5; }
+  .bar-hermes { background: linear-gradient(90deg, #7B1FA2, #4A148C); }
+
+  /* ── 分隔线 ── */
+  hr { border: none; border-top: 1px solid var(--gold-border); margin: 20px 0; }
+
+  code {
+    background: #F4F4F4;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-family: "Courier New", monospace;
+    color: #333;
+  }
+  pre {
+    background: #F8F5EE;
+    border: 1px solid var(--gold-border);
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 13px;
+    color: #5A4A20;
+    overflow-x: auto;
+    margin: 12px 0;
+    font-family: "Courier New", monospace;
+    line-height: 1.7;
+  }
+
+  ul, ol { padding-left: 22px; margin: 8px 0; }
+  li { margin: 4px 0; color: var(--text-secondary); }
+  strong { color: var(--text-primary); }
+
+  .footer {
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-muted);
+    padding: 20px 0 10px;
+    border-top: 1px solid var(--gold-border);
+    margin-top: 40px;
+  }
+
+  @media (max-width: 700px) {
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    .tricard-grid { grid-template-columns: 1fr; }
+    .surprise-grid { grid-template-columns: 1fr; }
+    .score-grid { grid-template-columns: repeat(2, 1fr); }
+    .toc-list { grid-template-columns: 1fr; }
+    .section { padding: 20px 18px; }
+    .hero { padding: 36px 20px; }
+    .hero h1 { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ HERO ═══ -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">📊 财务分析报告</div>
+    <h1>老铺黄金（<span>Laopu Gold</span>）<br>2025年财务分析报告</h1>
+    <div class="hero-meta">
+      <span>📚 框架：七步法 + 三板斧 + 八问</span>
+      <span>📋 数据来源：2025年年报（截至2025.12.31）</span>
+      <span>💱 货币单位：人民币亿元</span>
+      <span>📅 报告日期：2026年3月25日</span>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ═══ KPI 速览 ═══ -->
+<div class="kpi-grid">
+  <div class="kpi-card">
+    <div class="kpi-label">销售业绩（含税GMV）</div>
+    <div class="kpi-value">313.75亿</div>
+    <div class="kpi-badge">+220.3% YoY</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">收入（不含税）</div>
+    <div class="kpi-value">273.03亿</div>
+    <div class="kpi-badge">+221.0% YoY</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">年内净利润</div>
+    <div class="kpi-value">48.68亿</div>
+    <div class="kpi-badge">+230.5% YoY</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">净利率</div>
+    <div class="kpi-value">17.8%</div>
+    <div class="kpi-badge">+0.5ppt YoY</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">毛利润</div>
+    <div class="kpi-value">102.74亿</div>
+    <div class="kpi-badge">+193.4% YoY</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">毛利率</div>
+    <div class="kpi-value">37.6%</div>
+    <div class="kpi-badge up">-3.6ppt YoY</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">ROE（估算）</div>
+    <div class="kpi-value">~44%</div>
+    <div class="kpi-badge">超爱马仕</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">每股基本盈利</div>
+    <div class="kpi-value">28.35元</div>
+    <div class="kpi-badge">+199.4% YoY</div>
+  </div>
+</div>
+
+<div class="note">
+  <strong>口径说明：</strong>年报同时披露两个口径——<strong>销售业绩</strong>（含增值税，即GMV，反映终端零售规模）和<strong>收入</strong>（不含税，计入利润表）。两者差额约40.72亿元，对应增值税及其他扣减。利润表分析以不含税收入273.03亿元为基础。
+</div>
+
+<!-- ═══ 目录 ═══ -->
+<div class="toc">
+  <div class="toc-title">目录 CONTENTS</div>
+  <div class="toc-list">
+    <div class="toc-item"><span class="toc-dot"></span>第一步：收入分析</div>
+    <div class="toc-item"><span class="toc-dot"></span>第二步：毛利与毛利率</div>
+    <div class="toc-item"><span class="toc-dot"></span>第三步：费用与费用率</div>
+    <div class="toc-item"><span class="toc-dot"></span>第四步：净利润与净利率</div>
+    <div class="toc-item"><span class="toc-dot"></span>第五步：资产负债表结构</div>
+    <div class="toc-item"><span class="toc-dot"></span>三分法资产分析</div>
+    <div class="toc-item"><span class="toc-dot"></span>第六步：三板斧分析</div>
+    <div class="toc-item"><span class="toc-dot"></span>第七步：收益率分析</div>
+    <div class="toc-item"><span class="toc-dot"></span>非财务八问</div>
+    <div class="toc-item"><span class="toc-dot"></span>综合评分与估值</div>
+    <div class="toc-item"><span class="toc-dot"></span>四个意外</div>
+    <div class="toc-item"><span class="toc-dot"></span>总结</div>
+  </div>
+</div>
+
+<!-- ═══ 第一步：收入分析 ═══ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">1</div>
+    <div>
+      <div class="section-title">收入分析</div>
+      <div class="section-sub">规模、结构、渠道与门店扩张</div>
+    </div>
+  </div>
+
+  <h3>1.1 收入规模与增速</h3>
+  <p>老铺黄金2025年<strong>销售业绩（含税）达313.75亿元</strong>、<strong>不含税收入273.03亿元</strong>，同比均暴增约<strong>220%</strong>，堪称A股/港股消费品中的现象级增速。这一增速并非低基数效应，而是门店扩张＋金价上涨＋品牌认知度快速提升的三重共振。</p>
+  <blockquote>口径说明：年报同时披露「销售业绩」（含增值税，反映终端零售规模）和「收入」（不含税，计入利润表）。利润表分析以不含税收入273.03亿元为基础。</blockquote>
+
+  <h3>1.2 核心财务数据速览</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>指标</th><th>2025年</th><th>2024年</th><th>同比增长</th></tr></thead>
+      <tbody>
+        <tr><td>销售业绩（含税GMV）</td><td class="td-highlight">313.75亿元</td><td>97.95亿元</td><td class="td-red">+220.3%</td></tr>
+        <tr><td>收入（不含税）</td><td class="td-highlight">273.03亿元</td><td>85.06亿元</td><td class="td-red">+221.0%</td></tr>
+        <tr><td>毛利润</td><td class="td-highlight">102.74亿元</td><td>35.01亿元</td><td class="td-red">+193.4%</td></tr>
+        <tr><td>毛利率</td><td class="td-highlight">37.6%</td><td>41.2%</td><td class="td-red">-3.6ppt</td></tr>
+        <tr><td>经营利润</td><td class="td-highlight">63.84亿元</td><td>19.47亿元</td><td class="td-red">+228.0%</td></tr>
+        <tr><td>经调整EBIT率</td><td class="td-highlight">18.4%</td><td>17.7%</td><td class="td-green">+0.7ppt</td></tr>
+        <tr><td>年内净利润</td><td class="td-highlight">48.68亿元</td><td>14.73亿元</td><td class="td-red">+230.5%</td></tr>
+        <tr><td>净利率</td><td class="td-highlight">17.8%</td><td>17.3%</td><td class="td-green">+0.5ppt</td></tr>
+        <tr><td>调整后净利润</td><td class="td-highlight">50.29亿元</td><td>15.02亿元</td><td class="td-red">+234.9%</td></tr>
+        <tr><td>每股基本盈利（元）</td><td class="td-highlight">28.35</td><td>9.47</td><td class="td-red">+199.4%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>1.3 收入结构拆解</h3>
+  <p><strong>按渠道拆分：</strong></p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>渠道</th><th>销售业绩（含税）</th><th>收入（不含税）</th><th>占比（收入）</th><th>2024年收入</th><th>YoY增长</th></tr></thead>
+      <tbody>
+        <tr><td>门店零售</td><td>257.93亿元</td><td class="td-highlight">226.46亿元</td><td>82.9%</td><td>74.50亿元</td><td class="td-red">+204.0%</td></tr>
+        <tr><td>网络/其他</td><td>55.82亿元</td><td class="td-highlight">46.57亿元</td><td>17.1%</td><td>10.56亿元</td><td class="td-red">+341.3%</td></tr>
+        <tr><td class="td-bold">合计</td><td class="td-bold">313.75亿元</td><td class="td-highlight">273.03亿元</td><td class="td-bold">100%</td><td class="td-bold">85.06亿元</td><td class="td-red">+221.0%</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <blockquote><strong>关键发现：</strong>线上渠道增速（341%）远超线下（204%），显示品牌破圈加速，线上渗透率从12.4%升至17.1%。</blockquote>
+
+  <p><strong>按地区拆分：</strong></p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>地区</th><th>销售业绩（含税）</th><th>收入（不含税）</th><th>占比（收入）</th><th>2024年收入</th></tr></thead>
+      <tbody>
+        <tr><td>中国内地</td><td>274.05亿元</td><td class="td-highlight">233.61亿元</td><td>85.6%</td><td>76.51亿元</td></tr>
+        <tr><td>境外（含香港）</td><td>39.69亿元</td><td class="td-highlight">39.42亿元</td><td class="td-highlight">14.4%</td><td>8.55亿元</td></tr>
+        <tr><td class="td-bold">合计</td><td class="td-bold">313.75亿元</td><td class="td-highlight">273.03亿元</td><td class="td-bold">100%</td><td class="td-bold">85.06亿元</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <blockquote><strong>关键发现：</strong>境外收入增速高达 <strong>361%</strong>，占比从10%升至14.4%，出海势头强劲。注：境外两口径（39.69亿 vs 39.42亿）差异极小，因境外销售适用不同税率（接近0）。</blockquote>
+
+  <p><strong>按产品类型：</strong>实物黄金产品272.83亿元（99.9%），服务收入0.20亿元（0.1%）。典型的高端消费品结构，几乎全为产品销售。</p>
+
+  <h3>1.4 门店扩张与坪效</h3>
+  <div class="insight">
+    <div class="insight-title">📍 门店动态</div>
+    截至2025年12月31日，老铺黄金已在 <strong>16个城市运营45家自营门店</strong>，全部位于具有严格准入要求的知名商业中心，其中SKP系6家，占34家商业中心的主要位置。<br><br>
+    对比2024年底（15个城市、<strong>36家门店</strong>、26家商业中心）：<br>
+    ▪ <strong>新增门店：10家</strong>　▪ <strong>优化及扩容门店：9家</strong>　▪ 净增9家（新增10家 - 关闭1家）
+  </div>
+  <p><strong>品牌定位验证：</strong>老铺黄金频繁出现在知名奢侈品品牌（LV、爱马仕、卡地亚、宝格丽、Tiffany）旁边，门店位置与奢侈品品牌一致性从2025年7月的77.3%提升至2026年3月的82.4%——用租金贵的邻居证明自己的身份。</p>
+  <p>2025年单月营业额突破10亿元（618期间）。</p>
+</div>
+
+<!-- ═══ 第二步：毛利 ═══ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">2</div>
+    <div>
+      <div class="section-title">毛利与毛利率</div>
+      <div class="section-sub">利润质量与行业竞争力</div>
+    </div>
+  </div>
+
+  <h3>2.1 毛利数据</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>指标</th><th>2025年</th><th>2024年</th></tr></thead>
+      <tbody>
+        <tr><td>毛利润</td><td class="td-highlight">102.74亿元</td><td>35.01亿元</td></tr>
+        <tr><td>毛利率</td><td class="td-highlight">37.6%</td><td>41.2%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>2.2 毛利率下滑深层解读</h3>
+  <p>毛利率从41.2%下滑至37.6%，下滑3.6ppt，原因分析：</p>
+  <ul>
+    <li><strong>原因一：金价上涨侵蚀毛利</strong>——2025年金价大幅上涨约27-30%，原材料成本上升速度快于产品提价速度，是行业普遍现象。</li>
+    <li><strong>原因二：新开门店初期成本高</strong>——新增10家+优化扩容9家，新店爬坡期费用摊销拖累整体毛利率。</li>
+    <li><strong>原因三：产品结构变化</strong>——门店品类扩展，可能包含部分毛利率较低的产品。</li>
+  </ul>
+
+  <h3>2.3 与行业对比</h3>
+  <div style="margin: 14px 0;">
+    <div class="bar-row"><div class="bar-label">老铺黄金</div><div class="bar-track"><div class="bar-fill bar-laopu" style="width:47%">37.6%</div></div></div>
+    <div class="bar-row"><div class="bar-label">LVMH珠宝</div><div class="bar-track"><div class="bar-fill bar-hermes" style="width:70%">55-60%</div></div></div>
+    <div class="bar-row"><div class="bar-label">爱马仕</div><div class="bar-track"><div class="bar-fill bar-hermes" style="width:88%">70%+</div></div></div>
+    <div class="bar-row"><div class="bar-label">周大福</div><div class="bar-track"><div class="bar-fill bar-other" style="width:10%">6-10%</div></div></div>
+    <div class="bar-row"><div class="bar-label">周生生</div><div class="bar-track"><div class="bar-fill bar-other" style="width:12%">6-12%</div></div></div>
+  </div>
+  <blockquote><strong>核心判断：</strong>37.6%毛利率远超传统黄金零售商（通常6-12%），已接近国际奢侈品品牌区间。说明其<strong>古法金工艺加工溢价</strong>定价模式基本成立——不是在卖金子，是在卖艺术。</blockquote>
+</div>
+
+<!-- ═══ 第三步：费用 ═══ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">3</div>
+    <div>
+      <div class="section-title">费用与费用率</div>
+      <div class="section-sub">成本管控与规模效应</div>
+    </div>
+  </div>
+
+  <h3>3.1 费用结构</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>费用项目</th><th>2025年</th><th>2024年</th><th>同比增长</th><th>占收入比</th></tr></thead>
+      <tbody>
+        <tr><td>销售及分销成本</td><td>31.56亿元</td><td>12.37亿元</td><td class="td-red">+155.2%</td><td class="td-highlight">11.6%</td></tr>
+        <tr><td>管理费用</td><td>5.43亿元</td><td>2.72亿元</td><td class="td-red">+99.5%</td><td class="td-highlight">2.0%</td></tr>
+        <tr><td>利息支出</td><td>0.25亿元</td><td>0.19亿元</td><td>+30.1%</td><td>0.1%</td></tr>
+        <tr><td>其他费用</td><td>0.37亿元</td><td>0.17亿元</td><td>+116.6%</td><td>0.1%</td></tr>
+        <tr><td>融资成本</td><td>1.39亿元</td><td>0.30亿元</td><td class="td-red">+356.8%</td><td>0.5%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>3.2 费用率趋势分析</h3>
+  <ul>
+    <li><strong>销售费用率11.6%</strong>：包含门店租金、员工工资（97%为员工薪酬）。高端位置的租金本身就是品牌营销——在SKP旁边开店，等于免费帮自己贴"奢侈品"标签。</li>
+    <li><strong>管理费用率仅2.0%</strong>：极低，说明管理效率高，规模效应明显——收入翻3倍，管理费用只翻2倍。</li>
+    <li><strong>融资成本暴增356%</strong>（1.39亿 vs 0.30亿）：大量借款支持快速扩张，有一定财务杠杆风险，但绝对金额仍小。</li>
+  </ul>
+
+  <div class="insight">
+    <div class="insight-title">📈 规模效应信号</div>
+    经调整EBIT率从17.7%升至 <strong>18.4%（+0.7ppt）</strong>——尽管毛利率下滑3.6ppt，但费用管控得力使最终运营利润率实现提升，规模效应开始显现。
+  </div>
+</div>
+
+<!-- ═══ 第四步：净利润 ═══ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">4</div>
+    <div>
+      <div class="section-title">净利润与净利率</div>
+      <div class="section-sub">盈利质量与国际比较</div>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>利润指标</th><th>2025年</th><th>2024年</th><th>增速</th></tr></thead>
+      <tbody>
+        <tr><td>经营利润EBIT</td><td>63.84亿元</td><td>19.47亿元</td><td class="td-red">+228.0%</td></tr>
+        <tr><td>年内净利润</td><td class="td-highlight">48.68亿元</td><td>14.73亿元</td><td class="td-red">+230.5%</td></tr>
+        <tr><td>净利率</td><td class="td-highlight">17.8%</td><td>17.3%</td><td class="td-green">+0.5ppt</td></tr>
+        <tr><td>调整后利润</td><td>50.29亿元</td><td>15.02亿元</td><td class="td-red">+234.9%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <blockquote>
+    <strong>净利率17.8%对比：</strong>周大福约6-8%　|　Tiffany历史约15%　|　爱马仕约25-27%<br>
+    老铺黄金17.8%已跻身国际顶尖珠宝品牌区间，为"中国奢侈品牌"定位提供强有力财务背书。
+  </blockquote>
+
+  <h3>所得税分析</h3>
+  <p>税前利润率约20.9%（约65.72亿元），有效税率约25%（内地标准企业所得税率），享有小微企业优惠（年应纳税所得额低于200万的部分按8.25%）。</p>
+</div>
+
+<!-- ═══ 第五步：资产负债表 ═══ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">5</div>
+    <div>
+      <div class="section-title">资产负债表结构</div>
+      <div class="section-sub">轻资产 · 现金为王 · 议价能力</div>
+    </div>
+  </div>
+
+  <h3>5.1 资产结构</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>项目</th><th>2025年</th><th>2024年</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td class="td-bold">非流动资产</td><td class="td-bold">7.03亿元</td><td>5.03亿元</td><td>相对轻资产</td></tr>
+        <tr><td>　物业设备</td><td>1.75亿元</td><td>1.13亿元</td><td>门店装修等</td></tr>
+        <tr><td>　使用权资产</td><td>3.86亿元</td><td>3.02亿元</td><td>租赁门店</td></tr>
+        <tr><td>　其他无形资产</td><td>0.13亿元</td><td>0.03亿元</td><td></td></tr>
+        <tr><td class="td-bold">流动资产</td><td class="td-highlight">205.49亿元</td><td>58.33亿元</td><td>以现金+库存为主</td></tr>
+        <tr><td>　现金及银行结余</td><td class="td-highlight">160.44亿元 ★</td><td>40.88亿元</td><td><strong>大量现金</strong></td></tr>
+        <tr><td>　应收账款</td><td>12.80亿元</td><td>8.01亿元</td><td>周转天数<strong>14天</strong>（2024年：25天）⬇️</td></tr>
+        <tr><td>　其他流动资产</td><td>11.57亿元</td><td>2.12亿元</td><td></td></tr>
+        <tr><td>　存货</td><td>20.68亿元</td><td>7.33亿元</td><td></td></tr>
+        <tr><td class="td-bold">总资产</td><td class="td-highlight">212.53亿元</td><td>63.37亿元</td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>5.2 负债结构</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>项目</th><th>2025年</th><th>2024年</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td class="td-bold">流动负债</td><td class="td-bold">98.80亿元</td><td>22.49亿元</td><td></td></tr>
+        <tr><td>　应付贸易款</td><td>6.36亿元</td><td>2.28亿元</td><td></td></tr>
+        <tr><td>　合同负债（预收款）</td><td class="td-highlight">25.20亿元 ★</td><td>3.70亿元</td><td><strong>预收现金，+581%</strong></td></tr>
+        <tr><td>　银行借款（短期）</td><td>61.64亿元</td><td>13.73亿元</td><td></td></tr>
+        <tr><td>　其他流动负债</td><td>5.60亿元</td><td>2.77亿元</td><td></td></tr>
+        <tr><td class="td-bold">非流动负债</td><td>2.77亿元</td><td>1.68亿元</td><td></td></tr>
+        <tr><td class="td-bold">净资产（权益）</td><td class="td-highlight">110.95亿元</td><td>39.20亿元</td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="insight">
+    <div class="insight-title">⭐ 财务亮点：现金160.44亿元</div>
+    现金及银行结余高达 <strong>160.44亿元</strong>，是有息负债（62.64亿元）的2.5倍以上，净现金储备约 <strong>97.80亿元</strong>，财务极度稳健。
+  </div>
+  <blockquote><strong>值得关注：</strong>短期银行借款从13.73亿元跃升至61.64亿元（+349%）。背后是大量黄金原材料备货（以金价高位锁定库存）+ 门店快速扩张的资本需求。</blockquote>
+
+  <h3>5.3 老唐资产三分法分析</h3>
+  <blockquote>三分法将企业资产分为：<strong>生产资产</strong>（厂房设备等直接创造收入的固定资产）、<strong>经营资产</strong>（存货、应收、现金等日常经营相关资产）、<strong>投资资产</strong>（对外投资、理财等非主业资产）。通过分析三类资产占比，可以判断企业的商业模式特征。</blockquote>
+
+  <div class="tricard-grid">
+    <div class="tricard prod">
+      <div class="tricard-icon">🏭</div>
+      <div class="tricard-name">生产资产</div>
+      <div class="tricard-pct">3.2%</div>
+      <div class="tricard-amt">7.03亿元</div>
+      <div class="tricard-detail">物业设备、使用权资产<br>无形资产、非流动预付/押金</div>
+    </div>
+    <div class="tricard ops">
+      <div class="tricard-icon">💼</div>
+      <div class="tricard-name">经营资产</div>
+      <div class="tricard-pct">93.2%</div>
+      <div class="tricard-amt">205.49亿元</div>
+      <div class="tricard-detail">现金160.44亿、应收12.80亿<br>其他流动11.57亿、存货20.68亿</div>
+    </div>
+    <div class="tricard inv">
+      <div class="tricard-icon">💰</div>
+      <div class="tricard-name">投资资产</div>
+      <div class="tricard-pct">3.6%</div>
+      <div class="tricard-amt">7.99亿元</div>
+      <div class="tricard-detail">长期借款1亿、租赁负债1.72亿<br>其他非流动负债等</div>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>企业类型</th><th>生产资产</th><th>经营资产</th><th>投资资产</th><th>商业模式特征</th></tr></thead>
+      <tbody>
+        <tr><td class="td-bold">老铺黄金</td><td class="td-highlight">3.2%</td><td class="td-highlight">93.2%</td><td class="td-highlight">3.6%</td><td>轻资产零售，现金驱动</td></tr>
+        <tr><td>贵州茅台</td><td>~15%</td><td>~35%</td><td>~50%</td><td>现金牛，大量理财</td></tr>
+        <tr><td>腾讯控股</td><td>~5%</td><td>~40%</td><td>~55%</td><td>投资驱动，生态布局</td></tr>
+        <tr><td>制造业均值</td><td>~40%</td><td>~50%</td><td>~10%</td><td>重资产，设备密集</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="insight">
+    <div class="insight-title">📊 三分法综合结论</div>
+    老铺黄金是优秀的轻资产奢侈品商业模式。生产资产极低（3.2%）说明无需重资本投入即可扩张；经营资产以现金为主体（75%+）说明商业模式极度健康；投资资产极少（3.6%）说明管理层专注主业、不分心。唯一需要持续关注的是存货周转效率（216天）和金价波动对存货价值的潜在影响。
+  </div>
+</div>
+
+<!-- ═══ 第六步：三板斧 ═══ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">6</div>
+    <div>
+      <div class="section-title">投入产出"三板斧"分析</div>
+      <div class="section-sub">WC · 固定资产 · 人员效率</div>
+    </div>
+  </div>
+
+  <h3>6.1 WC（营运资金）分析</h3>
+  <pre>WC = 应收账款 + 预付账款 + 存货 - 应付账款 - 预收账款（合同负债）
+
+2025年 WC = 12.80亿 + 存货20.68亿 - 6.36亿 - 25.20亿 ≈ +1.92亿元
+2024年 WC = 8.01亿 + 7.33亿 - 2.28亿 - 3.70亿 ≈ +9.36亿元</pre>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>指标</th><th>2025年</th><th>2024年</th></tr></thead>
+      <tbody>
+        <tr><td>WC（估算）</td><td class="td-highlight">~1.92亿元</td><td>~9.36亿元</td></tr>
+        <tr><td>1元收入需要WC</td><td class="td-highlight">~0.007元</td><td>~0.110元</td></tr>
+        <tr><td>WC变化</td><td colspan="2">下降7.44亿元</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="insight">
+    <div class="insight-title">⭐ 重大发现：WC大幅下降！</div>
+    核心原因是<strong>预收账款（合同负债）从3.70亿元暴增至25.20亿元（+581%）</strong>——顾客提前付款订购黄金产品，公司用客户的钱做库存！<br><br>
+    这是奢侈品商业模式的精髓：<strong>品牌溢价 → 预付订金 → 负营运资本</strong>。越来越接近爱马仕那种"客户求着卖"的模式。WC/收入比从11%降至仅0.7%，议价能力持续提升。
+  </div>
+
+  <p><strong>应收账款周转效率大幅提升：</strong></p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>指标</th><th>2025年</th><th>2024年</th></tr></thead>
+      <tbody>
+        <tr><td>应收账款余额</td><td>12.80亿元</td><td>8.01亿元</td></tr>
+        <tr><td>贸易应收款项周转天数</td><td class="td-highlight">14天 ⬇️</td><td>25天</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <blockquote>周转天数从25天缩短至14天，主要原因是本集团与更多门店所在商场推进了<strong>自收银模式</strong>——由老铺黄金直接在门店收取消费者款项，无需通过购物中心结算，显著缩短了回款周期，应收账款质量进一步提升。</blockquote>
+
+  <h3>6.2 固定资产分析</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>指标</th><th>2025年</th><th>2024年</th></tr></thead>
+      <tbody>
+        <tr><td>物业设备（含使用权资产）</td><td>5.62亿元</td><td>4.15亿元</td></tr>
+        <tr><td>长期资产合计（估算）</td><td class="td-highlight">~7.03亿元</td><td>~5.03亿元</td></tr>
+        <tr><td>1元收入需要的固定资产</td><td class="td-highlight">~0.026元</td><td>~0.059元</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>生产一元收入只需约2.6分钱的固定资产，比实体制造业（通常需0.5-1元）轻了20-40倍。固定资产/收入比从5.9%降至2.6%，<strong>资产效率在提升，规模越大越"轻"</strong>。</p>
+
+  <h3>6.3 人员投入分析</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>指标（估算）</th><th>2025年</th><th>2024年</th></tr></thead>
+      <tbody>
+        <tr><td>估算员工人数</td><td>~1,200人</td><td>~600人</td></tr>
+        <tr><td>人均收入（门店口径）</td><td class="td-highlight">~1,887万元/人</td><td>~1,258万元/人</td></tr>
+        <tr><td>人均净利润</td><td class="td-highlight">~406万元/人</td><td>~246万元/人</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <blockquote>注：人均收入采用<strong>门店零售收入（不含税）</strong>口径（226.46亿元）。若用不含税总收入273.03亿计算则约2,275万元/人；若用含税销售业绩313.75亿则约2,614万元/人。</blockquote>
+  <p><strong>人均收入约1,900万元，人均净利润约400万元</strong>——极度罕见的高效率！爱马仕人均收入约300-400万元，LV人均约500万元，老铺黄金人均效率属全球顶尖，背后是：<strong>小众SKU（2,300+款式）×超高客单价×奢侈品溢价</strong>。</p>
+</div>
+
+<!-- ═══ 第七步：收益率 ═══ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">7</div>
+    <div>
+      <div class="section-title">收益率分析</div>
+      <div class="section-sub">ROE · ROA · 杜邦分析</div>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>指标</th><th>2025年</th><th>2024年</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td>ROE</td><td class="td-highlight">~43.9%</td><td>~37.6%</td><td>净利润/平均净资产</td></tr>
+        <tr><td>ROA</td><td class="td-highlight">~22.9%</td><td>~23.2%</td><td>净利润/平均总资产</td></tr>
+        <tr><td>净利率</td><td class="td-highlight">17.8%</td><td>17.3%</td><td>盈利能力强</td></tr>
+        <tr><td>资产周转率</td><td>~1.28次</td><td>~1.34次</td><td>轻资产高周转</td></tr>
+        <tr><td>权益乘数</td><td>~1.91</td><td>~1.62</td><td>适度杠杆</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>杜邦分析</h3>
+  <pre>ROE = 净利率 × 资产周转率 × 权益乘数
+    ≈ 17.8%  ×   1.28   ×   1.91
+    ≈ 43.6%</pre>
+
+  <blockquote>
+    <strong>ROE对比：</strong>爱马仕约30-35%　|　LVMH约20-25%　|　老铺黄金约40-50%（奢侈品行业顶尖）
+  </blockquote>
+</div>
+
+<!-- ═══ 八问 ═══ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">★</div>
+    <div>
+      <div class="section-title">非财务信息"八问"分析</div>
+      <div class="section-sub">商业本质 · 竞争格局 · 风险判断</div>
+    </div>
+  </div>
+
+  <h3>Q1：靠什么赚钱？</h3>
+  <p>老铺黄金的商业模式本质：<strong>古法金工艺 × 奢侈品定位 × 稀缺感</strong></p>
+  <ul>
+    <li><strong>产品：</strong>以明清宫廷古法花丝镶嵌工艺为核心，设计工艺溢价大幅高于黄金本身价值</li>
+    <li><strong>选址：</strong>全部在SKP、IFC等国内顶级商业地标，与LV、爱马仕比邻</li>
+    <li><strong>价格：</strong>客单价动辄数万至数十万，是周大福的5-10倍</li>
+  </ul>
+  <pre>利润 = （工艺溢价 + 品牌溢价）× 黄金重量 - 铸造+运营成本</pre>
+  <p>一句话总结：<strong>卖的不是金子，卖的是中国古典美学的想象力和稀缺感。</strong></p>
+
+  <h3>Q2：顺风还是逆风？</h3>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0;">
+    <div class="insight" style="border-left:4px solid #27AE60;">
+      <div class="insight-title" style="color:#1E8449;">✅ 顺风因素</div>
+      <ul style="padding-left:16px;">
+        <li>金价长牛（2020年后+100%以上）</li>
+        <li>国潮崛起，Z世代认同中国传统文化</li>
+        <li>奢侈品国内替代空间打开</li>
+        <li>高净值人群持续扩大</li>
+      </ul>
+    </div>
+    <div class="insight" style="border-left:4px solid #E74C3C;">
+      <div class="insight-title" style="color:#C0392B;">⚠️ 逆风因素</div>
+      <ul style="padding-left:16px;">
+        <li>金价高位波动，原材料成本压力</li>
+        <li>宏观经济不确定性</li>
+        <li>周大福、ENZO等传统珠宝商跟进古法金</li>
+      </ul>
+    </div>
+  </div>
+  <p><strong>总体判断：强顺风，行业格局已初步形成，老铺黄金先发优势明显。</strong></p>
+
+  <h3>Q3：空间有多大？</h3>
+  <ul>
+    <li>中国珠宝市场规模约8,000亿元（2024年），高端珠宝（客单价3万+）约400-800亿元</li>
+    <li>门店天花板：国内一线+重点二线城市约30-40城，每城3-5家，总数可达100-150家（当前45家）</li>
+    <li>境外市场：东南亚、中东、港澳台华人聚集地，增量可观</li>
+    <li><strong>保守估算2028年收入可达600-1,000亿元</strong>（假设门店翻倍，ASP维持）</li>
+  </ul>
+
+  <h3>Q4：竞争格局好不好？</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>竞争维度</th><th>老铺黄金</th><th>周大福</th><th>潮宏基</th><th>周大生</th></tr></thead>
+      <tbody>
+        <tr><td>产品定位</td><td class="td-highlight">高端古法金</td><td>大众金饰</td><td>时尚金饰</td><td>大众金饰</td></tr>
+        <tr><td>毛利率</td><td class="td-highlight">~38%</td><td>~6-10%</td><td>~20-25%</td><td>~6-10%</td></tr>
+        <tr><td>客单价</td><td class="td-highlight">数万-数十万</td><td>数千</td><td>数千</td><td>数千</td></tr>
+        <tr><td>门店位置</td><td class="td-highlight">SKP/IFC顶奢</td><td>购物中心/步行街</td><td>购物中心</td><td>购物中心</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>老铺黄金基本上是<strong>"古法高端金饰"这一细分市场的创造者和领导者</strong>，没有真正意义上的直接竞争者。</p>
+
+  <h3>Q5：有什么核心优势？</h3>
+  <ul>
+    <li><strong>品牌护城河（深）：</strong>"老铺黄金=中国奢侈黄金品牌"的认知正在形成</li>
+    <li><strong>工艺壁垒（较深）：</strong>花丝镶嵌、珐琅彩等宫廷古法工艺，匠人培训周期3年以上</li>
+    <li><strong>选址壁垒（一般）：</strong>SKP/IFC等顶级商场位置极其有限</li>
+    <li><strong>预付款壁垒（强财务护城河）：</strong>消费者愿意预付订金（合同负债25.20亿元）</li>
+    <li><strong>创始人/文化IP（较深）：</strong>品牌差异化的核心来源</li>
+  </ul>
+
+  <h3>Q6：管理层行不行？</h3>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0;">
+    <div class="insight" style="border-left:4px solid #27AE60;">
+      <div class="insight-title" style="color:#1E8449;">✅ 正面信号</div>
+      <ul style="padding-left:16px;">
+        <li>2025年分红两次：2024年股息10.96亿元，2025年中期16.92亿元</li>
+        <li>快速扩张同时保持高利润率，执行力出色</li>
+        <li>境外扩张及时布局，战略前瞻</li>
+      </ul>
+    </div>
+    <div class="insight" style="border-left:4px solid #F39C12;">
+      <div class="insight-title" style="color:#D35400;">⚠️ 关注点</div>
+      <ul style="padding-left:16px;">
+        <li>扩张过快可能稀释品牌稀缺感</li>
+        <li>短期借款翻5倍，杠杆管理需关注</li>
+        <li>创始人依赖风险，传承接班有潜在风险</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Q7：风险在哪里？</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>风险类型</th><th>风险程度</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td>金价波动风险</td><td><span class="risk-stars r4">★★★★</span></td><td>金价下跌将直接影响产品定价和消费者购买意愿</td></tr>
+        <tr><td>扩张过快稀释品牌</td><td><span class="risk-stars r3">★★★</span></td><td>门店过多可能伤害稀缺感和奢侈品定位</td></tr>
+        <tr><td>竞争模仿风险</td><td><span class="risk-stars r3">★★★</span></td><td>传统珠宝商跟进古法金赛道，尽管短期难复制</td></tr>
+        <tr><td>宏观经济风险</td><td><span class="risk-stars r3">★★★</span></td><td>高端可选消费对经济周期敏感</td></tr>
+        <tr><td>创始人依赖</td><td><span class="risk-stars r3">★★★</span></td><td>品牌与个人IP高度绑定</td></tr>
+        <tr><td>库存/资金风险</td><td><span class="risk-stars r2">★★</span></td><td>大量黄金库存和高杠杆并存</td></tr>
+        <tr><td>境外扩张风险</td><td><span class="risk-stars r2">★★</span></td><td>文化差异、本地运营经验不足</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Q8：未来会怎样？</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>假设</th><th>内容</th></tr></thead>
+      <tbody>
+        <tr><td>门店数量</td><td>从45家增至90-120家</td></tr>
+        <tr><td>平均单店收入</td><td>约5亿元（对比2025年约5.03亿元）</td></tr>
+        <tr><td>收入</td><td>2028年约450-700亿元</td></tr>
+        <tr><td>净利率</td><td>维持16-18%</td></tr>
+        <tr><td>净利润</td><td>约100-144亿元</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══ 综合评分 ═══ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">📈</div>
+    <div>
+      <div class="section-title">综合评分与估值参考</div>
+      <div class="section-sub">梁宇峰四维评级 · 动态估值</div>
+    </div>
+  </div>
+
+  <h3>梁宇峰四维评级</h3>
+  <div class="score-grid">
+    <div class="score-card">
+      <div class="score-dim">行业空间</div>
+      <div class="score-val">8</div>
+      <div class="score-max">/ 10</div>
+      <div class="score-bar"><div class="score-fill" style="width:80%"></div></div>
+      <p style="font-size:11px;color:#888;margin-top:6px;">高端珠宝市场成长+出海</p>
+    </div>
+    <div class="score-card">
+      <div class="score-dim">竞争格局</div>
+      <div class="score-val">9</div>
+      <div class="score-max">/ 10</div>
+      <div class="score-bar"><div class="score-fill" style="width:90%"></div></div>
+      <p style="font-size:11px;color:#888;margin-top:6px;">细分市场定义者</p>
+    </div>
+    <div class="score-card">
+      <div class="score-dim">业绩表现</div>
+      <div class="score-val">9</div>
+      <div class="score-max">/ 10</div>
+      <div class="score-bar"><div class="score-fill" style="width:90%"></div></div>
+      <p style="font-size:11px;color:#888;margin-top:6px;">三位数增长，ROE超40%</p>
+    </div>
+    <div class="score-card">
+      <div class="score-dim">护城河</div>
+      <div class="score-val">7</div>
+      <div class="score-max">/ 10</div>
+      <div class="score-bar"><div class="score-fill" style="width:70%"></div></div>
+      <p style="font-size:11px;color:#888;margin-top:6px;">品牌+工艺，尚待验证</p>
+    </div>
+  </div>
+  <div style="text-align:center;padding:16px;background:linear-gradient(135deg,#FEF5E0,#FDF0CC);border-radius:10px;margin:12px 0;">
+    <div style="font-size:14px;color:#8B6914;margin-bottom:4px;">综合得分</div>
+    <div style="font-size:42px;font-weight:800;color:var(--gold-dark);">8.25</div>
+    <div style="font-size:13px;color:#8B6914;">/ 10 — 优质成长型奢侈品公司</div>
+  </div>
+
+  <h3>动态估值参考</h3>
+  <blockquote>
+    <strong>贴现率计算：</strong>技术变革可能性0.5分 + 新进入威胁0.5分 + 行业周期波动1.0分 + 政策抑制0分 = <strong>贴现率 19%</strong>（3% + (6-2)×4%）
+  </blockquote>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>指标</th><th>2025A</th><th>2026E</th><th>2027E</th><th>2028E</th></tr></thead>
+      <tbody>
+        <tr><td>收入-不含税（亿元）</td><td class="td-highlight">273.03</td><td>375-435</td><td>480-565</td><td>565-695</td></tr>
+        <tr><td>销售业绩-含税（亿元）</td><td class="td-highlight">313.75</td><td>430-500</td><td>550-650</td><td>650-800</td></tr>
+        <tr><td>净利润（亿元）</td><td class="td-highlight">48.68</td><td>70-85</td><td>90-110</td><td>100-144</td></tr>
+        <tr><td>EPS（元/股）</td><td class="td-highlight">28.35</td><td>40-50</td><td>52-64</td><td>58-84</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p><strong>估值区间参考（基于2026年预期EPS）：</strong></p>
+  <ul>
+    <li>保守（PE 30x）：1,200-1,500港元</li>
+    <li>中性（PE 40x）：1,600-2,000港元</li>
+    <li>乐观（PE 50x）：2,000-2,500港元</li>
+  </ul>
+  <blockquote>注意：以上估值基于增长预测，金价是最大变量。当前高增长部分由金价上涨驱动，需区分内生增长与金价贡献。</blockquote>
+</div>
+
+<!-- ═══ 四个意外 ═══ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">💡</div>
+    <div>
+      <div class="section-title">总结：老铺黄金的"四个意外"</div>
+    </div>
+  </div>
+
+  <div class="surprise-grid">
+    <div class="surprise-card">
+      <div class="surprise-num">意外一</div>
+      <div class="surprise-data">毛利率 37.6%</div>
+      <div class="surprise-text">vs 周大福6-10%<br><strong>商业含义：</strong>不是黄金零售，是奢侈品品牌</div>
+    </div>
+    <div class="surprise-card">
+      <div class="surprise-num">意外二</div>
+      <div class="surprise-data">净利率 17.8%</div>
+      <div class="surprise-text">vs 传统珠宝6-8%<br><strong>商业含义：</strong>品牌溢价已形成，成本控制优秀</div>
+    </div>
+    <div class="surprise-card">
+      <div class="surprise-num">意外三</div>
+      <div class="surprise-data">预收款 25.20亿</div>
+      <div class="surprise-text">同比+581%<br><strong>商业含义：</strong>顾客抢着付钱，定价权反转</div>
+    </div>
+    <div class="surprise-card">
+      <div class="surprise-num">意外四</div>
+      <div class="surprise-data">ROE 超 40%</div>
+      <div class="surprise-text">超过爱马仕<br><strong>商业含义：</strong>轻资产+高毛利+负营运资本=梦幻组合</div>
+    </div>
+  </div>
+
+  <div class="conclusion">
+    <p><strong>一句话总结：</strong>老铺黄金正在做一件奢侈品行业百年难得一见的事情——在中国从零创造一个真正意义上的奢侈品牌。<strong>2025年的财务数据证明，他们目前走在正确的路上。</strong>但能否最终成为"中国的爱马仕"，需要时间和持续的品牌建设来验证。</p>
+  </div>
+</div>
+
+<!-- 页脚 -->
+<div class="footer">
+  <p>报告日期：2026年3月25日　|　数据来源：老铺黄金2025年年报　|　分析框架：《简明财务分析：数据背后的商业模式与投资价值》饶钢著</p>
+  <p style="margin-top:4px;color:#B0A080;">本报告仅供学习研究参考，不构成投资建议。</p>
+</div>
+
+</div>
+</body>
+</html>
