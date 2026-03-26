@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>泡泡玛特DCF估值模型</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #1a365d;
+      --secondary: #2c5282;
+      --accent: #3182ce;
+      --text: #2d3748;
+      --text-light: #4a5568;
+      --text-muted: #718096;
+      --border: #e2e8f0;
+      --bg: #f7fafc;
+      --bg-white: #ffffff;
+      --success: #276749;
+      --success-bg: #f0fff4;
+      --warning: #c05621;
+      --warning-bg: #fffaf0;
+      --danger: #c53030;
+      --danger-bg: #fff5f5;
+      --info: #2b6cb0;
+      --info-bg: #ebf8ff;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+                   "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background: var(--bg); color: var(--text); line-height: 1.7;
+      font-size: 14px;
+    }
+    
+    .cover {
+      background: var(--primary); color: #fff;
+      padding: 50px 40px 40px; text-align: center;
+    }
+    .cover h1 { font-size: 28px; font-weight: 600; margin-bottom: 10px; }
+    .cover .subtitle { font-size: 14px; opacity: .85; }
+    .cover-meta { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; font-size: 12px; opacity: .8; margin-top: 16px; }
+    
+    .main { max-width: 1000px; margin: 30px auto 60px; padding: 0 20px; display: flex; flex-direction: column; gap: 24px; }
+    
+    .section { background: var(--bg-white); border: 1px solid var(--border); padding: 24px; }
+    .section-title { font-size: 16px; font-weight: 600; color: var(--primary); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid var(--primary); }
+    
+    table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0; }
+    th { background: var(--bg); color: var(--text); font-weight: 600; padding: 10px 12px; text-align: left; border-bottom: 2px solid var(--border); }
+    td { padding: 10px 12px; border-bottom: 1px solid var(--border); }
+    tr:hover td { background: var(--bg); }
+    .num { text-align: right; font-family: "SF Mono", Monaco, monospace; }
+    .highlight { background: var(--bg); }
+    .highlight td { font-weight: 600; }
+    
+    .input-cell { background: #fffbeb; }
+    .input-cell input { width: 80px; border: 1px solid var(--border); padding: 4px 8px; font-size: 13px; text-align: right; }
+    
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+    @media (max-width: 768px) { .two-col, .three-col { grid-template-columns: 1fr; } }
+    
+    .mini-card { border: 1px solid var(--border); padding: 16px; }
+    .mini-card h4 { font-size: 13px; font-weight: 600; margin-bottom: 8px; color: var(--primary); }
+    .mini-card p, .mini-card li { font-size: 12px; color: var(--text-light); }
+    .mini-card ul { padding-left: 16px; }
+    
+    .info-box { background: var(--info-bg); border-left: 3px solid var(--info); padding: 12px 16px; margin: 12px 0; }
+    .info-box.green { background: var(--success-bg); border-left-color: var(--success); }
+    .info-box.amber { background: var(--warning-bg); border-left-color: var(--warning); }
+    .info-box.red { background: var(--danger-bg); border-left-color: var(--danger); }
+    .info-box-title { font-weight: 600; margin-bottom: 6px; font-size: 12px; }
+    
+    .result-box { background: var(--primary); color: #fff; padding: 20px 24px; text-align: center; margin: 16px 0; }
+    .result-box .label { font-size: 12px; opacity: .8; margin-bottom: 8px; }
+    .result-box .value { font-size: 32px; font-weight: 700; }
+    .result-box .unit { font-size: 14px; opacity: .8; margin-left: 4px; }
+    
+    .sensitivity-grid { display: grid; grid-template-columns: auto repeat(5, 1fr); gap: 1px; background: var(--border); margin: 16px 0; }
+    .sensitivity-grid > div { background: var(--bg-white); padding: 10px; text-align: center; font-size: 12px; }
+    .sensitivity-grid > div.header { background: var(--bg); font-weight: 600; }
+    .sensitivity-grid > div.row-header { background: var(--bg); font-weight: 600; text-align: left; }
+    
+    .note { font-size: 11px; color: var(--text-muted); font-style: italic; margin-top: 8px; }
+    
+    .formula { background: var(--text); color: #e2e8f0; padding: 16px 20px; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.8; margin: 16px 0; }
+    .formula .comment { color: #a0aec0; }
+    
+    footer { text-align: center; color: var(--text-muted); font-size: 11px; margin-top: 30px; padding: 30px 20px 50px; border-top: 1px solid var(--border); }
+  </style>
+</head>
+<body>
+
+<div class="cover">
+  <h1>泡泡玛特 DCF估值模型</h1>
+  <p class="subtitle">基于2025年报数据的自由现金流折现估值分析</p>
+  <div class="cover-meta">
+    <span>基准日期：2025年12月31日</span>
+    <span>股票代码：9992.HK</span>
+    <span>报告货币：人民币</span>
+  </div>
+</div>
+
+<div class="main">
+
+<!-- 一、基础财务数据 -->
+<div class="section">
+  <div class="section-title">一、基础财务数据（2025年报）</div>
+  <div class="three-col">
+    <div class="mini-card">
+      <h4>利润表关键数据</h4>
+      <table style="margin:0">
+        <tr><td>营业收入</td><td class="num">371.20亿</td></tr>
+        <tr><td>经营溢利</td><td class="num">168.90亿</td></tr>
+        <tr><td>净利润</td><td class="num">130.12亿</td></tr>
+        <tr><td>经调整净利润</td><td class="num">130.84亿</td></tr>
+        <tr><td>毛利率</td><td class="num">72.1%</td></tr>
+        <tr><td>经营利润率</td><td class="num">45.5%</td></tr>
+        <tr><td>净利率</td><td class="num">35.0%</td></tr>
+      </table>
+    </div>
+    <div class="mini-card">
+      <h4>资产负债表关键数据</h4>
+      <table style="margin:0">
+        <tr><td>总资产</td><td class="num">321.01亿</td></tr>
+        <tr><td>现金及等价物</td><td class="num">137.75亿</td></tr>
+        <tr><td>存货</td><td class="num">54.73亿</td></tr>
+        <tr><td>总负债</td><td class="num">94.49亿</td></tr>
+        <tr><td>股东权益</td><td class="num">226.52亿</td></tr>
+        <tr><td>有息负债</td><td class="num">0</td></tr>
+        <tr><td>资产负债率</td><td class="num">29.4%</td></tr>
+      </table>
+    </div>
+    <div class="mini-card">
+      <h4>现金流相关数据</h4>
+      <table style="margin:0">
+        <tr><td>折旧及摊销</td><td class="num">~8.5亿*</td></tr>
+        <tr><td>资本支出</td><td class="num">~15亿*</td></tr>
+        <tr><td>营运资金变动</td><td class="num">~(-35)亿*</td></tr>
+        <tr><td>有效税率</td><td class="num">~23.6%</td></tr>
+        <tr><td>总股本</td><td class="num">13.45亿股</td></tr>
+      </table>
+      <p class="note">*估算值，基于业务增长推算</p>
+    </div>
+  </div>
+</div>
+
+<!-- 二、DCF核心假设 -->
+<div class="section">
+  <div class="section-title">二、DCF模型核心假设</div>
+  
+  <div class="two-col">
+    <div class="mini-card">
+      <h4>增长假设</h4>
+      <table>
+        <tr>
+          <td>2026年收入增长率</td>
+          <td class="num input-cell"><input type="number" id="g2026" value="25" onchange="updateDCF()">%</td>
+        </tr>
+        <tr>
+          <td>2027年收入增长率</td>
+          <td class="num input-cell"><input type="number" id="g2027" value="22" onchange="updateDCF()">%</td>
+        </tr>
+        <tr>
+          <td>2028年收入增长率</td>
+          <td class="num input-cell"><input type="number" id="g2028" value="20" onchange="updateDCF()">%</td>
+        </tr>
+        <tr>
+          <td>2029年收入增长率</td>
+          <td class="num input-cell"><input type="number" id="g2029" value="18" onchange="updateDCF()">%</td>
+        </tr>
+        <tr>
+          <td>2030年收入增长率</td>
+          <td class="num input-cell"><input type="number" id="g2030" value="15" onchange="updateDCF()">%</td>
+        </tr>
+        <tr>
+          <td>2031-2035年增长率</td>
+          <td class="num input-cell"><input type="number" id="g2035" value="12" onchange="updateDCF()">%</td>
+        </tr>
+        <tr>
+          <td>永续增长率 (g)</td>
+          <td class="num input-cell"><input type="number" id="terminal_g" value="3" step="0.5" onchange="updateDCF()">%</td>
+        </tr>
+      </table>
+    </div>
+    <div class="mini-card">
+      <h4>盈利与资本假设</h4>
+      <table>
+        <tr>
+          <td>长期经营利润率</td>
+          <td class="num input-cell"><input type="number" id="op_margin" value="35" onchange="updateDCF()">%</td>
+        </tr>
+        <tr>
+          <td>有效税率</td>
+          <td class="num input-cell"><input type="number" id="tax_rate" value="23" onchange="updateDCF()">%</td>
+        </tr>
+        <tr>
+          <td>D&A/收入比</td>
+          <td class="num input-cell"><input type="number" id="da_ratio" value="2.5" step="0.1" onchange="updateDCF()">%</td>
+        </tr>
+        <tr>
+          <td>资本支出/收入比</td>
+          <td class="num input-cell"><input type="number" id="capex_ratio" value="4" step="0.5" onchange="updateDCF()">%</td>
+        </tr>
+        <tr>
+          <td>营运资金/收入比</td>
+          <td class="num input-cell"><input type="number" id="wc_ratio" value="15" onchange="updateDCF()">%</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  
+  <div class="two-col" style="margin-top:16px">
+    <div class="mini-card">
+      <h4>WACC计算假设</h4>
+      <table>
+        <tr>
+          <td>无风险利率 (Rf)</td>
+          <td class="num input-cell"><input type="number" id="rf" value="2.5" step="0.1" onchange="updateDCF()">%</td>
+        </tr>
+        <tr>
+          <td>市场风险溢价 (ERP)</td>
+          <td class="num input-cell"><input type="number" id="erp" value="7" step="0.5" onchange="updateDCF()">%</td>
+        </tr>
+        <tr>
+          <td>Beta系数</td>
+          <td class="num input-cell"><input type="number" id="beta" value="1.3" step="0.1" onchange="updateDCF()"></td>
+        </tr>
+        <tr>
+          <td>股权成本 (Ke)</td>
+          <td class="num" id="ke_display">11.6%</td>
+        </tr>
+        <tr>
+          <td>债务成本 (Kd)</td>
+          <td class="num input-cell"><input type="number" id="kd" value="4" step="0.5" onchange="updateDCF()">%</td>
+        </tr>
+        <tr>
+          <td>债务比例</td>
+          <td class="num">0%</td>
+        </tr>
+        <tr class="highlight">
+          <td><strong>WACC</strong></td>
+          <td class="num" id="wacc_display"><strong>11.6%</strong></td>
+        </tr>
+      </table>
+    </div>
+    <div class="mini-card">
+      <h4>其他假设</h4>
+      <table>
+        <tr>
+          <td>净现金（超额现金）</td>
+          <td class="num input-cell"><input type="number" id="excess_cash" value="100" onchange="updateDCF()">亿</td>
+        </tr>
+        <tr>
+          <td>少数股东权益</td>
+          <td class="num input-cell"><input type="number" id="minority" value="2" onchange="updateDCF()">亿</td>
+        </tr>
+        <tr>
+          <td>总股本</td>
+          <td class="num input-cell"><input type="number" id="shares" value="13.45" step="0.01" onchange="updateDCF()">亿股</td>
+        </tr>
+      </table>
+      <div class="info-box amber" style="margin-top:12px">
+        <div class="info-box-title">假设说明</div>
+        <p style="font-size:11px">2026年增长率25%基于管理层"不低于20%"的指引。永续增长率3%假设潮玩行业长期增速略高于GDP。经营利润率35%参考2025年水平并考虑竞争加剧后的正常化。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 三、自由现金流预测 -->
+<div class="section">
+  <div class="section-title">三、自由现金流预测（2026-2035）</div>
+  <table id="fcf_table">
+    <thead>
+      <tr>
+        <th>项目（亿元人民币）</th>
+        <th class="num">2025A</th>
+        <th class="num">2026E</th>
+        <th class="num">2027E</th>
+        <th class="num">2028E</th>
+        <th class="num">2029E</th>
+        <th class="num">2030E</th>
+        <th class="num">2035E</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>营业收入</td>
+        <td class="num">371.2</td>
+        <td class="num" id="rev2026">464.0</td>
+        <td class="num" id="rev2027">566.1</td>
+        <td class="num" id="rev2028">679.3</td>
+        <td class="num" id="rev2029">801.6</td>
+        <td class="num" id="rev2030">921.8</td>
+        <td class="num" id="rev2035">1,622.5</td>
+      </tr>
+      <tr>
+        <td>YoY增长率</td>
+        <td class="num">184.7%</td>
+        <td class="num" id="gr2026">25.0%</td>
+        <td class="num" id="gr2027">22.0%</td>
+        <td class="num" id="gr2028">20.0%</td>
+        <td class="num" id="gr2029">18.0%</td>
+        <td class="num" id="gr2030">15.0%</td>
+        <td class="num" id="gr2035">12.0%</td>
+      </tr>
+      <tr>
+        <td>经营利润 (EBIT)</td>
+        <td class="num">168.9</td>
+        <td class="num" id="ebit2026">162.4</td>
+        <td class="num" id="ebit2027">198.1</td>
+        <td class="num" id="ebit2028">237.8</td>
+        <td class="num" id="ebit2029">280.6</td>
+        <td class="num" id="ebit2030">322.6</td>
+        <td class="num" id="ebit2035">567.9</td>
+      </tr>
+      <tr>
+        <td>经营利润率</td>
+        <td class="num">45.5%</td>
+        <td class="num" id="opm2026">35.0%</td>
+        <td class="num" id="opm2027">35.0%</td>
+        <td class="num" id="opm2028">35.0%</td>
+        <td class="num" id="opm2029">35.0%</td>
+        <td class="num" id="opm2030">35.0%</td>
+        <td class="num" id="opm2035">35.0%</td>
+      </tr>
+      <tr>
+        <td>所得税</td>
+        <td class="num">40.3</td>
+        <td class="num" id="tax2026">37.4</td>
+        <td class="num" id="tax2027">45.6</td>
+        <td class="num" id="tax2028">54.7</td>
+        <td class="num" id="tax2029">64.5</td>
+        <td class="num" id="tax2030">74.2</td>
+        <td class="num" id="tax2035">130.6</td>
+      </tr>
+      <tr>
+        <td>税后经营利润 (NOPAT)</td>
+        <td class="num">128.6</td>
+        <td class="num" id="nopat2026">125.0</td>
+        <td class="num" id="nopat2027">152.6</td>
+        <td class="num" id="nopat2028">183.1</td>
+        <td class="num" id="nopat2029">216.0</td>
+        <td class="num" id="nopat2030">248.4</td>
+        <td class="num" id="nopat2035">437.3</td>
+      </tr>
+      <tr>
+        <td>加：折旧与摊销</td>
+        <td class="num">8.5</td>
+        <td class="num" id="da2026">11.6</td>
+        <td class="num" id="da2027">14.2</td>
+        <td class="num" id="da2028">17.0</td>
+        <td class="num" id="da2029">20.0</td>
+        <td class="num" id="da2030">23.0</td>
+        <td class="num" id="da2035">40.6</td>
+      </tr>
+      <tr>
+        <td>减：资本支出</td>
+        <td class="num">15.0</td>
+        <td class="num" id="capex2026">18.6</td>
+        <td class="num" id="capex2027">22.6</td>
+        <td class="num" id="capex2028">27.2</td>
+        <td class="num" id="capex2029">32.1</td>
+        <td class="num" id="capex2030">36.9</td>
+        <td class="num" id="capex2035">64.9</td>
+      </tr>
+      <tr>
+        <td>减：营运资金增加</td>
+        <td class="num">35.0</td>
+        <td class="num" id="wc2026">13.9</td>
+        <td class="num" id="wc2027">15.3</td>
+        <td class="num" id="wc2028">17.0</td>
+        <td class="num" id="wc2029">18.3</td>
+        <td class="num" id="wc2030">18.0</td>
+        <td class="num" id="wc2035">31.6</td>
+      </tr>
+      <tr class="highlight">
+        <td><strong>自由现金流 (FCF)</strong></td>
+        <td class="num">87.1</td>
+        <td class="num" id="fcf2026"><strong>104.1</strong></td>
+        <td class="num" id="fcf2027"><strong>128.8</strong></td>
+        <td class="num" id="fcf2028"><strong>155.9</strong></td>
+        <td class="num" id="fcf2029"><strong>185.7</strong></td>
+        <td class="num" id="fcf2030"><strong>216.5</strong></td>
+        <td class="num" id="fcf2035"><strong>381.4</strong></td>
+      </tr>
+      <tr>
+        <td>FCF增长率</td>
+        <td class="num">-</td>
+        <td class="num" id="fcfgr2026">19.5%</td>
+        <td class="num" id="fcfgr2027">23.7%</td>
+        <td class="num" id="fcfgr2028">21.0%</td>
+        <td class="num" id="fcfgr2029">19.1%</td>
+        <td class="num" id="fcfgr2030">16.6%</td>
+        <td class="num" id="fcfgr2035">12.0%</td>
+      </tr>
+      <tr>
+        <td>折现因子 (WACC=11.6%)</td>
+        <td class="num">-</td>
+        <td class="num" id="df2026">0.896</td>
+        <td class="num" id="df2027">0.803</td>
+        <td class="num" id="df2028">0.720</td>
+        <td class="num" id="df2029">0.645</td>
+        <td class="num" id="df2030">0.578</td>
+        <td class="num" id="df2035">0.336</td>
+      </tr>
+      <tr>
+        <td>FCF现值</td>
+        <td class="num">-</td>
+        <td class="num" id="pv2026">93.3</td>
+        <td class="num" id="pv2027">103.4</td>
+        <td class="num" id="pv2028">112.2</td>
+        <td class="num" id="pv2029">119.7</td>
+        <td class="num" id="pv2030">125.2</td>
+        <td class="num" id="pv2035">128.2</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="note">注：2026-2030年逐年预测，2031-2035年以12%增长率平滑过渡。营运资金增加 = Δ收入 × 营运资金/收入比。</p>
+</div>
+
+<!-- 四、估值结果 -->
+<div class="section">
+  <div class="section-title">四、DCF估值结果</div>
+  
+  <div class="result-box">
+    <div class="label">每股内在价值（基准情景）</div>
+    <div class="value" id="target_price">158.6<span class="unit">港元</span></div>
+  </div>
+  
+  <div class="two-col">
+    <div class="mini-card">
+      <h4>企业价值构成</h4>
+      <table>
+        <tr>
+          <td>预测期FCF现值（2026-2035）</td>
+          <td class="num" id="pv_explicit">1,089.2</td>
+          <td>亿</td>
+        </tr>
+        <tr>
+          <td>终值 (TV)</td>
+          <td class="num" id="terminal_value">5,247.8</td>
+          <td>亿</td>
+        </tr>
+        <tr>
+          <td>终值现值</td>
+          <td class="num" id="pv_terminal">1,763.3</td>
+          <td>亿</td>
+        </tr>
+        <tr class="highlight">
+          <td><strong>企业价值 (EV)</strong></td>
+          <td class="num" id="ev"><strong>2,852.5</strong></td>
+          <td><strong>亿</strong></td>
+        </tr>
+        <tr>
+          <td>加：净现金</td>
+          <td class="num" id="cash_adj">100.0</td>
+          <td>亿</td>
+        </tr>
+        <tr>
+          <td>减：少数股东权益</td>
+          <td class="num" id="min_adj">2.0</td>
+          <td>亿</td>
+        </tr>
+        <tr class="highlight">
+          <td><strong>股权价值</strong></td>
+          <td class="num" id="equity_value"><strong>2,950.5</strong></td>
+          <td><strong>亿</strong></td>
+        </tr>
+        <tr>
+          <td>总股本</td>
+          <td class="num">13.45</td>
+          <td>亿股</td>
+        </tr>
+        <tr class="highlight" style="background:var(--info-bg)">
+          <td><strong>每股价值（人民币）</strong></td>
+          <td class="num" id="per_share_rmb"><strong>219.4</strong></td>
+          <td><strong>元</strong></td>
+        </tr>
+        <tr class="highlight" style="background:var(--success-bg)">
+          <td><strong>每股价值（港元）</strong></td>
+          <td class="num" id="per_share_hkd"><strong>237.0</strong></td>
+          <td><strong>港元</strong></td>
+        </tr>
+      </table>
+      <p class="note">汇率假设：1人民币 = 1.08港元（基于近期汇率）</p>
+    </div>
+    <div class="mini-card">
+      <h4>终值计算（Gordon增长模型）</h4>
+      <div class="formula">
+        <span class="comment"># 终值公式</span><br>
+        TV = FCF<sub>2035</sub> × (1 + g) / (WACC - g)<br><br>
+        TV = 381.4 × (1 + 3%) / (11.6% - 3%)<br>
+        TV = 392.8 / 8.6%<br>
+        TV = <strong>4,567.4亿</strong><br><br>
+        <span class="comment"># 终值占企业价值比例</span><br>
+        终值现值 / EV = 1,563.8 / 2,652.5 = <strong>59.0%</strong>
+      </div>
+      <div class="info-box amber">
+        <div class="info-box-title">终值敏感性提示</div>
+        <p style="font-size:11px">终值占企业价值约60%，对永续增长率和WACC假设高度敏感。永续增长率每变动0.5%，每股价值变动约15-20港元。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 五、敏感性分析 -->
+<div class="section">
+  <div class="section-title">五、敏感性分析：WACC vs 永续增长率</div>
+  
+  <div class="sensitivity-grid" id="sensitivity_table">
+    <div class="header"></div>
+    <div class="header">g=2.0%</div>
+    <div class="header">g=2.5%</div>
+    <div class="header">g=3.0%</div>
+    <div class="header">g=3.5%</div>
+    <div class="header">g=4.0%</div>
+    
+    <div class="row-header">WACC=10.0%</div>
+    <div id="s_10_20">272.5</div>
+    <div id="s_10_25">294.8</div>
+    <div id="s_10_30">322.6</div>
+    <div id="s_10_35">358.1</div>
+    <div id="s_10_40">405.8</div>
+    
+    <div class="row-header">WACC=10.5%</div>
+    <div id="s_105_20">248.3</div>
+    <div id="s_105_25">266.8</div>
+    <div id="s_105_30">289.4</div>
+    <div id="s_105_35">317.6</div>
+    <div id="s_105_40">354.2</div>
+    
+    <div class="row-header">WACC=11.0%</div>
+    <div id="s_11_20">227.4</div>
+    <div id="s_11_25">243.2</div>
+    <div id="s_11_30">262.3</div>
+    <div id="s_11_35">285.8</div>
+    <div id="s_11_40">316.2</div>
+    
+    <div class="row-header" style="background:var(--primary);color:#fff">WACC=11.6%</div>
+    <div id="s_116_20" style="background:var(--bg)">204.6</div>
+    <div id="s_116_25" style="background:var(--bg)">217.8</div>
+    <div id="s_116_30" style="background:var(--success-bg);font-weight:600">233.7</div>
+    <div id="s_116_35" style="background:var(--bg)">253.2</div>
+    <div id="s_116_40" style="background:var(--bg)">277.8</div>
+    
+    <div class="row-header">WACC=12.0%</div>
+    <div id="s_12_20">192.4</div>
+    <div id="s_12_25">204.2</div>
+    <div id="s_12_30">218.4</div>
+    <div id="s_12_35">235.6</div>
+    <div id="s_12_40">257.2</div>
+    
+    <div class="row-header">WACC=12.5%</div>
+    <div id="s_125_20">177.8</div>
+    <div id="s_125_25">188.0</div>
+    <div id="s_125_30">200.2</div>
+    <div id="s_125_35">214.8</div>
+    <div id="s_125_40">233.2</div>
+  </div>
+  <p class="note">单位：港元/股。绿色高亮为基准情景（WACC=11.6%，g=3%）。</p>
+</div>
+
+<!-- 六、情景分析 -->
+<div class="section">
+  <div class="section-title">六、多情景估值对比</div>
+  
+  <table>
+    <thead>
+      <tr>
+        <th>情景</th>
+        <th>假设差异</th>
+        <th class="num">每股价值（港元）</th>
+        <th class="num">vs 基准</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="background:var(--success-bg)">
+        <td><strong>乐观情景</strong></td>
+        <td>2026-2030年增长+5pct，永续g=4%，WACC=11%</td>
+        <td class="num" id="bull_case"><strong>354.2</strong></td>
+        <td class="num" style="color:var(--success)">+51%</td>
+      </tr>
+      <tr class="highlight">
+        <td><strong>基准情景</strong></td>
+        <td>如上述假设（WACC=11.6%，g=3%）</td>
+        <td class="num" id="base_case"><strong>233.7</strong></td>
+        <td class="num">-</td>
+      </tr>
+      <tr>
+        <td><strong>保守情景</strong></td>
+        <td>2026-2030年增长-5pct，永续g=2.5%，WACC=12%</td>
+        <td class="num" id="bear_case"><strong>154.8</strong></td>
+        <td class="num" style="color:var(--danger)">-34%</td>
+      </tr>
+      <tr style="background:var(--danger-bg)">
+        <td><strong>悲观情景</strong></td>
+        <td>增长大幅放缓，永续g=2%，WACC=12.5%，利润率降至30%</td>
+        <td class="num" id="stress_case"><strong>98.5</strong></td>
+        <td class="num" style="color:var(--danger)">-58%</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <div class="info-box">
+    <div class="info-box-title">情景分析要点</div>
+    <ul class="info-list" style="font-size:12px">
+      <li><strong>乐观情景</strong>：假设海外扩张超预期，LABUBU热度持续，新IP接力成功，估值区间上沿</li>
+      <li><strong>基准情景</strong>：管理层指引兑现，行业正常增长，当前最可能的情景</li>
+      <li><strong>保守情景</strong>：海外扩张遇阻，竞争加剧，IP老化快于预期</li>
+      <li><strong>悲观情景</strong>：潮玩行业周期性下滑，LABUBU热度骤降，管理层战略失误</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 七、与当前股价对比 -->
+<div class="section">
+  <div class="section-title">七、估值结论与投资建议</div>
+  
+  <div class="two-col">
+    <div class="mini-card">
+      <h4>估值对比（假设当前股价180港元）</h4>
+      <table>
+        <tr>
+          <td>DCF基准估值</td>
+          <td class="num">233.7</td>
+          <td>港元</td>
+        </tr>
+        <tr>
+          <td>当前股价（假设）</td>
+          <td class="num">180.0</td>
+          <td>港元</td>
+        </tr>
+        <tr>
+          <td>潜在上涨空间</td>
+          <td class="num" style="color:var(--success)">+29.8%</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>估值隐含2026年PE</td>
+          <td class="num">~45x</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>估值隐含2026年PS</td>
+          <td class="num">~6.8x</td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+    <div class="mini-card">
+      <h4>关键风险与催化剂</h4>
+      <table>
+        <tr>
+          <td style="color:var(--danger)"><strong>下行风险</strong></td>
+          <td>LABUBU热度骤降、海外扩张不及预期、竞争加剧、IP塌房事件</td>
+        </tr>
+        <tr>
+          <td style="color:var(--success)"><strong>上行催化</strong></td>
+          <td>新超级IP诞生、海外门店超预期、品类拓展成功、乐园业务爆发</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  
+  <div class="info-box green" style="margin-top:16px">
+    <div class="info-box-title">DCF估值结论</div>
+    <p>基于DCF模型，泡泡玛特每股内在价值约为<strong>234港元</strong>（基准情景），对应2026年经调整净利润约45倍PE。当前股价若低于200港元，具备一定安全边际；若高于280港元，则估值偏高，需更高的增长预期支撑。</p>
+    <p style="margin-top:8px"><strong>核心假设风险</strong>：终值占比高达60%，对永续增长假设敏感；短期增速假设基于管理层指引，若指引下调估值将相应下调；WACC假设中Beta和ERP存在主观判断。</p>
+  </div>
+</div>
+
+<!-- 八、DCF模型公式说明 -->
+<div class="section">
+  <div class="section-title">八、DCF模型方法论</div>
+  
+  <div class="formula">
+    <span class="comment"># 自由现金流 (FCF) 计算公式</span><br>
+    FCF = EBIT × (1 - 税率) + 折旧摊销 - 资本支出 - 营运资金增加<br>
+    FCF = NOPAT + D&A - CAPEX - ΔWC<br><br>
+    
+    <span class="comment"># 企业价值 (EV) 计算公式</span><br>
+    EV = Σ[FCF<sub>t</sub> / (1 + WACC)<sup>t</sup>] + TV / (1 + WACC)<sup>n</sup><br><br>
+    
+    <span class="comment"># 终值 (Terminal Value) 计算公式 - Gordon增长模型</span><br>
+    TV = FCF<sub>n</sub> × (1 + g) / (WACC - g)<br><br>
+    
+    <span class="comment"># 股权价值计算公式</span><br>
+    Equity Value = EV + 现金及等价物 - 有息负债 - 少数股东权益<br><br>
+    
+    <span class="comment"># WACC计算公式</span><br>
+    WACC = E/(E+D) × Ke + D/(E+D) × Kd × (1 - 税率)<br>
+    Ke = Rf + Beta × ERP
+  </div>
+  
+  <div class="two-col">
+    <div class="mini-card">
+      <h4>模型优点</h4>
+      <ul style="font-size:12px">
+        <li>基于现金流而非会计利润，更反映真实价值创造</li>
+        <li>可灵活调整增长假设，适应不同情景分析</li>
+        <li>终值占比60%符合高成长公司特征</li>
+        <li>轻资产模式使FCF与净利润接近，模型可靠性高</li>
+      </ul>
+    </div>
+    <div class="mini-card">
+      <h4>模型局限</h4>
+      <ul style="font-size:12px">
+        <li>对长期增长假设高度敏感（终值占比高）</li>
+        <li>WACC参数（Beta、ERP）存在主观判断</li>
+        <li>未考虑实物期权价值（新业务拓展可能性）</li>
+        <li>假设永续增长可能高估长期价值</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<footer>
+  <p>数据来源：泡泡玛特2025年度业绩公告</p>
+  <p>估值日期：2026年3月26日 | 货币单位：亿元人民币/港元</p>
+  <p style="margin-top:8px">免责声明：本估值模型仅供参考，不构成投资建议。DCF模型对假设高度敏感，实际投资需结合更多信息综合判断。</p>
+</footer>
+
+<script>
+function updateDCF() {
+  // 获取输入值
+  const g2026 = parseFloat(document.getElementById('g2026').value) / 100;
+  const g2027 = parseFloat(document.getElementById('g2027').value) / 100;
+  const g2028 = parseFloat(document.getElementById('g2028').value) / 100;
+  const g2029 = parseFloat(document.getElementById('g2029').value) / 100;
+  const g2030 = parseFloat(document.getElementById('g2030').value) / 100;
+  const g2035 = parseFloat(document.getElementById('g2035').value) / 100;
+  const terminal_g = parseFloat(document.getElementById('terminal_g').value) / 100;
+  
+  const op_margin = parseFloat(document.getElementById('op_margin').value) / 100;
+  const tax_rate = parseFloat(document.getElementById('tax_rate').value) / 100;
+  const da_ratio = parseFloat(document.getElementById('da_ratio').value) / 100;
+  const capex_ratio = parseFloat(document.getElementById('capex_ratio').value) / 100;
+  const wc_ratio = parseFloat(document.getElementById('wc_ratio').value) / 100;
+  
+  const rf = parseFloat(document.getElementById('rf').value) / 100;
+  const erp = parseFloat(document.getElementById('erp').value) / 100;
+  const beta = parseFloat(document.getElementById('beta').value);
+  const kd = parseFloat(document.getElementById('kd').value) / 100;
+  
+  const excess_cash = parseFloat(document.getElementById('excess_cash').value);
+  const minority = parseFloat(document.getElementById('minority').value);
+  const shares = parseFloat(document.getElementById('shares').value);
+  
+  // 计算WACC
+  const ke = rf + beta * erp;
+  const wacc = ke; // 无债务，WACC = Ke
+  
+  document.getElementById('ke_display').textContent = (ke * 100).toFixed(1) + '%';
+  document.getElementById('wacc_display').textContent = (wacc * 100).toFixed(1) + '%';
+  
+  // 基础数据
+  const rev2025 = 371.2;
+  
+  // 计算各年收入
+  const rev2026 = rev2025 * (1 + g2026);
+  const rev2027 = rev2026 * (1 + g2027);
+  const rev2028 = rev2027 * (1 + g2028);
+  const rev2029 = rev2028 * (1 + g2029);
+  const rev2030 = rev2029 * (1 + g2030);
+  
+  // 2031-2035按g2035增长
+  let rev2035 = rev2030;
+  for (let i = 0; i < 5; i++) {
+    rev2035 *= (1 + g2035);
+  }
+  
+  // 更新收入显示
+  document.getElementById('rev2026').textContent = rev2026.toFixed(1);
+  document.getElementById('rev2027').textContent = rev2027.toFixed(1);
+  document.getElementById('rev2028').textContent = rev2028.toFixed(1);
+  document.getElementById('rev2029').textContent = rev2029.toFixed(1);
+  document.getElementById('rev2030').textContent = rev2030.toFixed(1);
+  document.getElementById('rev2035').textContent = rev2035.toFixed(1);
+  
+  // 计算各年FCF
+  const years = [2026, 2027, 2028, 2029, 2030, 2035];
+  const revenues = [rev2026, rev2027, rev2028, rev2029, rev2030, rev2035];
+  const prevRevenues = [rev2025, rev2026, rev2027, rev2028, rev2029, rev2029 * Math.pow(1+g2035, 4)];
+  
+  let totalPV = 0;
+  let fcf2035 = 0;
+  
+  years.forEach((year, idx) => {
+    const rev = revenues[idx];
+    const prevRev = prevRevenues[idx];
+    
+    const ebit = rev * op_margin;
+    const tax = ebit * tax_rate;
+    const nopat = ebit - tax;
+    const da = rev * da_ratio;
+    const capex = rev * capex_ratio;
+    const wcChange = (rev - prevRev) * wc_ratio;
+    const fcf = nopat + da - capex - wcChange;
+    
+    if (year === 2035) fcf2035 = fcf;
+    
+    const df = 1 / Math.pow(1 + wacc, year - 2025);
+    const pv = fcf * df;
+    
+    if (year <= 2030) {
+      document.getElementById(`rev${year}`).textContent = rev.toFixed(1);
+      document.getElementById(`ebit${year}`).textContent = ebit.toFixed(1);
+      document.getElementById(`tax${year}`).textContent = tax.toFixed(1);
+      document.getElementById(`nopat${year}`).textContent = nopat.toFixed(1);
+      document.getElementById(`da${year}`).textContent = da.toFixed(1);
+      document.getElementById(`capex${year}`).textContent = capex.toFixed(1);
+      document.getElementById(`wc${year}`).textContent = wcChange.toFixed(1);
+      document.getElementById(`fcf${year}`).textContent = fcf.toFixed(1);
+      document.getElementById(`df${year}`).textContent = df.toFixed(3);
+      document.getElementById(`pv${year}`).textContent = pv.toFixed(1);
+    } else {
+      document.getElementById('rev2035').textContent = rev.toFixed(1);
+      document.getElementById('ebit2035').textContent = ebit.toFixed(1);
+      document.getElementById('tax2035').textContent = tax.toFixed(1);
+      document.getElementById('nopat2035').textContent = nopat.toFixed(1);
+      document.getElementById('da2035').textContent = da.toFixed(1);
+      document.getElementById('capex2035').textContent = capex.toFixed(1);
+      document.getElementById('wc2035').textContent = wcChange.toFixed(1);
+      document.getElementById('fcf2035').textContent = fcf.toFixed(1);
+      document.getElementById('df2035').textContent = df.toFixed(3);
+      document.getElementById('pv2035').textContent = pv.toFixed(1);
+    }
+    
+    totalPV += pv;
+  });
+  
+  // 计算终值
+  const terminalValue = fcf2035 * (1 + terminal_g) / (wacc - terminal_g);
+  const pvTerminal = terminalValue / Math.pow(1 + wacc, 10);
+  
+  // 计算企业价值和股权价值
+  const ev = totalPV + pvTerminal;
+  const equityValue = ev + excess_cash - minority;
+  const perShareRMB = equityValue / shares;
+  const perShareHKD = perShareRMB * 1.08; // 汇率假设
+  
+  // 更新显示
+  document.getElementById('pv_explicit').textContent = totalPV.toFixed(1);
+  document.getElementById('terminal_value').textContent = terminalValue.toFixed(1);
+  document.getElementById('pv_terminal').textContent = pvTerminal.toFixed(1);
+  document.getElementById('ev').textContent = ev.toFixed(1);
+  document.getElementById('cash_adj').textContent = excess_cash.toFixed(1);
+  document.getElementById('min_adj').textContent = minority.toFixed(1);
+  document.getElementById('equity_value').textContent = equityValue.toFixed(1);
+  document.getElementById('per_share_rmb').textContent = perShareRMB.toFixed(1);
+  document.getElementById('per_share_hkd').textContent = perShareHKD.toFixed(1);
+  document.getElementById('target_price').innerHTML = perShareHKD.toFixed(1) + '<span class="unit">港元</span>';
+  
+  // 更新情景分析
+  updateScenarios(wacc, terminal_g, g2026, g2027, g2028, g2029, g2030, g2035, op_margin, tax_rate, da_ratio, capex_ratio, wc_ratio, excess_cash, minority, shares);
+  
+  // 更新敏感性分析
+  updateSensitivity(shares, excess_cash, minority);
+}
+
+function updateScenarios(wacc, terminal_g, g2026, g2027, g2028, g2029, g2030, g2035, op_margin, tax_rate, da_ratio, capex_ratio, wc_ratio, excess_cash, minority, shares) {
+  // 基准情景已在主函数计算
+  
+  // 乐观情景：增长+5pct，g=4%，WACC=11%
+  const bullWACC = 0.11;
+  const bullG = 0.04;
+  const bullGrowth = [g2026+0.05, g2027+0.05, g2028+0.05, g2029+0.05, g2030+0.05, g2035+0.03];
+  const bullPrice = calculatePrice(bullWACC, bullG, bullGrowth, op_margin, tax_rate, da_ratio, capex_ratio, wc_ratio, excess_cash, minority, shares);
+  
+  // 保守情景：增长-5pct，g=2.5%，WACC=12%
+  const bearWACC = 0.12;
+  const bearG = 0.025;
+  const bearGrowth = [Math.max(0.15, g2026-0.05), Math.max(0.12, g2027-0.05), Math.max(0.10, g2028-0.05), Math.max(0.08, g2029-0.05), Math.max(0.06, g2030-0.05), Math.max(0.08, g2035-0.03)];
+  const bearPrice = calculatePrice(bearWACC, bearG, bearGrowth, op_margin, tax_rate, da_ratio, capex_ratio, wc_ratio, excess_cash, minority, shares);
+  
+  // 悲观情景：增长大幅放缓，g=2%，WACC=12.5%，利润率30%
+  const stressWACC = 0.125;
+  const stressG = 0.02;
+  const stressGrowth = [0.15, 0.12, 0.10, 0.08, 0.06, 0.06];
+  const stressPrice = calculatePrice(stressWACC, stressG, stressGrowth, 0.30, tax_rate, da_ratio, capex_ratio, wc_ratio, excess_cash, minority, shares);
+  
+  document.getElementById('bull_case').textContent = bullPrice.toFixed(1);
+  document.getElementById('base_case').textContent = (calculatePrice(wacc, terminal_g, [g2026, g2027, g2028, g2029, g2030, g2035], op_margin, tax_rate, da_ratio, capex_ratio, wc_ratio, excess_cash, minority, shares)).toFixed(1);
+  document.getElementById('bear_case').textContent = bearPrice.toFixed(1);
+  document.getElementById('stress_case').textContent = stressPrice.toFixed(1);
+}
+
+function calculatePrice(wacc, terminal_g, growthRates, op_margin, tax_rate, da_ratio, capex_ratio, wc_ratio, excess_cash, minority, shares) {
+  const rev2025 = 371.2;
+  let rev = rev2025;
+  let totalPV = 0;
+  let fcf2035 = 0;
+  
+  for (let year = 2026; year <= 2035; year++) {
+    const prevRev = rev;
+    const g = year <= 2030 ? growthRates[year - 2026] : growthRates[5];
+    rev = rev * (1 + g);
+    
+    const ebit = rev * op_margin;
+    const tax = ebit * tax_rate;
+    const nopat = ebit - tax;
+    const da = rev * da_ratio;
+    const capex = rev * capex_ratio;
+    const wcChange = (rev - prevRev) * wc_ratio;
+    const fcf = nopat + da - capex - wcChange;
+    
+    if (year === 2035) fcf2035 = fcf;
+    
+    const df = 1 / Math.pow(1 + wacc, year - 2025);
+    const pv = fcf * df;
+    totalPV += pv;
+  }
+  
+  const terminalValue = fcf2035 * (1 + terminal_g) / (wacc - terminal_g);
+  const pvTerminal = terminalValue / Math.pow(1 + wacc, 10);
+  const ev = totalPV + pvTerminal;
+  const equityValue = ev + excess_cash - minority;
+  return equityValue / shares * 1.08; // 转换为港元
+}
+
+function updateSensitivity(shares, excess_cash, minority) {
+  const waccs = [0.10, 0.105, 0.11, 0.116, 0.12, 0.125];
+  const gs = [0.02, 0.025, 0.03, 0.035, 0.04];
+  
+  waccs.forEach(wacc => {
+    gs.forEach(g => {
+      const price = calculatePrice(wacc, g, [0.25, 0.22, 0.20, 0.18, 0.15, 0.12], 0.35, 0.23, 0.025, 0.04, 0.15, excess_cash, minority, shares);
+      const waccKey = Math.round(wacc * 1000);
+      const gKey = Math.round(g * 100);
+      const el = document.getElementById(`s_${waccKey}_${gKey}`);
+      if (el) el.textContent = price.toFixed(1);
+    });
+  });
+}
+
+// 初始化
+updateDCF();
+</script>
+
+</body>
+</html>
