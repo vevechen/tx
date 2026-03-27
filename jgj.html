@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>金刚经 · 学习摘要</title>
+  <style>
+    /* ═══════════════════════════════════════
+       字体 & 全局
+    ═══════════════════════════════════════ */
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500;700&display=swap');
+
+    :root {
+      --ink:        #1c1410;
+      --ink-soft:   #3d2e22;
+      --ink-faint:  #6b5a4a;
+      --ink-ghost:  #a0907e;
+      --paper:      #f7f2e8;
+      --paper-warm: #f0e9d8;
+      --paper-deep: #e8dfc8;
+      --cinnabar:   #8b2020;
+      --cinnabar-l: #c04030;
+      --gold-dim:   #9a7820;
+      --gold-line:  #c8a040;
+      --sage:       #4a6040;
+      --lotus:      #7a3858;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: "Noto Serif SC", "STSong", "SimSun", serif;
+      background: var(--paper);
+      color: var(--ink);
+      font-size: 16px;
+      line-height: 2;
+      /* 宣纸纹理 */
+      background-image:
+        radial-gradient(ellipse at 20% 50%, rgba(180,160,120,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(160,140,100,0.06) 0%, transparent 50%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    }
+
+    /* ═══════════════════════════════════════
+       封面
+    ═══════════════════════════════════════ */
+    .cover {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 40px;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, #0d0805 0%, #1a1008 30%, #2a1a10 60%, #1a1008 100%);
+    }
+
+    /* 水墨晕染背景 */
+    .cover::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 40% at 50% 30%, rgba(100,60,20,0.5) 0%, transparent 70%),
+        radial-gradient(ellipse 80% 60% at 30% 70%, rgba(60,30,10,0.4) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 75% 25%, rgba(80,40,15,0.3) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    /* 大字水印 */
+    .cover-watermark {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: min(35vw, 340px);
+      color: rgba(255,255,255,0.025);
+      font-weight: 700;
+      letter-spacing: -0.05em;
+      pointer-events: none;
+      user-select: none;
+      white-space: nowrap;
+    }
+
+    /* 装饰线 */
+    .cover-rule {
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(to bottom, transparent, rgba(200,160,64,0.6), transparent);
+      margin: 20px 0;
+    }
+
+    .cover-title-zh {
+      font-size: clamp(2.4em, 6vw, 4em);
+      color: #f0e4c0;
+      letter-spacing: 0.5em;
+      text-indent: 0.5em;
+      font-weight: 400;
+      text-shadow: 0 0 40px rgba(200,150,40,0.4), 0 2px 4px rgba(0,0,0,0.8);
+      position: relative;
+      z-index: 1;
+    }
+
+    .cover-title-sub {
+      font-size: clamp(0.9em, 2vw, 1.1em);
+      color: #b09060;
+      letter-spacing: 0.35em;
+      text-indent: 0.35em;
+      margin-top: 10px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cover-quote {
+      margin-top: 36px;
+      padding: 20px 36px;
+      border-top: 1px solid rgba(200,160,64,0.3);
+      border-bottom: 1px solid rgba(200,160,64,0.3);
+      text-align: center;
+      font-size: 1.05em;
+      color: #d4b880;
+      letter-spacing: 0.12em;
+      line-height: 2.2;
+      position: relative;
+      z-index: 1;
+      max-width: 500px;
+    }
+
+    .cover-meta {
+      margin-top: 28px;
+      font-size: 0.82em;
+      color: #7a6040;
+      letter-spacing: 0.2em;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* 向下箭头 */
+    .cover-down {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(200,160,64,0.4);
+      font-size: 1.4em;
+      animation: float 2.4s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%,100% { transform: translateX(-50%) translateY(0); opacity:.4; }
+      50%      { transform: translateX(-50%) translateY(8px); opacity:.7; }
+    }
+
+    /* ═══════════════════════════════════════
+       目录卷轴
+    ═══════════════════════════════════════ */
+    .toc-wrap {
+      max-width: 720px;
+      margin: 70px auto 0;
+      padding: 0 28px;
+    }
+
+    .scroll-box {
+      position: relative;
+      background: var(--paper-warm);
+      border: 1px solid #c8a858;
+      padding: 40px 48px;
+      box-shadow:
+        inset 0 0 30px rgba(160,120,60,0.08),
+        0 4px 20px rgba(80,50,20,0.12),
+        0 1px 3px rgba(80,50,20,0.08);
+    }
+
+    /* 卷轴两端横木 */
+    .scroll-box::before,
+    .scroll-box::after {
+      content: '';
+      position: absolute;
+      left: -8px; right: -8px;
+      height: 18px;
+      background: linear-gradient(to bottom, #8b6520, #c8a040, #8b6520);
+      border-radius: 9px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+    }
+    .scroll-box::before { top: -9px; }
+    .scroll-box::after  { bottom: -9px; }
+
+    .scroll-title {
+      text-align: center;
+      font-size: 1.05em;
+      color: var(--gold-dim);
+      letter-spacing: 0.3em;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(200,160,64,0.35);
+    }
+
+    .toc-list { list-style: none; }
+    .toc-list li {
+      padding: 5px 0;
+      border-bottom: 1px dashed rgba(160,120,60,0.2);
+    }
+    .toc-list li:last-child { border-bottom: none; }
+    .toc-list a {
+      color: var(--ink-soft);
+      text-decoration: none;
+      font-size: 0.93em;
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: color 0.2s;
+    }
+    .toc-list a:hover { color: var(--cinnabar); }
+    .toc-num {
+      color: var(--gold-dim);
+      font-size: 0.78em;
+      min-width: 28px;
+    }
+
+    /* ═══════════════════════════════════════
+       正文容器
+    ═══════════════════════════════════════ */
+    .content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 28px 100px;
+    }
+
+    /* ═══════════════════════════════════════
+       章节
+    ═══════════════════════════════════════ */
+    .chapter {
+      margin-top: 80px;
+      padding-top: 10px;
+    }
+
+    .chapter-header {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    .chapter-num {
+      display: inline-block;
+      font-size: 0.78em;
+      color: var(--gold-dim);
+      letter-spacing: 0.4em;
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      font-size: 1.55em;
+      font-weight: 500;
+      color: var(--ink);
+      letter-spacing: 0.25em;
+      margin-bottom: 6px;
+    }
+
+    .chapter-rule {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 12px auto 0;
+      width: fit-content;
+    }
+    .chapter-rule span { color: var(--gold-dim); font-size: 0.9em; }
+    .chapter-rule::before,
+    .chapter-rule::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold-line));
+    }
+    .chapter-rule::after {
+      background: linear-gradient(to left, transparent, var(--gold-line));
+    }
+
+    h3 {
+      font-size: 1.1em;
+      font-weight: 500;
+      color: var(--cinnabar);
+      letter-spacing: 0.12em;
+      margin: 36px 0 12px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid rgba(139,32,32,0.2);
+      position: relative;
+    }
+    h3::before {
+      content: '◈';
+      color: var(--gold-dim);
+      margin-right: 8px;
+      font-size: 0.75em;
+      vertical-align: middle;
+    }
+
+    h4 {
+      font-size: 1em;
+      font-weight: 500;
+      color: var(--sage);
+      margin: 22px 0 8px;
+      letter-spacing: 0.08em;
+    }
+
+    p {
+      margin: 12px 0;
+      text-align: justify;
+      color: var(--ink-soft);
+    }
+
+    /* ═══════════════════════════════════════
+       经文引用
+    ═══════════════════════════════════════ */
+    .sutra {
+      position: relative;
+      background: linear-gradient(135deg, #f5ede0, #ede4d0);
+      border-left: 3px solid var(--gold-line);
+      padding: 20px 24px 20px 28px;
+      margin: 20px 0;
+      color: var(--cinnabar);
+      font-size: 0.97em;
+      line-height: 2.3;
+      letter-spacing: 0.08em;
+    }
+    .sutra::before {
+      content: '「';
+      position: absolute;
+      top: 8px; left: 8px;
+      font-size: 1.8em;
+      color: rgba(200,160,64,0.35);
+      line-height: 1;
+    }
+    .sutra-label {
+      font-size: 0.76em;
+      color: var(--ink-ghost);
+      display: block;
+      margin-bottom: 8px;
+      letter-spacing: 0.1em;
+    }
+
+    /* ═══════════════════════════════════════
+       表格 — 水墨风
+    ═══════════════════════════════════════ */
+    .ink-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 18px 0;
+      font-size: 0.88em;
+    }
+    .ink-table th {
+      background: transparent;
+      color: var(--ink-faint);
+      font-weight: 500;
+      padding: 8px 14px;
+      border-bottom: 2px solid var(--gold-line);
+      letter-spacing: 0.1em;
+      text-align: left;
+    }
+    .ink-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid rgba(160,120,60,0.18);
+      color: var(--ink-soft);
+      vertical-align: top;
+    }
+    .ink-table tr:last-child td { border-bottom: none; }
+    .ink-table tr:hover td { background: rgba(200,160,64,0.05); }
+
+    /* ═══════════════════════════════════════
+       注释框
+    ═══════════════════════════════════════ */
+    .note {
+      margin: 18px 0;
+      padding: 16px 20px;
+      background: rgba(200,160,64,0.06);
+      border: 1px solid rgba(200,160,64,0.3);
+      font-size: 0.9em;
+      color: var(--ink-faint);
+      line-height: 1.9;
+    }
+    .note.red {
+      background: rgba(139,32,32,0.04);
+      border-color: rgba(139,32,32,0.25);
+    }
+    .note.sage {
+      background: rgba(74,96,64,0.05);
+      border-color: rgba(74,96,64,0.25);
+    }
+    .note strong { color: var(--ink); }
+
+    /* ═══════════════════════════════════════
+       三十二品列表
+    ═══════════════════════════════════════ */
+    .pian-list { margin: 20px 0; }
+    .pian-item {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 0;
+      border-bottom: 1px dashed rgba(160,120,60,0.2);
+      padding: 12px 0;
+    }
+    .pian-item:last-child { border-bottom: none; }
+    .pian-name {
+      font-size: 0.9em;
+      color: var(--cinnabar);
+      letter-spacing: 0.05em;
+      padding-right: 16px;
+      padding-top: 2px;
+    }
+    .pian-key {
+      font-size: 0.87em;
+      color: var(--ink-faint);
+      line-height: 1.8;
+    }
+
+    /* ═══════════════════════════════════════
+       时间轴
+    ═══════════════════════════════════════ */
+    .tl { margin: 18px 0 18px 8px; }
+    .tl-item {
+      display: flex;
+      gap: 20px;
+      padding-bottom: 20px;
+      position: relative;
+    }
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: 14px;
+      top: 28px;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, rgba(200,160,64,0.4), transparent);
+    }
+    .tl-item:last-child::before { display: none; }
+    .tl-dot {
+      width: 30px;
+      height: 30px;
+      border: 1px solid var(--gold-line);
+      background: var(--paper);
+      color: var(--gold-dim);
+      font-size: 0.72em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border-radius: 50%;
+      letter-spacing: 0;
+    }
+    .tl-body { flex: 1; padding-top: 4px; font-size: 0.9em; color: var(--ink-soft); }
+    .tl-body strong { color: var(--ink); }
+
+    /* ═══════════════════════════════════════
+       列表样式
+    ═══════════════════════════════════════ */
+    ul, ol { padding-left: 20px; margin: 10px 0; }
+    li { margin: 7px 0; color: var(--ink-soft); font-size: 0.93em; }
+    li::marker { color: var(--gold-dim); }
+
+    .brush-list { list-style: none; padding-left: 0; }
+    .brush-list li {
+      padding-left: 18px;
+      position: relative;
+    }
+    .brush-list li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--gold-dim);
+    }
+
+    /* ═══════════════════════════════════════
+       词典条目
+    ═══════════════════════════════════════ */
+    .dict-entry {
+      border-bottom: 1px dashed rgba(160,120,60,0.2);
+      padding: 14px 0;
+      display: grid;
+      grid-template-columns: 160px 80px 1fr;
+      gap: 12px;
+      font-size: 0.88em;
+    }
+    .dict-entry:last-child { border-bottom: none; }
+    .dict-zh { color: var(--cinnabar); font-weight: 500; letter-spacing: 0.05em; }
+    .dict-sa { color: var(--ink-ghost); font-size: 0.82em; font-style: italic; }
+    .dict-def { color: var(--ink-soft); line-height: 1.8; }
+
+    /* ═══════════════════════════════════════
+       水平分隔
+    ═══════════════════════════════════════ */
+    .ink-divider {
+      text-align: center;
+      margin: 60px 0 0;
+      color: var(--gold-dim);
+      font-size: 1em;
+      letter-spacing: 0.5em;
+      position: relative;
+    }
+    .ink-divider::before,
+    .ink-divider::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: calc(50% - 60px);
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(200,160,64,0.3));
+    }
+    .ink-divider::before { left: 0; }
+    .ink-divider::after  { right: 0; background: linear-gradient(to left, transparent, rgba(200,160,64,0.3)); }
+
+    /* ═══════════════════════════════════════
+       结语卡
+    ═══════════════════════════════════════ */
+    .closing {
+      margin: 60px 0 0;
+      padding: 36px 40px;
+      background: linear-gradient(135deg, #f5ede0, #ede4d0);
+      border: 1px solid rgba(200,160,64,0.4);
+      text-align: center;
+      position: relative;
+    }
+    .closing::before {
+      content: '卍';
+      position: absolute;
+      top: -14px; left: 50%;
+      transform: translateX(-50%);
+      background: var(--paper-warm);
+      padding: 0 10px;
+      color: var(--gold-dim);
+      font-size: 1.1em;
+      letter-spacing: 0;
+    }
+    .closing-verse {
+      font-size: 1.1em;
+      color: var(--cinnabar);
+      letter-spacing: 0.2em;
+      line-height: 2.5;
+    }
+    .closing-attr {
+      margin-top: 12px;
+      font-size: 0.8em;
+      color: var(--ink-ghost);
+      letter-spacing: 0.15em;
+    }
+
+    /* ═══════════════════════════════════════
+       页脚
+    ═══════════════════════════════════════ */
+    footer {
+      text-align: center;
+      padding: 32px 20px 40px;
+      color: var(--ink-ghost);
+      font-size: 0.8em;
+      letter-spacing: 0.2em;
+      border-top: 1px solid rgba(160,120,60,0.2);
+      margin-top: 80px;
+    }
+
+    /* ═══════════════════════════════════════
+       回到顶部
+    ═══════════════════════════════════════ */
+    .back-top {
+      position: fixed;
+      bottom: 32px; right: 32px;
+      width: 40px; height: 40px;
+      background: rgba(200,160,64,0.15);
+      border: 1px solid rgba(200,160,64,0.4);
+      color: var(--gold-dim);
+      font-size: 1em;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+      border-radius: 50%;
+    }
+    .back-top:hover {
+      background: rgba(200,160,64,0.3);
+    }
+
+    /* ═══════════════════════════════════════
+       响应式
+    ═══════════════════════════════════════ */
+    @media (max-width: 600px) {
+      .cover-title-zh { font-size: 2.2em; }
+      .scroll-box { padding: 32px 24px; }
+      .pian-item { grid-template-columns: 1fr; gap: 4px; }
+      .dict-entry { grid-template-columns: 1fr 1fr; }
+      .dict-sa { display: none; }
+      h2 { font-size: 1.3em; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════ 封面 ══════════ -->
+<div class="cover" id="top">
+  <div class="cover-watermark">般若</div>
+  <div class="cover-title-zh">金　刚　经</div>
+  <div class="cover-rule"></div>
+  <div class="cover-title-sub">系统性学习摘要</div>
+  <div class="cover-rule"></div>
+  <div class="cover-quote">
+    一切有为法<br>
+    如梦幻泡影<br>
+    如露亦如电<br>
+    应作如是观
+  </div>
+  <div class="cover-meta">鸠摩罗什译本 · 玄奘译本 · 于晓非导读七十一讲</div>
+  <div class="cover-down">↓</div>
+</div>
+
+<!-- ══════════ 目录 ══════════ -->
+<div class="toc-wrap">
+  <div class="scroll-box">
+    <div class="scroll-title">目　录</div>
+    <ul class="toc-list">
+      <li><a href="#c1"><span class="toc-num">壹</span>经典概况与版本</a></li>
+      <li><a href="#c2"><span class="toc-num">贰</span>佛教背景知识</a></li>
+      <li><a href="#c3"><span class="toc-num">叁</span>经名释义</a></li>
+      <li><a href="#c4"><span class="toc-num">肆</span>佛陀教理体系·判教</a></li>
+      <li><a href="#c5"><span class="toc-num">伍</span>四重二谛——核心认识论框架</a></li>
+      <li><a href="#c6"><span class="toc-num">陆</span>大乘生命观与菩萨道</a></li>
+      <li><a href="#c7"><span class="toc-num">柒</span>三十二品要义</a></li>
+      <li><a href="#c8"><span class="toc-num">捌</span>核心思想体系</a></li>
+      <li><a href="#c9"><span class="toc-num">玖</span>修行体系与菩萨五位</a></li>
+      <li><a href="#c10"><span class="toc-num">拾</span>关键概念词典</a></li>
+      <li><a href="#c11"><span class="toc-num">拾壹</span>两译本对照精华</a></li>
+      <li><a href="#c12"><span class="toc-num">拾贰</span>学习心得与感悟</a></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ══════════ 正文 ══════════ -->
+<div class="content">
+
+  <!-- ══ 壹 ══ -->
+  <div class="chapter" id="c1">
+    <div class="chapter-header">
+      <div class="chapter-num">壹</div>
+      <h2>经典概况与版本</h2>
+      <div class="chapter-rule"><span>◆</span></div>
+    </div>
+
+    <h3>基本信息</h3>
+    <table class="ink-table">
+      <tr><th>项目</th><th>内容</th></tr>
+      <tr><td>全称</td><td>《金刚般若波罗蜜经》</td></tr>
+      <tr><td>归属</td><td>大乘佛教 · 般若部经典</td></tr>
+      <tr><td>原语</td><td>梵文（Sanskrit）</td></tr>
+      <tr><td>主要人物</td><td>释迦牟尼佛 · 须菩提（妙生）</td></tr>
+    </table>
+
+    <h3>两大汉译本对照</h3>
+    <table class="ink-table">
+      <tr><th>译者</th><th>年代</th><th>经名</th><th>主角</th><th>特点</th></tr>
+      <tr>
+        <td>鸠摩罗什（姚秦）</td>
+        <td>401年</td>
+        <td>《金刚般若波罗蜜经》</td>
+        <td>须菩提</td>
+        <td>文辞优美，流传最广，中国传统版本</td>
+      </tr>
+      <tr>
+        <td>玄奘（唐）</td>
+        <td>648年</td>
+        <td>《能断金刚般若波罗蜜经》</td>
+        <td>妙生</td>
+        <td>直译精准，强调"能断"义，忠实梵文原典</td>
+      </tr>
+    </table>
+
+    <div class="note">
+      <strong>两译本要旨：</strong>鸠摩罗什本偏重文学美感，玄奘本偏重义理精确。玄奘在题名前加"能断"二字，揭示了本经核心功能：以般若智慧斩断一切烦恼执著，如金刚能截断一切。
+    </div>
+
+    <h3>经典地位</h3>
+    <p>《金刚经》被称为"诸佛之母"——所有佛陀及其无上菩提法皆从此经而出（第八品）。禅宗六祖慧能因听闻此经"应无所住而生其心"一句而开悟，本经深刻影响了中国禅宗思想。</p>
+  </div>
+
+  <div class="ink-divider">· · ·</div>
+
+  <!-- ══ 贰 ══ -->
+  <div class="chapter" id="c2">
+    <div class="chapter-header">
+      <div class="chapter-num">贰</div>
+      <h2>佛教背景知识</h2>
+      <div class="chapter-rule"><span>◆</span></div>
+    </div>
+
+    <h3>轴心时代与四圣人</h3>
+    <p>德国哲学家雅斯贝尔斯提出"轴心时代"（公元前800–前200年）命题，认为人类文明出现了四位最具影响力的精神导师：苏格拉底（希腊）、释迦牟尼（印度）、孔子（中国）、耶稣（巴勒斯坦）。三千年后，其思想仍深刻左右著人类文明。</p>
+
+    <h3>佛教三大传统</h3>
+    <ul class="brush-list">
+      <li><strong>南传佛教</strong>（上座部）——巴利文经典，流行于斯里兰卡、泰国、缅甸</li>
+      <li><strong>汉传佛教</strong>（大乘）——汉字经典，流行于中国、日本、韩国、越南</li>
+      <li><strong>藏传佛教</strong>（金刚乘）——藏文经典，流行于西藏、蒙古</li>
+    </ul>
+
+    <h3>三乘佛法体系</h3>
+    <div class="tl">
+      <div class="tl-item">
+        <div class="tl-dot">人天</div>
+        <div class="tl-body"><strong>人天乘</strong>——认同三世生命观但无出离心，佛陀教以五戒十善，修人天福报，不求解脱</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">小乘</div>
+        <div class="tl-body"><strong>小乘（声闻乘）</strong>——生起出离心，厌离六道轮回，修四圣谛、八正道，趣向个人解脱（阿罗汉）</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">大乘</div>
+        <div class="tl-body"><strong>大乘</strong>——发菩提心，不仅自度还度一切众生，修六度万行，成就无上正等正觉（佛果）</div>
+      </div>
+    </div>
+
+    <div class="note sage">
+      <strong>出离心 vs 菩提心：</strong><br>
+      出离心——厌离轮回苦海，求个人解脱 → 小乘道路。<br>
+      菩提心——悲悯一切众生，发愿成佛普度 → 大乘道路。<br>
+      《金刚经》是大乘经典，核心是菩提心与般若智慧的结合。
+    </div>
+  </div>
+
+  <div class="ink-divider">· · ·</div>
+
+  <!-- ══ 叁 ══ -->
+  <div class="chapter" id="c3">
+    <div class="chapter-header">
+      <div class="chapter-num">叁</div>
+      <h2>经名释义</h2>
+      <div class="chapter-rule"><span>◆</span></div>
+    </div>
+
+    <h3>逐字解析</h3>
+    <table class="ink-table">
+      <tr><th>梵文</th><th>汉译</th><th>义解</th></tr>
+      <tr>
+        <td><em>Vajra</em></td>
+        <td>金刚</td>
+        <td>金刚石（钻石），世间最坚硬之物，能截断一切。譬喻般若智慧：①极其坚固，不被邪见动摇；②极其锐利，斩断一切烦恼执著</td>
+      </tr>
+      <tr>
+        <td><em>Prajñā</em></td>
+        <td>般若</td>
+        <td>梵文音译，意为"智慧"，特指洞见诸法实相、照见空性的无分别出世间智慧，不同于普通聪明才智</td>
+      </tr>
+      <tr>
+        <td><em>Pāramitā</em></td>
+        <td>波罗蜜</td>
+        <td>"到达彼岸"——从烦恼生死的此岸，渡过无明苦海，到达涅槃解脱的彼岸。六度之一</td>
+      </tr>
+      <tr>
+        <td><em>Sūtra</em></td>
+        <td>经</td>
+        <td>佛陀亲口宣说的教法，三藏（经、律、论）之首</td>
+      </tr>
+    </table>
+
+    <div class="note red">
+      <strong>"能断金刚"（玄奘译）的深义：</strong>般若智慧是那把能切断金刚（一切执着）的刀，而非金刚本身。强调了般若智慧主动破除执著的功能。
+    </div>
+
+    <h3>六度（六波罗蜜）</h3>
+    <table class="ink-table">
+      <tr><th>波罗蜜</th><th>义</th><th>对治</th></tr>
+      <tr><td>布施</td><td>给予财物、法义、无畏</td><td>贪吝</td></tr>
+      <tr><td>持戒</td><td>遵守戒律，端正身口意</td><td>恶行</td></tr>
+      <tr><td>忍辱</td><td>忍耐逆境，不起嗔心</td><td>嗔恨</td></tr>
+      <tr><td>精进</td><td>勤修不懈，不退道心</td><td>懈怠</td></tr>
+      <tr><td>禅定</td><td>心定一境，不散乱</td><td>掉举</td></tr>
+      <tr><td><strong>般若</strong></td><td>智慧照见空性</td><td>无明——前五度之统帅</td></tr>
+    </table>
+  </div>
+
+  <div class="ink-divider">· · ·</div>
+
+  <!-- ══ 肆 ══ -->
+  <div class="chapter" id="c4">
+    <div class="chapter-header">
+      <div class="chapter-num">肆</div>
+      <h2>佛陀教理体系·判教</h2>
+      <div class="chapter-rule"><span>◆</span></div>
+    </div>
+
+    <p>佛陀一生说法因应众生根性差异，形成不同层次的教法。不理解此差异，学佛时容易以为不同经典相互矛盾。"判教"正是对佛陀教法内部差异性的系统梳理。</p>
+
+    <h3>《解深密经》三时判教</h3>
+    <table class="ink-table">
+      <tr><th>时期</th><th>核心功能</th><th>名言系统</th><th>代表经典</th></tr>
+      <tr>
+        <td>初时教法</td>
+        <td>破增益执（破我执）<br>讲十二缘起、四圣谛</td>
+        <td>诸行无常、诸法无我</td>
+        <td>阿含经</td>
+      </tr>
+      <tr>
+        <td>二时教法</td>
+        <td>破损减执（破法执）<br>讲空性、缘生缘起</td>
+        <td>一切法空、无自性</td>
+        <td>般若经系（含《金刚经》《心经》）</td>
+      </tr>
+      <tr>
+        <td>三时教法</td>
+        <td>究竟了义<br>讲唯识、藏识缘起</td>
+        <td>万法唯识、三性三无性</td>
+        <td>《解深密经》《楞伽经》</td>
+      </tr>
+    </table>
+
+    <div class="note red">
+      <strong>重要：</strong>《金刚经》属于<strong>二时教法</strong>，主要功能是破除法执，彰显诸法空性。同一术语（如"缘起"）在三时教法中含义不同，切不可混淆。
+    </div>
+
+    <h3>破增益 与 补损减</h3>
+    <ul class="brush-list">
+      <li><strong>破增益</strong>——破除凡夫在诸法上"增益"出的虚假实体性。凡夫以为山河大地、自我意识都是真实坚固的存在，佛陀用空性理论瓦解这种执著。</li>
+      <li><strong>补损减</strong>——在破除执著后，防止堕入虚无主义。诸法虽无自性，但依缘起而有相对显现，不可一概否定，须补充"假有"层面的合理性。</li>
+    </ul>
+
+    <h3>法安法位</h3>
+    <p>历史上各佛教派别（唯识宗、中观宗、禅宗等）各依据佛陀某一层次教法而立，彼此看似矛盾，实则"法安法位"——每个教法都在其自己的位置上讲述特定的真理，并无高下优劣之争。</p>
+  </div>
+
+  <div class="ink-divider">· · ·</div>
+
+  <!-- ══ 伍 ══ -->
+  <div class="chapter" id="c5">
+    <div class="chapter-header">
+      <div class="chapter-num">伍</div>
+      <h2>四重二谛——核心认识论框架</h2>
+      <div class="chapter-rule"><span>◆</span></div>
+    </div>
+
+    <p>"二谛"是大乘佛教最重要的认识论工具：<strong>世俗谛</strong>（俗谛）描述世间相对真理；<strong>胜义谛</strong>（真谛）描述诸法究竟实相。《金刚经》中反复出现的"A即非A，是名A"句式，正是二谛思想的语言呈现。</p>
+
+    <h3>四重二谛的层次</h3>
+    <table class="ink-table">
+      <tr><th>层次</th><th>世俗谛</th><th>胜义谛</th><th>对应教法</th></tr>
+      <tr><td>第一重</td><td>凡夫执实：山河大地真实存在</td><td>无常无我：无自性，如幻如化</td><td>初时教法（阿含）</td></tr>
+      <tr><td>第二重</td><td>法有自性（小乘胜义）</td><td>一切法空，无自性（般若空性）</td><td>二时教法（般若）→ 《金刚经》层次</td></tr>
+      <tr><td>第三重</td><td>空性为实（中观权便）</td><td>空性亦空，不可执著空（究竟中观）</td><td>龙树菩萨究竟中观</td></tr>
+      <tr><td>第四重</td><td>依他起性（识的虚妄现象）</td><td>圆成实性（唯识了义）</td><td>三时教法（唯识）</td></tr>
+    </table>
+
+    <h3>"A即非A，是名A"句式解析</h3>
+    <div class="sutra">
+      <span class="sutra-label">第十三品 · 如法受持分</span>
+      须菩提！佛说般若波罗蜜，即非般若波罗蜜，是名般若波罗蜜。
+    </div>
+    <ul class="brush-list">
+      <li><strong>般若波罗蜜（A）</strong>——世俗谛层面的名言与假有</li>
+      <li><strong>即非般若波罗蜜（非A）</strong>——胜义谛层面，空无自性，无实体</li>
+      <li><strong>是名般若波罗蜜（A'）</strong>——破除执著后，回归世俗谛的假名施设，可继续使用此名，但已无实执</li>
+    </ul>
+    <div class="note sage">
+      《金刚经》并非要否定世界、否定一切，而是要我们在使用语言、概念的同时，不对其产生实体性执著。<strong>用而不著，行而无住。</strong>
+    </div>
+  </div>
+
+  <div class="ink-divider">· · ·</div>
+
+  <!-- ══ 陆 ══ -->
+  <div class="chapter" id="c6">
+    <div class="chapter-header">
+      <div class="chapter-num">陆</div>
+      <h2>大乘生命观与菩萨道</h2>
+      <div class="chapter-rule"><span>◆</span></div>
+    </div>
+
+    <h3>两种"我执"</h3>
+    <table class="ink-table">
+      <tr><th>名称</th><th>内涵</th><th>对治果位</th></tr>
+      <tr>
+        <td>人我执</td>
+        <td>执著有一个真实不变的"自我"（我、人、众生、寿者）</td>
+        <td>小乘修行破人我执，成就阿罗汉</td>
+      </tr>
+      <tr>
+        <td>法我执</td>
+        <td>执著诸法（五蕴、十二处等）有真实自性</td>
+        <td>大乘修行进一步破法我执，成就佛果</td>
+      </tr>
+    </table>
+
+    <h3>四相——凡夫执著的四种形式</h3>
+    <p>《金刚经》反复强调：若菩萨有此四相，即非菩萨。</p>
+    <table class="ink-table">
+      <tr><th>相</th><th>执著内容</th></tr>
+      <tr><td>我相</td><td>执著有个真实的"我"</td></tr>
+      <tr><td>人相</td><td>执著有个真实的"他人"</td></tr>
+      <tr><td>众生相</td><td>执著有真实的"有情众生"</td></tr>
+      <tr><td>寿者相</td><td>执著生命有固定的时间延续</td></tr>
+    </table>
+
+    <h3>菩萨道的核心：大悲心 + 大智慧</h3>
+    <ul class="brush-list">
+      <li>有悲心无智慧 → 凡夫慈悲，易落入情执与相执</li>
+      <li>有智慧无悲心 → 小乘偏空，不能广利众生</li>
+      <li>悲智双运 → 大乘菩萨，行无住相布施，度众生而不著众生相</li>
+    </ul>
+  </div>
+
+  <div class="ink-divider">· · ·</div>
+
+  <!-- ══ 柒 ══ -->
+  <div class="chapter" id="c7">
+    <div class="chapter-header">
+      <div class="chapter-num">柒</div>
+      <h2>三十二品要义</h2>
+      <div class="chapter-rule"><span>◆</span></div>
+    </div>
+
+    <div class="note">
+      全经围绕须菩提（妙生）的一问展开：<br>
+      <strong>"善男子、善女人，发阿耨多罗三藐三菩提心，云何应住？云何降伏其心？"</strong>
+    </div>
+
+    <div class="pian-list">
+      <div class="pian-item"><div class="pian-name">第一品　法会因由分</div><div class="pian-key">佛在祇园精舍，乞食归来，安座。以日常行住坐卧为法的展现，平常心即是道。</div></div>
+      <div class="pian-item"><div class="pian-name">第二品　善现启请分</div><div class="pian-key">须菩提请问：发菩提心者，云何应住？云何降伏其心？全经核心问题由此提出。</div></div>
+      <div class="pian-item"><div class="pian-name">第三品　大乘正宗分</div><div class="pian-key">佛答：灭度一切众生，而实无众生得灭度者。无四相，方是菩萨。</div></div>
+      <div class="pian-item"><div class="pian-name">第四品　妙行无住分</div><div class="pian-key">无住相布施——不住色声香味触法，不著相，福德不可思量。行而无住，是为妙行。</div></div>
+      <div class="pian-item"><div class="pian-name">第五品　如理实见分</div><div class="pian-key">"凡所有相，皆是虚妄。若见诸相非相，即见如来。"不以色身见如来。</div></div>
+      <div class="pian-item"><div class="pian-name">第六品　正信希有分</div><div class="pian-key">后五百岁持戒修福者能生信心，已于无量佛所种善根。不取法相，不取非法相。如筏喻：法尚应舍，何况非法。</div></div>
+      <div class="pian-item"><div class="pian-name">第七品　无得无说分</div><div class="pian-key">如来无定法可说，无定法可得。一切圣贤皆以无为法而有差别。</div></div>
+      <div class="pian-item"><div class="pian-name">第八品　依法出生分</div><div class="pian-key">持经四句偈之福德胜七宝布施。"一切诸佛及诸佛菩提法，皆从此经出。"</div></div>
+      <div class="pian-item"><div class="pian-name">第九品　一相无相分</div><div class="pian-key">四果圣人皆不作"我得果"之念，方名其果。无所得，是名得。</div></div>
+      <div class="pian-item"><div class="pian-name">第十品　庄严净土分</div><div class="pian-key">如来在燃灯佛处，于法无所得。庄严佛土即非庄严，是名庄严。<strong>"应无所住而生其心"</strong>（六祖开悟之源）。</div></div>
+      <div class="pian-item"><div class="pian-name">第十一品　无为福胜分</div><div class="pian-key">以七宝满恒河沙数三千大千世界布施，不如受持四句偈并为他说之福。</div></div>
+      <div class="pian-item"><div class="pian-name">第十二品　尊重正教分</div><div class="pian-key">此经所在之处，即为有佛，一切天人阿修罗皆应供养如佛塔庙。</div></div>
+      <div class="pian-item"><div class="pian-name">第十三品　如法受持分</div><div class="pian-key">经名《金刚般若波罗蜜》。"般若波罗蜜，即非般若波罗蜜，是名般若波罗蜜。"三十二相非真如来相。</div></div>
+      <div class="pian-item"><div class="pian-name">第十四品　离相寂灭分</div><div class="pian-key">须菩提闻经涕泪。歌利王割截公案——五百世忍辱仙人无四相。"应生无所住心"。</div></div>
+      <div class="pian-item"><div class="pian-name">第十五品　持经功德分</div><div class="pian-key">持经功德不可思量、不可称量，此经为发大乘、最上乘者说。</div></div>
+      <div class="pian-item"><div class="pian-name">第十六品　能净业障分</div><div class="pian-key">若受持此经而被人轻贱，先世罪业得以消灭，当得阿耨多罗三藐三菩提。</div></div>
+      <div class="pian-item"><div class="pian-name">第十七品　究竟无我分</div><div class="pian-key">如来实无发菩提心者。"实无有法，如来得阿耨多罗三藐三菩提。"</div></div>
+      <div class="pian-item"><div class="pian-name">第十八品　一体同观分</div><div class="pian-key">如来有五眼。"过去心不可得，现在心不可得，未来心不可得。"</div></div>
+      <div class="pian-item"><div class="pian-name">第十九品　法界通化分</div><div class="pian-key">七宝满三千大千世界布施，其福德因无法相，不可执著为实有。</div></div>
+      <div class="pian-item"><div class="pian-name">第二十品　离色离相分</div><div class="pian-key">不可以具足色身见如来，不可以具足诸相见如来。</div></div>
+      <div class="pian-item"><div class="pian-name">第二十一品　非说所说分</div><div class="pian-key">"如来无所说。"若言如来有所说法，即是谤佛。"所谓众生者，如来说非众生，是名众生。"</div></div>
+      <div class="pian-item"><div class="pian-name">第二十二品　无法可得分</div><div class="pian-key">乃至无有少法可得，是名阿耨多罗三藐三菩提。</div></div>
+      <div class="pian-item"><div class="pian-name">第二十三品　净心行善分</div><div class="pian-key">"是法平等，无有高下，是名阿耨多罗三藐三菩提。"无四相修一切善法，则得菩提。</div></div>
+      <div class="pian-item"><div class="pian-name">第二十四品　福智无比分</div><div class="pian-key">三千大千世界七宝布施之福，不如受持四句偈。</div></div>
+      <div class="pian-item"><div class="pian-name">第二十五品　化无所化分</div><div class="pian-key">"实无众生如来度者。"若有我相，则非如来。</div></div>
+      <div class="pian-item"><div class="pian-name">第二十六品　法身非相分</div><div class="pian-key">"若以色见我，以音声求我，是人行邪道，不能见如来。"</div></div>
+      <div class="pian-item"><div class="pian-name">第二十七品　无断无灭分</div><div class="pian-key">不应作断灭相，勿谓如来不以具足诸相故得阿耨多罗三藐三菩提。</div></div>
+      <div class="pian-item"><div class="pian-name">第二十八品　不受不贪分</div><div class="pian-key">菩萨不受福德，故能成就无量功德。</div></div>
+      <div class="pian-item"><div class="pian-name">第二十九品　威仪寂静分</div><div class="pian-key">"如来者，无所从来，亦无所去，故名如来。"</div></div>
+      <div class="pian-item"><div class="pian-name">第三十品　一合理相分</div><div class="pian-key">微尘众，即非微尘众，是名微尘众。一合相者，如来说非一合相，是名一合相。</div></div>
+      <div class="pian-item"><div class="pian-name">第三十一品　知见不生分</div><div class="pian-key">发阿耨多罗三藐三菩提心者，于一切法，应如是知、如是见、如是信解，不生法相。</div></div>
+      <div class="pian-item"><div class="pian-name">第三十二品　应化非真分</div><div class="pian-key"><strong>"一切有为法，如梦幻泡影，如露亦如电，应作如是观。"</strong>佛说是经已，大众皆大欢喜，信受奉行。</div></div>
+    </div>
+
+    <h3>全经四大偈语</h3>
+    <div class="sutra">
+      <span class="sutra-label">第五品 · 如理实见分</span>
+      凡所有相，皆是虚妄。<br>若见诸相非相，即见如来。
+    </div>
+    <div class="sutra">
+      <span class="sutra-label">第十品 · 庄严净土分（六祖慧能开悟偈源）</span>
+      应无所住而生其心。
+    </div>
+    <div class="sutra">
+      <span class="sutra-label">第二十六品 · 法身非相分</span>
+      若以色见我，以音声求我，<br>是人行邪道，不能见如来。
+    </div>
+    <div class="sutra">
+      <span class="sutra-label">第三十二品 · 应化非真分（终结偈）</span>
+      一切有为法，如梦幻泡影，<br>如露亦如电，应作如是观。
+    </div>
+  </div>
+
+  <div class="ink-divider">· · ·</div>
+
+  <!-- ══ 捌 ══ -->
+  <div class="chapter" id="c8">
+    <div class="chapter-header">
+      <div class="chapter-num">捌</div>
+      <h2>核心思想体系</h2>
+      <div class="chapter-rule"><span>◆</span></div>
+    </div>
+
+    <h3>一、空性（Śūnyatā）</h3>
+    <p>《金刚经》的根本哲学基础。"空"不是虚无，而是诸法没有独立的、固有的、永恒不变的自性。一切现象都是因缘和合的暂时显现，其中没有真实的"自我"。</p>
+    <ul class="brush-list">
+      <li><strong>人无我</strong>——无独立、永恒、不变的自我（破人我执）</li>
+      <li><strong>法无我</strong>——无任何现象拥有独立自在的本质（破法我执）</li>
+    </ul>
+
+    <h3>二、无住（Apratiṣṭhita）</h3>
+    <div class="sutra">
+      <span class="sutra-label">第四品 · 核心修行原则</span>
+      菩萨于法，应无所住，行于布施。
+    </div>
+    <p>"无住"意味著：做一切善行时，不在内心留下痕迹，不执著于"我在做善"的念头，不期望回报，不自我标榜。行为本身继续，但心不停留、不执著于任何结果或概念。这是最彻底的放下。</p>
+
+    <h3>三、如筏喻——工具理性</h3>
+    <div class="sutra">
+      <span class="sutra-label">第六品</span>
+      知我说法，如筏喻者；法尚应舍，何况非法。
+    </div>
+    <p>佛法是渡河的船筏，到了彼岸就要放下，不能将船扛在肩上。连"空"这一概念也不可执著，否则就落入"空见"的偏执。</p>
+
+    <h3>四、无所得（Aprāpti）</h3>
+    <p>成佛不是获得某种东西，而是彻底放下所有执著后本然呈现的状态。"得"本身就是执著的体现。《金刚经》中反复强调：阿耨多罗三藐三菩提是"无有少法可得"的。</p>
+
+    <h3>五、权便中观 vs 究竟中观</h3>
+    <table class="ink-table">
+      <tr><th>中观类型</th><th>要义</th></tr>
+      <tr>
+        <td>权便中观</td>
+        <td>方便说空，以"空"破除实执，是对治众生实体化执著的工具。《金刚经》主要在此层次运用空性。</td>
+      </tr>
+      <tr>
+        <td>究竟中观</td>
+        <td>连"空"本身也是空，空性不可执，既不执实，也不落空，超越两边的中道——如法尚应舍，何况非法。</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="ink-divider">· · ·</div>
+
+  <!-- ══ 玖 ══ -->
+  <div class="chapter" id="c9">
+    <div class="chapter-header">
+      <div class="chapter-num">玖</div>
+      <h2>修行体系与菩萨五位</h2>
+      <div class="chapter-rule"><span>◆</span></div>
+    </div>
+
+    <h3>小乘四果（声闻乘修行阶次）</h3>
+    <table class="ink-table">
+      <tr><th>果位</th><th>梵文</th><th>玄奘译</th><th>特征</th></tr>
+      <tr><td>须陀洹</td><td><em>Srota-āpanna</em></td><td>预流</td><td>入圣人之流，断身见、戒禁取见、疑三结，还需七番往返人天</td></tr>
+      <tr><td>斯陀含</td><td><em>Sakṛdāgāmin</em></td><td>一来</td><td>薄贪嗔痴，还需来人间一次</td></tr>
+      <tr><td>阿那含</td><td><em>Anāgāmin</em></td><td>不还</td><td>断欲界烦恼，不再来欲界，在色界涅槃</td></tr>
+      <tr><td>阿罗汉</td><td><em>Arhat</em></td><td>阿罗汉</td><td>断尽三界烦恼，不受后有，证入涅槃（小乘最高果位）</td></tr>
+    </table>
+    <p>经文强调：四果圣人皆不作"我得某果"之念，因若有此念，即有我相，即非圣果。</p>
+
+    <h3>大乘菩萨五位</h3>
+    <div class="tl">
+      <div class="tl-item">
+        <div class="tl-dot">一</div>
+        <div class="tl-body"><strong>资粮位</strong>——积累福德资粮与智慧资粮，发菩提心，修六度，为后续修行奠基</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">二</div>
+        <div class="tl-body"><strong>加行位</strong>——加功用行，修四善根（暖、顶、忍、世第一法），接近见道</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">三</div>
+        <div class="tl-body"><strong>见道位</strong>——初次现观空性，断分别烦恼障与所知障，入初地（欢喜地）</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">四</div>
+        <div class="tl-body"><strong>修道位</strong>——历经菩萨十地（欢喜地→法云地），逐步断除俱生烦恼障与所知障</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">五</div>
+        <div class="tl-body"><strong>究竟位</strong>——成就佛果，断尽一切障碍，圆满菩提，以无数身相度化无量众生</div>
+      </div>
+    </div>
+
+    <h3>五眼（第十八品）</h3>
+    <table class="ink-table">
+      <tr><th>眼</th><th>所见范围</th><th>具足者</th></tr>
+      <tr><td>肉眼</td><td>感知物质世界</td><td>凡夫</td></tr>
+      <tr><td>天眼</td><td>感知超常时空的现象</td><td>天人、修禅定者</td></tr>
+      <tr><td>慧眼</td><td>照见空性，断我执</td><td>小乘圣者</td></tr>
+      <tr><td>法眼</td><td>照见众生根器，知如何度化</td><td>菩萨</td></tr>
+      <tr><td>佛眼</td><td>圆满智慧，遍照一切</td><td>如来</td></tr>
+    </table>
+  </div>
+
+  <div class="ink-divider">· · ·</div>
+
+  <!-- ══ 拾 ══ -->
+  <div class="chapter" id="c10">
+    <div class="chapter-header">
+      <div class="chapter-num">拾</div>
+      <h2>关键概念词典</h2>
+      <div class="chapter-rule"><span>◆</span></div>
+    </div>
+
+    <div class="dict-entry">
+      <div class="dict-zh">阿耨多罗三藐三菩提</div>
+      <div class="dict-sa">Anuttarā samyaksaṃbodhi</div>
+      <div class="dict-def">无上正等正觉，即佛果，最高觉悟状态</div>
+    </div>
+    <div class="dict-entry">
+      <div class="dict-zh">菩提心</div>
+      <div class="dict-sa">Bodhicitta</div>
+      <div class="dict-def">觉悟之心，上求佛道、下化众生的发心，大乘修行的起点</div>
+    </div>
+    <div class="dict-entry">
+      <div class="dict-zh">般若</div>
+      <div class="dict-sa">Prajñā</div>
+      <div class="dict-def">智慧，特指照见空性的无分别出世间智慧，前五度之统帅</div>
+    </div>
+    <div class="dict-entry">
+      <div class="dict-zh">空性</div>
+      <div class="dict-sa">Śūnyatā</div>
+      <div class="dict-def">诸法无自性，一切现象皆无独立固有的实体</div>
+    </div>
+    <div class="dict-entry">
+      <div class="dict-zh">如来</div>
+      <div class="dict-sa">Tathāgata</div>
+      <div class="dict-def">佛陀十号之一，"无所从来，亦无所去"，如实相而来</div>
+    </div>
+    <div class="dict-entry">
+      <div class="dict-zh">法身</div>
+      <div class="dict-sa">Dharmakāya</div>
+      <div class="dict-def">佛陀以真如法性为体，非色身，非音声，不可以相见</div>
+    </div>
+    <div class="dict-entry">
+      <div class="dict-zh">涅槃</div>
+      <div class="dict-sa">Nirvāṇa</div>
+      <div class="dict-def">吹灭，熄灭烦恼之火，解脱的最终状态</div>
+    </div>
+    <div class="dict-entry">
+      <div class="dict-zh">无为法</div>
+      <div class="dict-sa">Asaṃskṛta-dharma</div>
+      <div class="dict-def">不因缘造作之法，如真如、涅槃；与有为法相对</div>
+    </div>
+    <div class="dict-entry">
+      <div class="dict-zh">有为法</div>
+      <div class="dict-sa">Saṃskṛta-dharma</div>
+      <div class="dict-def">因缘和合而生的现象，如梦幻泡影，不实在</div>
+    </div>
+    <div class="dict-entry">
+      <div class="dict-zh">菩萨</div>
+      <div class="dict-sa">Bodhisattva</div>
+      <div class="dict-def">菩提萨埵，觉有情，发心求无上菩提同时广利众生者</div>
+    </div>
+    <div class="dict-entry">
+      <div class="dict-zh">三千大千世界</div>
+      <div class="dict-sa">Trisāhasra-mahāsāhasra</div>
+      <div class="dict-def">佛教宇宙观中的大宇宙单位，极言数量之多</div>
+    </div>
+    <div class="dict-entry">
+      <div class="dict-zh">三十二相</div>
+      <div class="dict-sa">Dvātriṃśat-lakṣaṇa</div>
+      <div class="dict-def">大人之三十二种圆满相好，不可以此相见如来真身</div>
+    </div>
+  </div>
+
+  <div class="ink-divider">· · ·</div>
+
+  <!-- ══ 拾壹 ══ -->
+  <div class="chapter" id="c11">
+    <div class="chapter-header">
+      <div class="chapter-num">拾壹</div>
+      <h2>两译本对照精华</h2>
+      <div class="chapter-rule"><span>◆</span></div>
+    </div>
+
+    <h3>第五品——凡所有相</h3>
+    <table class="ink-table">
+      <tr><th>鸠摩罗什</th><th>玄奘</th></tr>
+      <tr>
+        <td>"凡所有相，皆是虚妄。若见诸相非相，即见如来。"</td>
+        <td>"妙生，所有胜相皆是虚妄，若无胜相即非虚妄，是故应以胜相无相观于如来。"</td>
+      </tr>
+    </table>
+    <p>玄奘译"胜相"对应梵文 lakṣaṇa，更精准保留梵文语义；罗什译"凡所有相"更流畅，影响后世更深。</p>
+
+    <h3>第十品——应无所住而生其心</h3>
+    <table class="ink-table">
+      <tr><th>鸠摩罗什</th><th>玄奘</th></tr>
+      <tr>
+        <td>"应无所住而生其心"</td>
+        <td>"应生不住事心，应生不住随处心，应生不住色、声、香、味、触、法心"</td>
+      </tr>
+    </table>
+    <p>玄奘译展开诠释，更为详细；罗什译高度凝练，七字成就千古名句，六祖慧能由此开悟。</p>
+
+    <h3>第三十二品——终结偈</h3>
+    <table class="ink-table">
+      <tr><th>鸠摩罗什</th><th>玄奘（大意）</th></tr>
+      <tr>
+        <td>"一切有为法，如梦幻泡影，如露亦如电，应作如是观。"</td>
+        <td>语义相同，表达更为直白，诗意略逊于罗什译。</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="ink-divider">· · ·</div>
+
+  <!-- ══ 拾贰 ══ -->
+  <div class="chapter" id="c12">
+    <div class="chapter-header">
+      <div class="chapter-num">拾贰</div>
+      <h2>学习心得与感悟</h2>
+      <div class="chapter-rule"><span>◆</span></div>
+    </div>
+
+    <h3>于晓非导读的学习方法论</h3>
+    <ul class="brush-list">
+      <li><strong>回归原典</strong>——不依靠二手注释，直接以经文与梵文原典为基础</li>
+      <li><strong>判教为先</strong>——先建立佛教教理体系的整体把握，再进入具体经文</li>
+      <li><strong>义理优先</strong>——重视逻辑与哲学分析，不依赖玄妙神秘，以理解带动信心</li>
+      <li><strong>比较研究</strong>——双译本对读，参考梵文，多维立体理解经义</li>
+    </ul>
+
+    <h3>全经核心逻辑链</h3>
+    <div class="note" style="text-align:center; line-height:2.6; letter-spacing:0.08em;">
+      发菩提心<br>
+      ↓<br>
+      问：云何应住，云何降伏其心<br>
+      ↓<br>
+      无住而住 · 无相布施<br>
+      ↓<br>
+      破四相（我人众生寿者）→ 破法相 → 破非法相 → 连空亦不执<br>
+      ↓<br>
+      凡所有相皆虚妄 · 应无所住而生其心<br>
+      ↓<br>
+      <strong>一切有为法，如梦幻泡影，如露亦如电，应作如是观</strong><br>
+      ↓<br>
+      大乘究竟：悲智双运，无住行施，度众生而不著度众生相
+    </div>
+
+    <h3>对当代人的启示</h3>
+    <ul class="brush-list">
+      <li><strong>无住以应物</strong>——在信息爆炸的时代，学会不被外物黏住，行事而不留痕，减少焦虑与执念</li>
+      <li><strong>破相见本质</strong>——"凡所有相，皆是虚妄"，透过表象、名相与标签，看到事物的真实面貌</li>
+      <li><strong>舍法得自由</strong>——即便最好的方法论与信念系统，也不过是渡河的筏，到彼岸后要放下，不被任何框架囚禁</li>
+    </ul>
+
+    <h3>学习材料总览</h3>
+    <table class="ink-table">
+      <tr><th>材料</th><th>规模</th><th>出处</th></tr>
+      <tr><td>金刚经正文</td><td>双译本，32品，198段</td><td>D:\佛教\金刚经\金刚经.docx</td></tr>
+      <tr><td>于晓非导读</td><td>71篇图文，约209,355字符</td><td>净名精舍整理，喜马拉雅课程</td></tr>
+      <tr><td>课程规模</td><td>127讲逐字逐句研读</td><td>《金刚经》→《心经》→《维摩诘经》</td></tr>
+    </table>
+  </div>
+
+  <!-- ══ 结语 ══ -->
+  <div class="closing">
+    <div class="closing-verse">
+      一切有为法<br>
+      如梦幻泡影<br>
+      如露亦如电<br>
+      应作如是观
+    </div>
+    <div class="closing-attr">《金刚般若波罗蜜经》第三十二品</div>
+  </div>
+
+</div><!-- /content -->
+
+<footer>
+  🪷 金刚经学习摘要　|　整理于 2026 年 3 月 27 日　|　应无所住而生其心
+</footer>
+
+<a class="back-top" href="#top" title="回到顶部">↑</a>
+
+</body>
+</html>
