@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>泡泡玛特 2025 经营数据可视化</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0f172a; --card: #1e293b; --border: #334155;
+    --text: #f1f5f9; --text-muted: #94a3b8; --accent: #f59e0b;
+    --red: #ef4444; --green: #22c55e; --blue: #3b82f6; --purple: #a855f7;
+    --cyan: #06b6d4; --pink: #ec4899; --orange: #f97316; --lime: #84cc16;
+  }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, "Microsoft YaHei", sans-serif; line-height: 1.6; }
+  
+  .header { background: linear-gradient(135deg, #1e293b 0%, #0f172a 50%, #1a1a2e 100%); padding: 40px 30px 30px; text-align: center; border-bottom: 1px solid var(--border); }
+  .header h1 { font-size: 28px; font-weight: 700; background: linear-gradient(90deg, var(--accent), #fbbf24, var(--pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 8px; }
+  .header p { color: var(--text-muted); font-size: 14px; }
+  
+  .kpi-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; padding: 20px 30px; max-width: 1400px; margin: 0 auto; }
+  .kpi { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px; text-align: center; transition: transform 0.2s; }
+  .kpi:hover { transform: translateY(-2px); }
+  .kpi-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+  .kpi-value { font-size: 24px; font-weight: 700; color: var(--accent); }
+  .kpi-change { font-size: 12px; font-weight: 600; margin-top: 4px; }
+  .kpi-change.up { color: var(--green); }
+  
+  .dashboard { max-width: 1400px; margin: 0 auto; padding: 0 30px 60px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 900px) { .dashboard { grid-template-columns: 1fr; } }
+  
+  .chart-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+  .chart-card.full { grid-column: 1 / -1; }
+  .chart-title { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+  .chart-title .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+  .chart-subtitle { font-size: 12px; color: var(--text-muted); margin-bottom: 14px; }
+  .chart-box { width: 100%; height: 360px; }
+  .chart-box.tall { height: 420px; }
+  
+  .footer { text-align: center; padding: 30px; color: var(--text-muted); font-size: 12px; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>泡泡玛特 2025 年度经营数据可视化</h1>
+  <p>数据来源：泡泡玛特2025年度业绩公告 · 股票代码 9992.HK · 单位：人民币亿元</p>
+</div>
+
+<div class="kpi-bar">
+  <div class="kpi"><div class="kpi-label">总营收</div><div class="kpi-value">371.2亿</div><div class="kpi-change up">+184.7%</div></div>
+  <div class="kpi"><div class="kpi-label">净利润</div><div class="kpi-value">130.1亿</div><div class="kpi-change up">+293.3%</div></div>
+  <div class="kpi"><div class="kpi-label">毛利率</div><div class="kpi-value">72.1%</div><div class="kpi-change up">+5.3pct</div></div>
+  <div class="kpi"><div class="kpi-label">净利率</div><div class="kpi-value">35.1%</div><div class="kpi-change up">+14.7pct</div></div>
+  <div class="kpi"><div class="kpi-label">ROE</div><div class="kpi-value">56.4%</div><div class="kpi-change up">+27.7pct</div></div>
+  <div class="kpi"><div class="kpi-label">全球门店</div><div class="kpi-value">630家</div><div class="kpi-change up">+109家</div></div>
+  <div class="kpi"><div class="kpi-label">全球会员</div><div class="kpi-value">1亿+</div><div class="kpi-change up">7,258万(中国)</div></div>
+  <div class="kpi"><div class="kpi-label">现金储备</div><div class="kpi-value">137.8亿</div><div class="kpi-change up">+125.5%</div></div>
+</div>
+
+<div class="dashboard">
+  <!-- 图1: 营收与利润趋势 -->
+  <div class="chart-card">
+    <div class="chart-title"><span class="dot"></span>营收与利润趋势（2020-2025）</div>
+    <div class="chart-subtitle">收入与净利润的6年增长轨迹</div>
+    <div class="chart-box" id="chart1"></div>
+  </div>
+
+  <!-- 图2: 盈利能力雷达图 -->
+  <div class="chart-card">
+    <div class="chart-title"><span class="dot"></span>盈利能力对比（2024 vs 2025）</div>
+    <div class="chart-subtitle">毛利率、净利率、ROE等核心指标全面跃升</div>
+    <div class="chart-box" id="chart2"></div>
+  </div>
+
+  <!-- 图3: 区域收入 -->
+  <div class="chart-card">
+    <div class="chart-title"><span class="dot"></span>收入区域分布</div>
+    <div class="chart-subtitle">海外收入占比已达43.8%，美洲爆发式增长748%</div>
+    <div class="chart-box" id="chart3"></div>
+  </div>
+
+  <!-- 图4: IP收入排名 -->
+  <div class="chart-card">
+    <div class="chart-title"><span class="dot"></span>核心IP收入排名</div>
+    <div class="chart-subtitle">LABUBU以141.6亿独占鳌头，6个IP突破20亿</div>
+    <div class="chart-box tall" id="chart4"></div>
+  </div>
+
+  <!-- 图5: 产品品类 -->
+  <div class="chart-card">
+    <div class="chart-title"><span class="dot"></span>产品品类收入结构</div>
+    <div class="chart-subtitle">毛绒品类首次超越手办，占比50.4%</div>
+    <div class="chart-box" id="chart5"></div>
+  </div>
+
+  <!-- 图6: 门店分布 -->
+  <div class="chart-card">
+    <div class="chart-title"><span class="dot"></span>全球零售门店分布</div>
+    <div class="chart-subtitle">海外门店从90家增至185家，翻倍扩张</div>
+    <div class="chart-box" id="chart6"></div>
+  </div>
+
+  <!-- 图7: 核心IP历年增长 -->
+  <div class="chart-card full">
+    <div class="chart-title"><span class="dot"></span>核心IP历年收入变化（2020-2025）</div>
+    <div class="chart-subtitle">LABUBU从2亿到142亿的爆发式增长曲线</div>
+    <div class="chart-box" id="chart7"></div>
+  </div>
+
+  <!-- 图8: 单店营收对比 -->
+  <div class="chart-card">
+    <div class="chart-title"><span class="dot"></span>各区域单店营收对比</div>
+    <div class="chart-subtitle">亚太区单店5,081万，为中国区的2.2倍</div>
+    <div class="chart-box" id="chart8"></div>
+  </div>
+
+  <!-- 图9: 费用结构 -->
+  <div class="chart-card">
+    <div class="chart-title"><span class="dot"></span>费用结构分析</div>
+    <div class="chart-subtitle">规模效应显著，费用增速远低于收入增速</div>
+    <div class="chart-box" id="chart9"></div>
+  </div>
+
+  <!-- 图10: 渠道收入（中国区） -->
+  <div class="chart-card">
+    <div class="chart-title"><span class="dot"></span>中国区渠道收入分布</div>
+    <div class="chart-subtitle">零售店与线上渠道各占半壁江山</div>
+    <div class="chart-box" id="chart10"></div>
+  </div>
+
+  <!-- 图11: 资产负债 -->
+  <div class="chart-card">
+    <div class="chart-title"><span class="dot"></span>资产负债结构</div>
+    <div class="chart-subtitle">资产负债率仅29.4%，现金137.8亿无有息负债</div>
+    <div class="chart-box" id="chart11"></div>
+  </div>
+
+  <!-- 图12: IP同比增速热力图 -->
+  <div class="chart-card full">
+    <div class="chart-title"><span class="dot"></span>核心IP各年同比增速</div>
+    <div class="chart-subtitle">各IP在不同年份的增长动能对比</div>
+    <div class="chart-box" id="chart12"></div>
+  </div>
+</div>
+
+<div class="footer">
+  数据来源：泡泡玛特2025年度业绩公告（截至2025年12月31日） | 可视化生成时间：2026年3月30日
+</div>
+
+<script>
+const C = {
+  bg: '#0f172a', card: '#1e293b', border: '#334155', text: '#f1f5f9', muted: '#94a3b8',
+  red: '#ef4444', green: '#22c55e', blue: '#3b82f6', purple: '#a855f7',
+  cyan: '#06b6d4', pink: '#ec4899', orange: '#f97316', lime: '#84cc16',
+  amber: '#f59e0b', indigo: '#6366f1', rose: '#f43f5e', teal: '#14b8a6'
+};
+
+// 通用tooltip样式
+const tip = {
+  backgroundColor: 'rgba(15,23,42,0.95)', borderColor: C.border, borderWidth: 1,
+  textStyle: { color: C.text, fontSize: 12 },
+};
+
+function init(id, opt) { echarts.init(document.getElementById(id)).setOption(opt); }
+
+// ====== 图1: 营收与利润趋势 ======
+init('chart1', {
+  tooltip: { ...tip, trigger: 'axis' },
+  legend: { data: ['营收', '净利润', '毛利率'], textStyle: { color: C.muted, fontSize: 11 }, top: 0 },
+  grid: { top: 40, bottom: 30, left: 55, right: 55 },
+  xAxis: { type: 'category', data: ['2020', '2021', '2022', '2023', '2024', '2025'], axisLine: { lineStyle: { color: C.border } }, axisLabel: { color: C.muted } },
+  yAxis: [
+    { type: 'value', name: '亿元', nameTextStyle: { color: C.muted }, axisLabel: { color: C.muted }, splitLine: { lineStyle: { color: '#1e293b' } } },
+    { type: 'value', name: '%', nameTextStyle: { color: C.muted }, axisLabel: { color: C.muted }, splitLine: { show: false }, max: 80 }
+  ],
+  series: [
+    { name: '营收', type: 'bar', data: [25.13, 44.05, 46.17, 63.01, 130.38, 371.20], itemStyle: { color: new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:C.amber},{offset:1,color:'#92400e'}]), borderRadius: [4,4,0,0] }, barMaxWidth: 36 },
+    { name: '净利润', type: 'bar', data: [5.24, 8.54, 4.76, 10.82, 33.08, 130.12], itemStyle: { color: new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:C.green},{offset:1,color:'#14532d'}]), borderRadius: [4,4,0,0] }, barMaxWidth: 36 },
+    { name: '毛利率', type: 'line', yAxisIndex: 1, data: [63.4, 61.4, 66.3, 64.4, 66.8, 72.1], itemStyle: { color: C.cyan }, lineStyle: { width: 3 }, symbol: 'circle', symbolSize: 8, label: { show: true, formatter: '{c}%', color: C.cyan, fontSize: 10, position: 'top' } }
+  ]
+});
+
+// ====== 图2: 盈利能力雷达 ======
+init('chart2', {
+  tooltip: { ...tip },
+  legend: { data: ['2024年', '2025年'], textStyle: { color: C.muted }, top: 0 },
+  radar: {
+    indicator: [
+      { name: '毛利率', max: 80 }, { name: '净利率', max: 45 },
+      { name: 'ROE', max: 65 }, { name: '经营利润率', max: 55 },
+      { name: '流动比率', max: 4.5 }, { name: '会员销售占比', max: 100 }
+    ],
+    axisName: { color: C.muted, fontSize: 11 },
+    splitArea: { areaStyle: { color: ['rgba(51,65,85,0.1)', 'rgba(51,65,85,0.2)'] } },
+    splitLine: { lineStyle: { color: C.border } },
+    axisLine: { lineStyle: { color: C.border } }
+  },
+  series: [{
+    type: 'radar',
+    data: [
+      { value: [66.8, 20.4, 28.7, 31.9, 3.63, 92.0], name: '2024年', lineStyle: { color: C.muted }, areaStyle: { color: 'rgba(148,163,184,0.15)' }, itemStyle: { color: C.muted } },
+      { value: [72.1, 35.1, 56.4, 45.5, 3.47, 93.7], name: '2025年', lineStyle: { color: C.amber, width: 2 }, areaStyle: { color: 'rgba(245,158,11,0.2)' }, itemStyle: { color: C.amber } }
+    ]
+  }]
+});
+
+// ====== 图3: 区域收入 ======
+init('chart3', {
+  tooltip: { ...tip, trigger: 'item', formatter: '{b}<br/>收入: {c}亿 ({d}%)' },
+  legend: { orient: 'vertical', right: 10, top: 'center', textStyle: { color: C.muted, fontSize: 11 } },
+  series: [{
+    type: 'pie', radius: ['45%', '72%'], center: ['40%', '50%'],
+    label: { show: true, formatter: '{b}\n{d}%', color: C.text, fontSize: 11, lineHeight: 16 },
+    labelLine: { lineStyle: { color: C.border } },
+    itemStyle: { borderColor: C.card, borderWidth: 2, borderRadius: 6 },
+    data: [
+      { value: 208.52, name: '中国\n56.2%', itemStyle: { color: new echarts.graphic.LinearGradient(0,0,1,1,[{offset:0,color:C.blue},{offset:1,color:'#1e40af'}]) } },
+      { value: 80.11, name: '亚太\n21.6%', itemStyle: { color: new echarts.graphic.LinearGradient(0,0,1,1,[{offset:0,color:C.cyan},{offset:1,color:'#0e7490'}]) } },
+      { value: 68.06, name: '美洲\n18.3%', itemStyle: { color: new echarts.graphic.LinearGradient(0,0,1,1,[{offset:0,color:C.pink},{offset:1,color:'#9d174d'}]) } },
+      { value: 14.51, name: '欧洲\n3.9%', itemStyle: { color: new echarts.graphic.LinearGradient(0,0,1,1,[{offset:0,color:C.purple},{offset:1,color:'#581c87'}]) } }
+    ]
+  }]
+});
+
+// ====== 图4: IP收入排名 ======
+init('chart4', {
+  tooltip: { ...tip, trigger: 'axis', axisPointer: { type: 'shadow' } },
+  grid: { top: 10, bottom: 10, left: 10, right: 80, containLabel: true },
+  xAxis: { type: 'value', axisLabel: { color: C.muted, formatter: '{value}亿' }, splitLine: { lineStyle: { color: '#1e293b' } } },
+  yAxis: {
+    type: 'category', inverse: true,
+    data: ['HACIPUPU', 'HIRONO', '星星人', 'DIMOO', 'MOLLY', 'CRYBABY', 'SKULLPANDA', 'THE MONSTERS\n(LABUBU)'],
+    axisLabel: { color: C.text, fontSize: 12, fontWeight: 500 },
+    axisLine: { lineStyle: { color: C.border } }
+  },
+  series: [
+    {
+      type: 'bar', barMaxWidth: 28, data: [8.48, 17.35, 20.56, 27.77, 28.97, 29.29, 35.40, 141.61],
+      itemStyle: {
+        borderRadius: [0, 6, 6, 0],
+        color: function(p) {
+          const colors = [C.teal, C.purple, C.orange, C.cyan, C.pink, C.rose, C.blue, C.amber];
+          return new echarts.graphic.LinearGradient(0,0,1,0,[{offset:0,color:colors[p.dataIndex]+'88'},{offset:1,color:colors[p.dataIndex]}]);
+        }
+      },
+      label: { show: true, position: 'right', formatter: function(p){ return p.value + '亿 ↑' + ['278.1','138.8','1600.8','205.2','38.4','151.4','170.6','365.7'][p.dataIndex] + '%'; }, color: C.muted, fontSize: 11 }
+    }
+  ]
+});
+
+// ====== 图5: 产品品类 ======
+init('chart5', {
+  tooltip: { ...tip, trigger: 'item', formatter: '{b}<br/>收入: {c}亿 ({d}%)' },
+  series: [{
+    type: 'pie', radius: ['40%', '70%'],
+    label: { show: true, formatter: '{b}\n{c}亿 ({d}%)', color: C.text, fontSize: 12, lineHeight: 18 },
+    labelLine: { lineStyle: { color: C.border } },
+    itemStyle: { borderColor: C.card, borderWidth: 3, borderRadius: 8 },
+    emphasis: { itemStyle: { shadowBlur: 20, shadowColor: 'rgba(0,0,0,0.5)' } },
+    data: [
+      { value: 187.08, name: '毛绒', itemStyle: { color: new echarts.graphic.LinearGradient(0,0,1,1,[{offset:0,color:'#fbbf24'},{offset:1,color:'#d97706'}]) } },
+      { value: 120.23, name: '手办', itemStyle: { color: new echarts.graphic.LinearGradient(0,0,1,1,[{offset:0,color:C.blue},{offset:1,color:'#1d4ed8'}]) } },
+      { value: 44.73, name: '衍生品', itemStyle: { color: new echarts.graphic.LinearGradient(0,0,1,1,[{offset:0,color:C.purple},{offset:1,color:'#7c3aed'}]) } },
+      { value: 19.16, name: 'MEGA', itemStyle: { color: new echarts.graphic.LinearGradient(0,0,1,1,[{offset:0,color:C.pink},{offset:1,color:'#db2777'}]) } }
+    ]
+  }]
+});
+
+// ====== 图6: 门店分布 ======
+init('chart6', {
+  tooltip: { ...tip, trigger: 'axis' },
+  legend: { data: ['2024年末', '2025年末'], textStyle: { color: C.muted }, top: 0 },
+  grid: { top: 40, bottom: 30, left: 50, right: 20 },
+  xAxis: { type: 'category', data: ['中国', '亚太', '美洲', '欧洲'], axisLine: { lineStyle: { color: C.border } }, axisLabel: { color: C.muted, fontSize: 12 } },
+  yAxis: { type: 'value', name: '门店数', nameTextStyle: { color: C.muted }, axisLabel: { color: C.muted }, splitLine: { lineStyle: { color: '#1e293b' } } },
+  series: [
+    { name: '2024年末', type: 'bar', data: [431, 54, 22, 14], barMaxWidth: 32, itemStyle: { color: '#475569', borderRadius: [4,4,0,0] } },
+    { name: '2025年末', type: 'bar', data: [445, 85, 64, 36], barMaxWidth: 32, itemStyle: { color: new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:C.amber},{offset:1,color:'#92400e'}]), borderRadius: [4,4,0,0] },
+      label: { show: true, position: 'top', color: C.amber, fontSize: 11, formatter: '{c}家' }
+    }
+  ]
+});
+
+// ====== 图7: 核心IP历年收入 ======
+init('chart7', {
+  tooltip: { ...tip, trigger: 'axis' },
+  legend: { data: ['MOLLY', 'THE MONSTERS(LABUBU)', 'SKULLPANDA', 'DIMOO'], textStyle: { color: C.muted }, top: 0 },
+  grid: { top: 40, bottom: 30, left: 55, right: 20 },
+  xAxis: { type: 'category', data: ['2020', '2021', '2022', '2023', '2024', '2025'], axisLine: { lineStyle: { color: C.border } }, axisLabel: { color: C.muted } },
+  yAxis: { type: 'value', name: '亿元', nameTextStyle: { color: C.muted }, axisLabel: { color: C.muted }, splitLine: { lineStyle: { color: '#1e293b' } } },
+  series: [
+    { name: 'MOLLY', type: 'line', data: [3.56,7.05,8.02,10.20,20.90,29.00], smooth: true, lineStyle: { width: 3, color: C.pink }, itemStyle: { color: C.pink }, symbol: 'circle', symbolSize: 7, areaStyle: { color: new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'rgba(236,72,153,0.2)'},{offset:1,color:'rgba(236,72,153,0)'}]) } },
+    { name: 'THE MONSTERS(LABUBU)', type: 'line', data: [2.04,3.21,2.63,3.68,30.40,141.60], smooth: true, lineStyle: { width: 3, color: C.amber }, itemStyle: { color: C.amber }, symbol: 'circle', symbolSize: 7, areaStyle: { color: new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'rgba(245,158,11,0.2)'},{offset:1,color:'rgba(245,158,11,0)'}]) } },
+    { name: 'SKULLPANDA', type: 'line', data: [1.21,5.95,8.52,10.25,13.10,35.40], smooth: true, lineStyle: { width: 3, color: C.blue }, itemStyle: { color: C.blue }, symbol: 'circle', symbolSize: 7 },
+    { name: 'DIMOO', type: 'line', data: [3.15,5.67,5.78,7.38,9.10,27.80], smooth: true, lineStyle: { width: 3, color: C.purple }, itemStyle: { color: C.purple }, symbol: 'circle', symbolSize: 7 }
+  ]
+});
+
+// ====== 图8: 单店营收 ======
+init('chart8', {
+  tooltip: { ...tip, trigger: 'axis', axisPointer: { type: 'shadow' } },
+  legend: { data: ['2024年', '2025年'], textStyle: { color: C.muted }, top: 0 },
+  grid: { top: 40, bottom: 30, left: 55, right: 20 },
+  xAxis: { type: 'category', data: ['中国区', '亚太区', '美洲区', '欧洲区'], axisLine: { lineStyle: { color: C.border } }, axisLabel: { color: C.muted, fontSize: 12 } },
+  yAxis: { type: 'value', name: '万元', nameTextStyle: { color: C.muted }, axisLabel: { color: C.muted }, splitLine: { lineStyle: { color: '#1e293b' } } },
+  series: [
+    { name: '2024年', type: 'bar', data: [1067, 3088, 1550, 1121], barMaxWidth: 28, itemStyle: { color: '#475569', borderRadius: [4,4,0,0] } },
+    { name: '2025年', type: 'bar', data: [2264, 5081, 3131, 2378], barMaxWidth: 28,
+      itemStyle: { borderRadius: [4,4,0,0], color: function(p) {
+        const colors = [C.blue, C.amber, C.pink, C.purple];
+        return new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:colors[p.dataIndex]},{offset:1,color:colors[p.dataIndex]+'66'}]);
+      }},
+      label: { show: true, position: 'top', color: C.text, fontSize: 11, formatter: '{c}万' }
+    }
+  ]
+});
+
+// ====== 图9: 费用结构 ======
+init('chart9', {
+  tooltip: { ...tip, trigger: 'axis', axisPointer: { type: 'shadow' } },
+  legend: { data: ['2024年', '2025年'], textStyle: { color: C.muted }, top: 0 },
+  grid: { top: 40, bottom: 10, left: 10, right: 60, containLabel: true },
+  xAxis: { type: 'value', axisLabel: { color: C.muted, formatter: '{value}亿' }, splitLine: { lineStyle: { color: '#1e293b' } } },
+  yAxis: {
+    type: 'category', inverse: true,
+    data: ['授权费', '广告营销', '佣金平台费', '运输物流', '员工福利', '存货成本'],
+    axisLabel: { color: C.muted, fontSize: 11 }, axisLine: { lineStyle: { color: C.border } }
+  },
+  series: [
+    { name: '2024年', type: 'bar', data: [3.93, 5.68, 6.14, 5.43, 14.62, 34.74], barMaxWidth: 14, itemStyle: { color: '#475569', borderRadius: [0,3,3,0] } },
+    { name: '2025年', type: 'bar', data: [8.33, 11.94, 14.38, 20.43, 22.52, 85.07], barMaxWidth: 14,
+      itemStyle: { color: new echarts.graphic.LinearGradient(0,0,1,0,[{offset:0,color:C.orange+'88'},{offset:1,color:C.orange}]), borderRadius: [0,3,3,0] },
+      label: { show: true, position: 'right', color: C.orange, fontSize: 10, formatter: function(p) { return '+' + ['111.8','110.2','134.1','276.2','54.0','144.9'][p.dataIndex] + '%'; } }
+    }
+  ]
+});
+
+// ====== 图10: 渠道收入（中国区） ======
+init('chart10', {
+  tooltip: { ...tip, trigger: 'item', formatter: '{b}<br/>收入: {c}亿 ({d}%)' },
+  series: [{
+    type: 'pie', radius: ['42%', '68%'],
+    roseType: 'radius',
+    label: { show: true, formatter: '{b}\n{c}亿\n({d}%)', color: C.text, fontSize: 11, lineHeight: 16 },
+    labelLine: { lineStyle: { color: C.border } },
+    itemStyle: { borderColor: C.card, borderWidth: 2, borderRadius: 6 },
+    data: [
+      { value: 100.75, name: '零售店', itemStyle: { color: new echarts.graphic.LinearGradient(0,0,1,1,[{offset:0,color:C.blue},{offset:1,color:'#1d4ed8'}]) } },
+      { value: 85.22, name: '线上渠道', itemStyle: { color: new echarts.graphic.LinearGradient(0,0,1,1,[{offset:0,color:C.cyan},{offset:1,color:'#0e7490'}]) } },
+      { value: 13.46, name: '机器人商店', itemStyle: { color: new echarts.graphic.LinearGradient(0,0,1,1,[{offset:0,color:C.amber},{offset:1,color:'#d97706'}]) } },
+      { value: 9.08, name: '批发及其他', itemStyle: { color: new echarts.graphic.LinearGradient(0,0,1,1,[{offset:0,color:C.purple},{offset:1,color:'#7c3aed'}]) } }
+    ]
+  }]
+});
+
+// ====== 图11: 资产负债 ======
+init('chart11', {
+  tooltip: { ...tip, trigger: 'axis', axisPointer: { type: 'shadow' } },
+  legend: { data: ['2024年末', '2025年末'], textStyle: { color: C.muted }, top: 0 },
+  grid: { top: 40, bottom: 10, left: 10, right: 60, containLabel: true },
+  xAxis: { type: 'value', axisLabel: { color: C.muted, formatter: '{value}亿' }, splitLine: { lineStyle: { color: '#1e293b' } } },
+  yAxis: {
+    type: 'category', inverse: true,
+    data: ['非流动负债', '流动负债', '股东权益', '存货', '现金', '总资产'],
+    axisLabel: { color: C.muted, fontSize: 11 }, axisLine: { lineStyle: { color: C.border } }
+  },
+  series: [
+    { name: '2024年末', type: 'bar', data: [6.16, 33.70, 108.85, 15.25, 61.09, 148.71], barMaxWidth: 14, itemStyle: { color: '#475569', borderRadius: [0,3,3,0] } },
+    { name: '2025年末', type: 'bar', data: [22.81, 71.68, 226.52, 54.73, 137.75, 321.01], barMaxWidth: 14,
+      itemStyle: { color: new echarts.graphic.LinearGradient(0,0,1,0,[{offset:0,color:C.green+'88'},{offset:1,color:C.green}]), borderRadius: [0,3,3,0] },
+      label: { show: true, position: 'right', color: C.green, fontSize: 10, formatter: function(p) { return p.value + '亿'; } }
+    }
+  ]
+});
+
+// ====== 图12: IP同比增速 ======
+const years = ['2022vs2021', '2023vs2022', '2024vs2023', '2025vs2024'];
+const ipGrowth = {
+  'THE MONSTERS': [14.7, 47.2, 726.6, 365.7],
+  'SKULLPANDA': [42.7, 20.3, 27.7, 170.2],
+  'CRYBABY': [43.0, 610.0, 1537.2, 152.6],
+  'MOLLY': [13.8, 27.2, 105.2, 38.8],
+  'DIMOO': [16.8, 27.6, 21.9, 208.9],
+  '集团整体': [2.8, 36.5, 106.9, 184.7]
+};
+
+function getHeatColor(val) {
+  if (val > 500) return '#dc2626';
+  if (val > 100) return '#ea580c';
+  if (val > 50) return '#d97706';
+  if (val > 20) return '#65a30d';
+  return '#64748b';
+}
+
+const heatData = [];
+Object.entries(ipGrowth).forEach(([name, vals]) => {
+  vals.forEach((v, i) => {
+    heatData.push([i, Object.keys(ipGrowth).indexOf(name), v]);
+  });
+});
+
+init('chart12', {
+  tooltip: { ...tip, formatter: function(p) { return Object.keys(ipGrowth)[p.data[1]] + '<br/>' + years[p.data[0]] + ': ' + p.data[2] + '%'; } },
+  grid: { top: 10, bottom: 40, left: 110, right: 20 },
+  xAxis: { type: 'category', data: years, axisLabel: { color: C.muted, fontSize: 11, rotate: 0 }, axisLine: { lineStyle: { color: C.border } } },
+  yAxis: { type: 'category', data: Object.keys(ipGrowth), axisLabel: { color: C.text, fontSize: 12, fontWeight: 500 }, axisLine: { lineStyle: { color: C.border } } },
+  visualMap: { min: 0, max: 1600, show: false, inRange: { color: ['#1e293b', '#4338ca', '#6d28d9', '#c026d3', '#e11d48', '#ef4444'] } },
+  series: [{
+    type: 'heatmap', data: heatData,
+    label: { show: true, color: '#fff', fontSize: 11, fontWeight: 600, formatter: function(p) { return p.data[2] + '%'; } },
+    itemStyle: { borderColor: C.card, borderWidth: 3, borderRadius: 6 },
+    emphasis: { itemStyle: { shadowBlur: 10, shadowColor: 'rgba(0,0,0,0.5)' } }
+  }]
+});
+
+// 响应式
+window.addEventListener('resize', function() {
+  document.querySelectorAll('.chart-box').forEach(function(el) {
+    echarts.getInstanceByDom(el) && echarts.getInstanceByDom(el).resize();
+  });
+});
+</script>
+</body>
+</html>
